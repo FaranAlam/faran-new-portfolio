@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import type { NextRequest } from "next/server";
 
 /**
  * Admin Authentication Setup
@@ -54,9 +55,6 @@ const handler = NextAuth({
   },
 
   callbacks: {
-    /**
-     * JWT callback - runs when user logs in
-     */
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -66,9 +64,6 @@ const handler = NextAuth({
       return token;
     },
 
-    /**
-     * Session callback - runs when session is accessed
-     */
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id;
@@ -77,11 +72,7 @@ const handler = NextAuth({
       return session;
     },
 
-    /**
-     * SignIn callback - authorization checks
-     */
     async signIn({ user }) {
-      // Allow only admin email
       if (user.email === ADMIN_EMAIL) {
         return true;
       }
@@ -91,8 +82,8 @@ const handler = NextAuth({
 
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60, // 24 hours
+    maxAge: 30 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
   },
 
   jwt: {
@@ -100,7 +91,7 @@ const handler = NextAuth({
   },
 
   secret: process.env.NEXTAUTH_SECRET,
-  trustHost: true, // For Vercel deployment
+  trustHost: true,
 });
 
 export { handler as GET, handler as POST };
