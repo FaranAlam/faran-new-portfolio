@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase } from '@/lib/mongodb';
 import { sendContactNotification } from '@/lib/email';
+import { ObjectId } from 'mongodb';
 
 export async function POST(request: NextRequest) {
   try {
@@ -84,6 +85,61 @@ export async function GET(request: NextRequest) {
     console.error('Get Messages Error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch messages' },
+      { status: 500 }
+    );
+  }
+}
+
+// PATCH endpoint to update message status (for admin dashboard)
+export async function PATCH(request: NextRequest) {
+  try {
+    const url = new URL(request.url);
+    const messageId = url.pathname.split('/').pop();
+
+    if (!messageId || messageId === 'contact') {
+      return NextResponse.json(
+        { error: 'Message ID required' },
+        { status: 400 }
+      );
+    }
+
+    const body = await request.json();
+    const { read, replied } = body;
+
+    if (read === undefined && replied === undefined) {
+      return NextResponse.json(
+        { error: 'No fields to update' },
+        { status: 400 }
+      );
+    }
+
+    const db = await getDatabase();
+    const updateData: any = {};
+    
+    if (read !== undefined) updateData.read = read;
+    if (replied !== undefined) updateData.replied = replied;
+
+    const result = await db.collection('contacts').updateOne(
+      { _id: new ObjectId(messageId) },
+      { $set: updateData }
+    );
+
+    if (result.matchedCount === 0) {
+      return NextResponse.json(
+        { error: 'Message not found' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Message updated successfully',
+    });
+
+  } catch (error) {
+    console.error('Update Message Error:', error);
+    return NextResponse.json(
+      { error: 'Failed to update message' },
       { status: 500 }
     );
   }
