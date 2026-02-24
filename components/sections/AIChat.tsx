@@ -131,7 +131,7 @@ export default function AIChat() {
   };
 
   return (
-    <div className="fixed bottom-6 right-20 z-50">
+    <div className="fixed bottom-24 right-6 z-50">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -258,7 +258,7 @@ export default function AIChat() {
         whileTap={{ scale: 0.9 }}
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg flex items-center justify-center hover:shadow-xl hover:shadow-blue-600/50 transition-all relative"
+        className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg flex items-center justify-center hover:shadow-xl hover:shadow-blue-600/50 transition-all relative group"
       >
         <MessageSquare size={24} />
         {!isOpen && (
@@ -268,19 +268,11 @@ export default function AIChat() {
             className="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-white"
           />
         )}
+        <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-gray-900 text-white px-3 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          Need help?
+        </span>
       </motion.button>
 
-      {/* Tooltip */}
-      {!isOpen && (
-        <motion.div
-          initial={{ opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 10 }}
-          className="absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm whitespace-nowrap border border-gray-700 pointer-events-none"
-        >
-          Need help?
-        </motion.div>
-      )}
     </div>
   );
 }

@@ -106,7 +106,7 @@ export default function SocialProofNotification() {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -400, opacity: 0 }}
           transition={{ type: "spring", stiffness: 100, damping: 20 }}
-          className="fixed bottom-6 left-6 z-50 max-w-sm"
+          className="fixed bottom-20 left-4 z-40 w-[75vw] max-w-[75vw] md:bottom-6 md:left-6 md:w-auto md:max-w-sm"
         >
           <div className="bg-white rounded-xl shadow-2xl p-4 flex items-start gap-3 border border-gray-200">
             {/* Icon */}
