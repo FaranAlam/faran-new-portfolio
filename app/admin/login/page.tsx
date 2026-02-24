@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import FadeIn from "@/components/animations/FadeIn";
 
@@ -17,24 +18,16 @@ export default function AdminLoginPage() {
     setError("");
 
     try {
-      const response = await fetch("/api/auth/callback/credentials/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-        redirect: "manual",
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
       });
 
-      // Try signin endpoint
-      const signInResponse = await fetch("/api/auth/signin/credentials/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, redirectTo: "/admin/dashboard" }),
-      });
-
-      if (signInResponse.ok) {
+      if (result?.error) {
+        setError(result.error || "Invalid email or password");
+      } else if (result?.ok) {
         router.push("/admin/dashboard");
-      } else {
-        setError("Invalid email or password");
       }
     } catch (err) {
       setError("Login failed. Please try again.");

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 import FadeIn from "@/components/animations/FadeIn";
 
 interface ContactMessage {
@@ -18,14 +19,24 @@ interface ContactMessage {
 
 export default function AdminDashboardPage() {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null);
 
+  // Check auth status
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/admin/login");
+    }
+  }, [status, router]);
+
   // Fetch messages from API
   useEffect(() => {
-    fetchMessages();
-  }, []);
+    if (status === "authenticated") {
+      fetchMessages();
+    }
+  }, [status]);
 
   const fetchMessages = async () => {
     try {

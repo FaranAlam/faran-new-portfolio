@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
@@ -25,19 +26,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased transition-colors duration-300" suppressHydrationWarning>
-        <SmoothScrollCSS>
-          <CustomCursor />
-          <LoadingScreen />
-          <ScrollProgressBar />
-          <ParticlesBackground />
-          <DarkModeToggle />
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <FloatingWhatsApp />
-          <ScrollToTop />
-          <SocialProofNotification />
-        </SmoothScrollCSS>
+        <SessionProvider>
+          <SmoothScrollCSS>
+            <CustomCursor />
+            <LoadingScreen />
+            <ScrollProgressBar />
+            <ParticlesBackground />
+            <DarkModeToggle />
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <FloatingWhatsApp />
+            <ScrollToTop />
+            <SocialProofNotification />
+          </SmoothScrollCSS>
+        </SessionProvider>
       </body>
     </html>
   );
