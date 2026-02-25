@@ -72,7 +72,7 @@ export default function Testimonials() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">💬 What People Say</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">What People Say</h2>
             <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Real feedback from clients I&apos;ve worked with

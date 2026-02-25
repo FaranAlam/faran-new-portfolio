@@ -5,6 +5,93 @@ import { motion, AnimatePresence } from 'framer-motion';
 import FadeIn from '../animations/FadeIn';
 import { Check, X } from 'lucide-react';
 
+// SVG Icons for Rate Calculator
+const RocketIcon = () => (
+  <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none">
+    <path d="M9.19 6.35c-2.04 2.29-3.44 5.58-3.57 5.89L2 13.12l2.03 1.66c.38.31.82.53 1.29.65l1.56.42c-.61.15-1.16.42-1.63.78-.43.33-.77.75-1 1.23-.23.48-.35 1-.35 1.54v.83l1.56-.83c1.53-.81 3.35-.99 5.08-.5l.42.12V21l1.5-3.63c.11-.28 2.85-7.03 2.85-7.03 0-3.78-3.06-6.84-6.84-6.84h-.82l1.35-.71c.55-.29.91-.87.91-1.5 0-1.04-.84-1.88-1.88-1.88-.83 0-1.53.53-1.79 1.27l-.97 2.65z" fill="url(#rocket-grad)" />
+    <defs>
+      <linearGradient id="rocket-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#3b82f6" />
+        <stop offset="100%" stopColor="#8b5cf6" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const BoltIcon = () => (
+  <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none">
+    <path d="M7 2v11h3v9l7-12h-4l4-8z" fill="url(#bolt-grad)" />
+    <defs>
+      <linearGradient id="bolt-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#fbbf24" />
+        <stop offset="100%" stopColor="#f59e0b" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const BuildingIcon = () => (
+  <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none">
+    <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z" fill="url(#building-grad)" />
+    <defs>
+      <linearGradient id="building-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#06b6d4" />
+        <stop offset="100%" stopColor="#3b82f6" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const CrownIcon = () => (
+  <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none">
+    <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z" fill="url(#crown-grad)" />
+    <defs>
+      <linearGradient id="crown-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#fbbf24" />
+        <stop offset="100%" stopColor="#f59e0b" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const PackageIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+    <line x1="12" y1="22.08" x2="12" y2="12" />
+  </svg>
+);
+
+const ClockIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
+const UsersIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+
+const LightbulbIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M9 18h6" />
+    <path d="M10 22h4" />
+    <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 1.33.46 2.55 1.5 3.5.76.76 1.23 1.52 1.41 2.5" />
+  </svg>
+);
+
+const ChatIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+  </svg>
+);
+
 interface Package {
   name: string;
   description: string;
@@ -12,7 +99,7 @@ interface Package {
   features: { name: string; included: boolean }[];
   bestFor: string;
   deliveryTime: string;
-  icon: string;
+  icon: () => JSX.Element;
   popular?: boolean;
 }
 
@@ -33,7 +120,7 @@ const packages: Package[] = [
     ],
     bestFor: 'MVPs, Landing Pages, Simple Apps',
     deliveryTime: '2-3 weeks',
-    icon: '🚀',
+    icon: RocketIcon,
   },
   {
     name: 'Medium Project',
@@ -51,7 +138,7 @@ const packages: Package[] = [
     ],
     bestFor: 'SaaS, E-commerce, Web Applications',
     deliveryTime: '4-6 weeks',
-    icon: '⚡',
+    icon: BoltIcon,
     popular: true,
   },
   {
@@ -70,7 +157,7 @@ const packages: Package[] = [
     ],
     bestFor: 'Enterprise Apps, Complex Systems',
     deliveryTime: '8-12 weeks',
-    icon: '🏢',
+    icon: BuildingIcon,
   },
   {
     name: 'Custom Enterprise',
@@ -88,7 +175,7 @@ const packages: Package[] = [
     ],
     bestFor: 'High-Scale Systems, Custom Requirements',
     deliveryTime: '3+ months',
-    icon: '👑',
+    icon: CrownIcon,
   },
 ];
 
@@ -161,13 +248,23 @@ export default function RateCalculator() {
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+                  className={`px-6 py-2 rounded-lg font-semibold transition-all flex items-center gap-2 ${
                     pricingMode === mode
                       ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg'
                       : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                   }`}
                 >
-                  {mode === 'packages' ? '📦 Project Packages' : '⏱️ Hourly Rate'}
+                  {mode === 'packages' ? (
+                    <>
+                      <PackageIcon />
+                      Project Packages
+                    </>
+                  ) : (
+                    <>
+                      <ClockIcon />
+                      Hourly Rate
+                    </>
+                  )}
                 </motion.button>
               ))}
             </div>
@@ -208,7 +305,7 @@ export default function RateCalculator() {
                       }`}
                     >
                       <div className="mb-4">
-                        <span className="text-4xl">{pkg.icon}</span>
+                        <pkg.icon />
                       </div>
 
                       <h3 className="text-xl font-bold text-white mb-2">{pkg.name}</h3>
@@ -224,12 +321,14 @@ export default function RateCalculator() {
 
                       {/* Details */}
                       <div className="mb-6 space-y-2">
-                        <p className="text-xs text-gray-400">
-                          <span className="font-semibold text-white">⏱️ {pkg.deliveryTime}</span>
-                        </p>
-                        <p className="text-xs text-gray-400">
-                          <span className="font-semibold text-white">👥 {pkg.bestFor}</span>
-                        </p>
+                        <div className="flex items-center gap-1 text-xs">
+                          <ClockIcon />
+                          <span className="font-semibold text-white">{pkg.deliveryTime}</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-xs">
+                          <UsersIcon />
+                          <span className="font-semibold text-white">{pkg.bestFor}</span>
+                        </div>
                       </div>
 
                       {/* Features */}
@@ -376,9 +475,12 @@ export default function RateCalculator() {
 
                 {/* Notes */}
                 <div className="mb-8 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                  <p className="text-sm text-blue-200">
-                    💡 <span className="font-semibold">Tip:</span> Package pricing offers better value than hourly. A medium project (75k) = ~30 hours of work.
-                  </p>
+                  <div className="flex items-start gap-2 text-sm text-blue-200">
+                    <LightbulbIcon />
+                    <p>
+                      <span className="font-semibold">Tip:</span> Package pricing offers better value than hourly. A medium project (75k) = ~30 hours of work.
+                    </p>
+                  </div>
                 </div>
 
                 <motion.a
@@ -401,7 +503,10 @@ export default function RateCalculator() {
           transition={{ delay: 0.6 }}
           className="mt-16 text-center text-gray-400"
         >
-          <p>💬 Not sure which package fits your needs? <a href="#contact" className="text-yellow-400 hover:text-yellow-300 font-semibold">Let&apos;s discuss your project</a></p>
+          <p className="flex items-center justify-center gap-2">
+            <ChatIcon />
+            Not sure which package fits your needs? <a href="#contact" className="text-yellow-400 hover:text-yellow-300 font-semibold">Let&apos;s discuss your project</a>
+          </p>
         </motion.div>
       </div>
     </section>

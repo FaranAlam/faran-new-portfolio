@@ -3,6 +3,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const CodeIcon = () => (
+  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="16 18 22 12 16 6"></polyline>
+    <polyline points="8 6 2 12 8 18"></polyline>
+  </svg>
+);
+
 interface CodeExample {
   id: string;
   title: string;
@@ -246,8 +253,10 @@ export default function CodePreview() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-              <span className="text-5xl">💻</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-4">
+              <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-3 rounded-lg text-white shadow-lg">
+                <CodeIcon />
+              </div>
               Live Code Preview
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">

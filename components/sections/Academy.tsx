@@ -5,6 +5,91 @@ import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 import { motion } from "framer-motion";
 
+// SVG Icons for Academy Section
+const DurationIcon = () => (
+  <svg className="w-5 h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
+const TimeIcon = () => (
+  <svg className="w-5 h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 8v4l3 2" />
+  </svg>
+);
+
+const LevelIcon = () => (
+  <svg className="w-5 h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M3 12h6" />
+    <path d="M3 6h12" />
+    <path d="M3 18h18" />
+  </svg>
+);
+
+const FeesIcon = () => (
+  <svg className="w-5 h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="6" width="20" height="12" rx="2" ry="2" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+const ModeIcon = () => (
+  <svg className="w-5 h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="4" width="20" height="12" rx="2" ry="2" />
+    <path d="M2 20h20" />
+  </svg>
+);
+
+const CertificateIcon = () => (
+  <svg className="w-5 h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M6 2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+    <path d="M8 17v5l4-2 4 2v-5" />
+  </svg>
+);
+
+const InstructorIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="7" r="4" />
+    <path d="M5.5 21a6.5 6.5 0 0 1 13 0" />
+  </svg>
+);
+
+const LightbulbIcon = () => (
+  <svg className="w-8 h-8 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M9 18h6" />
+    <path d="M10 22h4" />
+    <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 1.33.46 2.55 1.5 3.5.76.76 1.23 1.52 1.41 2.5" />
+  </svg>
+);
+
+const BriefcaseIcon = () => (
+  <svg className="w-8 h-8 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  </svg>
+);
+
+const AwardIcon = () => (
+  <svg className="w-8 h-8 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="8" r="5" />
+    <path d="M8.21 13.89 7 22l5-2.5L17 22l-1.21-8.11" />
+  </svg>
+);
+
+const ChatIcon = () => (
+  <svg className="w-8 h-8 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+  </svg>
+);
+
+interface BenefitItem {
+  icon: () => JSX.Element;
+  title: string;
+  description: string;
+}
+
 export default function Academy() {
   const course = {
     title: "Web Designing",
@@ -19,7 +104,7 @@ export default function Academy() {
       name: "Faran Alam",
       title: "Full Stack Developer & HOD",
       bio: "Experienced web developer with expertise in modern web technologies. Dedicated to teaching and mentoring the next generation of web designers.",
-      image: "👨‍💻"
+      image: InstructorIcon
     },
     curriculum: [
       { week: 1, title: "Introduction to Web & Internet Basics" },
@@ -36,11 +121,11 @@ export default function Academy() {
       { week: 12, title: "Portfolio & Freelancing" }
     ],
     benefits: [
-      { icon: "/images/icons/lightbulb.svg", title: "Live Classes", description: "Interactive sessions with instructor" },
-      { icon: "/images/icons/briefcase.svg", title: "Real Projects", description: "Build portfolio-ready projects" },
-      { icon: "/images/icons/education.svg", title: "Certificate", description: "Completion certificate included" },
-      { icon: "/images/icons/chat.svg", title: "Expert Support", description: "Get help when you need it" }
-    ]
+      { icon: LightbulbIcon, title: "Live Classes", description: "Interactive sessions with instructor" },
+      { icon: BriefcaseIcon, title: "Real Projects", description: "Build portfolio-ready projects" },
+      { icon: AwardIcon, title: "Certificate", description: "Completion certificate included" },
+      { icon: ChatIcon, title: "Expert Support", description: "Get help when you need it" }
+    ] as BenefitItem[]
   };
 
   return (
@@ -92,7 +177,7 @@ export default function Academy() {
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   <div className="flex items-start">
                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
-                      ⏱️
+                      <DurationIcon />
                     </div>
                     <div>
                       <div className="text-sm text-gray-500">Duration</div>
@@ -101,7 +186,7 @@ export default function Academy() {
                   </div>
                   <div className="flex items-start">
                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
-                      🕐
+                      <TimeIcon />
                     </div>
                     <div>
                       <div className="text-sm text-gray-500">Class Timing</div>
@@ -110,7 +195,7 @@ export default function Academy() {
                   </div>
                   <div className="flex items-start">
                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
-                      📊
+                      <LevelIcon />
                     </div>
                     <div>
                       <div className="text-sm text-gray-500">Level</div>
@@ -119,7 +204,7 @@ export default function Academy() {
                   </div>
                   <div className="flex items-start">
                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
-                      💰
+                      <FeesIcon />
                     </div>
                     <div>
                       <div className="text-sm text-gray-500">Fees</div>
@@ -128,7 +213,7 @@ export default function Academy() {
                   </div>
                   <div className="flex items-start">
                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
-                      💻
+                      <ModeIcon />
                     </div>
                     <div>
                       <div className="text-sm text-gray-500">Mode</div>
@@ -137,7 +222,7 @@ export default function Academy() {
                   </div>
                   <div className="flex items-start">
                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
-                      🎓
+                      <CertificateIcon />
                     </div>
                     <div>
                       <div className="text-sm text-gray-500">Certificate</div>
@@ -151,7 +236,7 @@ export default function Academy() {
                   <h4 className="font-semibold text-gray-900 mb-4">Your Instructor</h4>
                   <div className="flex items-start gap-4">
                     <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-3xl flex-shrink-0">
-                      {course.instructor.image}
+                      <course.instructor.image />
                     </div>
                     <div>
                       <div className="font-bold text-gray-900">{course.instructor.name}</div>
@@ -210,7 +295,9 @@ export default function Academy() {
                       whileHover={{ scale: 1.05, y: -5 }}
                       className="text-center bg-white rounded-lg p-4 shadow-sm hover:shadow-lg transition-shadow cursor-pointer"
                     >
-                      <div className="text-3xl mb-2">{benefit.icon}</div>
+                      <div className="flex justify-center mb-2">
+                        <benefit.icon />
+                      </div>
                       <div className="font-semibold text-gray-900 text-sm">{benefit.title}</div>
                       <div className="text-xs text-gray-600 mt-1">{benefit.description}</div>
                     </motion.div>

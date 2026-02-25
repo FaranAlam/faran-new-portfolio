@@ -5,10 +5,132 @@ import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 import AnimatedCounter from "../ui/AnimatedCounter";
 
+// SVG Icons for Success Stats
+const RocketIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+  </svg>
+);
+
+const UsersIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+
+const ClockIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
+const StarIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+  </svg>
+);
+
+const MoneyIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="6" width="20" height="12" rx="2" ry="2" />
+    <circle cx="12" cy="12" r="3" />
+    <path d="M6 10h0" />
+    <path d="M18 14h0" />
+  </svg>
+);
+
+const GlobeIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" />
+    <line x1="2" y1="12" x2="22" y2="12" />
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+  </svg>
+);
+
+const TrophyIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M8 21h8" />
+    <path d="M12 17v4" />
+    <path d="M7 4h10v3a5 5 0 0 1-10 0V4z" />
+    <path d="M5 4h2v3a5 5 0 0 1-2 4" />
+    <path d="M19 4h-2v3a5 5 0 0 0 2 4" />
+  </svg>
+);
+
+const GraduationCapIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+  </svg>
+);
+
+const BriefcaseIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  </svg>
+);
+
+const CheckCircleIcon = () => (
+  <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="8 12 11 15 16 9" />
+  </svg>
+);
+
+const RefreshIcon = () => (
+  <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+    <polyline points="21 3 21 9 15 9" />
+  </svg>
+);
+
+const BoltIcon = () => (
+  <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M7 2v11h3v9l7-12h-4l4-8z" />
+  </svg>
+);
+
+const TargetIcon = () => (
+  <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="12" cy="12" r="6" />
+    <circle cx="12" cy="12" r="2" />
+  </svg>
+);
+
+interface StatItem {
+  icon: () => JSX.Element;
+  value: number;
+  suffix: string;
+  label: string;
+  color: string;
+  description: string;
+}
+
+interface AchievementItem {
+  year: string;
+  title: string;
+  description: string;
+  icon: () => JSX.Element;
+}
+
+interface IndicatorItem {
+  icon: () => JSX.Element;
+  label: string;
+  value: string;
+}
+
 export default function SuccessStats() {
-  const stats = [
+  const stats: StatItem[] = [
     {
-      icon: "🚀",
+      icon: RocketIcon,
       value: 28,
       suffix: "+",
       label: "Projects Completed",
@@ -16,7 +138,7 @@ export default function SuccessStats() {
       description: "Delivered on time"
     },
     {
-      icon: "👥",
+      icon: UsersIcon,
       value: 45,
       suffix: "+",
       label: "Happy Clients",
@@ -24,7 +146,7 @@ export default function SuccessStats() {
       description: "Worldwide"
     },
     {
-      icon: "⏰",
+      icon: ClockIcon,
       value: 12000,
       suffix: "+",
       label: "Hours Coded",
@@ -32,7 +154,7 @@ export default function SuccessStats() {
       description: "Problem solving"
     },
     {
-      icon: "⭐",
+      icon: StarIcon,
       value: 98,
       suffix: "%",
       label: "Satisfaction Rate",
@@ -40,7 +162,7 @@ export default function SuccessStats() {
       description: "Client feedback"
     },
     {
-      icon: "💰",
+      icon: MoneyIcon,
       value: 2,
       suffix: "M+",
       label: "Revenue Generated",
@@ -48,7 +170,7 @@ export default function SuccessStats() {
       description: "Total earnings"
     },
     {
-      icon: "🌍",
+      icon: GlobeIcon,
       value: 12,
       suffix: "+",
       label: "Countries Served",
@@ -57,27 +179,38 @@ export default function SuccessStats() {
     }
   ];
 
-  const achievements = [
+  const achievements: AchievementItem[] = [
     {
       year: "2024",
-      title: "🏆 Top Rated Developer",
+      title: "Top Rated Developer",
+      icon: TrophyIcon,
       description: "Achieved 100% client satisfaction with 13+ successful projects"
     },
     {
       year: "2024",
-      title: "🎓 Faran Digital Academy",
+      title: "Faran Digital Academy",
+      icon: GraduationCapIcon,
       description: "Launched online academy, trained 20+ students in web development"
     },
     {
       year: "2023-26",
-      title: "💼 Multiple Internships",
+      title: "Multiple Internships",
+      icon: BriefcaseIcon,
       description: "Worked at NextGen, DevelopersHub, JayNex, NAVTTC, DECE-FET-IIUI"
     },
     {
       year: "2022",
-      title: "🚀 Started Freelancing",
+      title: "Started Freelancing",
+      icon: RocketIcon,
       description: "Began professional journey as a full-stack developer"
     }
+  ];
+
+  const indicators: IndicatorItem[] = [
+    { icon: CheckCircleIcon, label: "On-Time Delivery", value: "100%" },
+    { icon: RefreshIcon, label: "Repeat Clients", value: "75%" },
+    { icon: BoltIcon, label: "Avg Response", value: "<1 Hr" },
+    { icon: TargetIcon, label: "Success Rate", value: "100%" }
   ];
 
   return (
@@ -109,7 +242,9 @@ export default function SuccessStats() {
               <StaggerItem key={index}>
                 <div className={`bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 border-t-4 bg-gradient-to-r ${stat.color}`}>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="text-5xl">{stat.icon}</div>
+                    <div className="text-5xl">
+                      <stat.icon />
+                    </div>
                     <div className={`text-4xl font-bold text-white drop-shadow-lg`}>
                       <AnimatedCounter 
                         to={stat.value} 
@@ -138,8 +273,9 @@ export default function SuccessStats() {
                     key={index}
                     className="flex items-start gap-4 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-600 rounded-xl hover:scale-[1.02] transition-all duration-300"
                   >
-                    <div className="flex-shrink-0 w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
-                      {achievement.year}
+                    <div className="flex-shrink-0 w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex flex-col items-center justify-center text-white font-bold shadow-lg">
+                      <achievement.icon />
+                      <span className="text-xs mt-1">{achievement.year}</span>
                     </div>
                     <div>
                       <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
@@ -157,15 +293,12 @@ export default function SuccessStats() {
 
           {/* Trust Indicators */}
           <StaggerContainer staggerDelay={0.1} className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { icon: "✅", label: "On-Time Delivery", value: "100%" },
-              { icon: "🔄", label: "Repeat Clients", value: "75%" },
-              { icon: "⚡", label: "Avg Response", value: "<1 Hr" },
-              { icon: "🎯", label: "Success Rate", value: "100%" }
-            ].map((indicator, index) => (
+            {indicators.map((indicator, index) => (
               <StaggerItem key={index}>
                 <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
-                  <div className="text-4xl mb-3">{indicator.icon}</div>
+                  <div className="flex justify-center mb-3">
+                    <indicator.icon />
+                  </div>
                   <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">{indicator.value}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">{indicator.label}</div>
                 </div>

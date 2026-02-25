@@ -10,6 +10,68 @@ interface Skill {
   color: string;
 }
 
+// SVG Icons
+const RadarChartIcon = () => (
+  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="1"/>
+    <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"/>
+    <path d="M12 7v10M7 12h10"/>
+  </svg>
+);
+
+const FrontendRadarIcon = () => (
+  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="4" y="3" width="16" height="7" rx="1"/>
+    <path d="M7 10v8M12 10v8M17 10v8M4 20h16"/>
+  </svg>
+);
+
+const BackendRadarIcon = () => (
+  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M12 1v4m0 7v4M5.6 5.6l2.8 2.8m5.2 5.2l2.8 2.8M1 12h4m7 0h4M5.6 18.4l2.8-2.8m5.2-5.2l2.8-2.8"/>
+  </svg>
+);
+
+const ToolsRadarIcon = () => (
+  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 1 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+  </svg>
+);
+
+// Stats Icons
+const StatsChartIcon = () => (
+  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3"></polyline>
+    <polyline points="12 12 20 7.5"></polyline>
+    <polyline points="12 12 12 21"></polyline>
+    <polyline points="12 12 4 7.5"></polyline>
+  </svg>
+);
+
+const StatsClockIcon = () => (
+  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="9"/>
+    <polyline points="12 6 12 12 16 14"/>
+  </svg>
+);
+
+const StatsRocketIcon = () => (
+  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74.5 5 -2c.5 .5 1 1 2 1s1.5-.5 2-1c1.26 1.5 5 2 5 2s-.5 -3.74 -2 -5c.5 -.5 1.5 -1 2.5 -1s2 1 2.5 2.5M12 7l-2 -3 -2 3 3 2 2 -2z"/>
+    <path d="M12 2v10M12 2c-3 0 -4 2 -4 5M12 2c3 0 4 2 4 5"/>
+  </svg>
+);
+
+const StatsBriefcaseIcon = () => (
+  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+    <line x1="9" y1="12" x2="9" y2="17"/>
+    <line x1="15" y1="12" x2="15" y2="17"/>
+  </svg>
+);
+
 const skillCategories = {
   frontend: [
     { name: 'React/Next.js', level: 95, color: '#61DAFB' },
@@ -157,7 +219,7 @@ export default function SkillsRadarChart() {
           <FadeIn>
             <div className="text-center mb-12">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-3">
-                <span className="text-5xl">📊</span>
+                <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-3 rounded-lg text-white shadow-lg"><RadarChartIcon /></div>
                 Skills Proficiency Radar
               </h2>
               <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
@@ -177,15 +239,42 @@ export default function SkillsRadarChart() {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                className={`px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center gap-3 ${
                   activeCategory === category
                     ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
                     : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md'
                 }`}
               >
-                {category === 'frontend' && '🎨 Frontend'}
-                {category === 'backend' && '⚙️ Backend'}
-                {category === 'tools' && '🛠️ Tools & DevOps'}
+                {category === 'frontend' && (
+                  <>
+                    <div className={`p-2 rounded-lg ${activeCategory === category ? 'bg-white/20' : 'bg-blue-100 dark:bg-blue-900'}`}>
+                      <div className={activeCategory === category ? 'text-white' : 'text-blue-600 dark:text-blue-400'}>
+                        <FrontendRadarIcon />
+                      </div>
+                    </div>
+                    Frontend
+                  </>
+                )}
+                {category === 'backend' && (
+                  <>
+                    <div className={`p-2 rounded-lg ${activeCategory === category ? 'bg-white/20' : 'bg-green-100 dark:bg-green-900'}`}>
+                      <div className={activeCategory === category ? 'text-white' : 'text-green-600 dark:text-green-400'}>
+                        <BackendRadarIcon />
+                      </div>
+                    </div>
+                    Backend
+                  </>
+                )}
+                {category === 'tools' && (
+                  <>
+                    <div className={`p-2 rounded-lg ${activeCategory === category ? 'bg-white/20' : 'bg-purple-100 dark:bg-purple-900'}`}>
+                      <div className={activeCategory === category ? 'text-white' : 'text-purple-600 dark:text-purple-400'}>
+                        <ToolsRadarIcon />
+                      </div>
+                    </div>
+                    Tools & DevOps
+                  </>
+                )}
               </button>
             ))}
           </motion.div>
@@ -278,10 +367,10 @@ export default function SkillsRadarChart() {
             className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6"
           >
             {[
-              { label: 'Average Proficiency', value: '89%', icon: '📈', color: 'from-blue-500 to-cyan-500' },
-              { label: 'Years Experience', value: '2+', icon: '⏰', color: 'from-purple-500 to-pink-500' },
-              { label: 'Technologies', value: '15+', icon: '🚀', color: 'from-green-500 to-teal-500' },
-              { label: 'Projects Built', value: '13+', icon: '💼', color: 'from-orange-500 to-red-500' },
+              { label: 'Average Proficiency', value: '89%', icon: <StatsChartIcon />, color: 'from-blue-500 to-cyan-500' },
+              { label: 'Years Experience', value: '2+', icon: <StatsClockIcon />, color: 'from-purple-500 to-pink-500' },
+              { label: 'Technologies', value: '15+', icon: <StatsRocketIcon />, color: 'from-green-500 to-teal-500' },
+              { label: 'Projects Built', value: '13+', icon: <StatsBriefcaseIcon />, color: 'from-orange-500 to-red-500' },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -291,7 +380,7 @@ export default function SkillsRadarChart() {
                 transition={{ delay: index * 0.1 }}
                 className={`bg-gradient-to-br ${stat.color} rounded-xl p-6 text-white shadow-lg hover:scale-105 transition-all duration-300`}
               >
-                <div className="text-4xl mb-2">{stat.icon}</div>
+                <div className="mb-2 text-white">{stat.icon}</div>
                 <div className="text-3xl font-bold mb-1">{stat.value}</div>
                 <div className="text-sm opacity-90">{stat.label}</div>
               </motion.div>

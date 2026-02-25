@@ -4,15 +4,48 @@ import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 
+// SVG Icons for Blog Preview
+const NotesIcon = () => (
+  <svg className="w-16 h-16 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M4 4h10l6 6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
+    <path d="M14 4v6h6" />
+  </svg>
+);
+
+const LaptopIcon = () => (
+  <svg className="w-16 h-16 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="4" width="20" height="12" rx="2" ry="2" />
+    <path d="M2 20h20" />
+  </svg>
+);
+
+const RocketIcon = () => (
+  <svg className="w-16 h-16 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+  </svg>
+);
+
+interface BlogPost {
+  title: string;
+  excerpt: string;
+  date: string;
+  category: string;
+  readTime: string;
+  icon: () => JSX.Element;
+}
+
 export default function BlogPreview() {
-  const blogPosts = [
+  const blogPosts: BlogPost[] = [
     {
       title: "Getting Started with Next.js 15",
       excerpt: "Learn how to build modern web applications with Next.js 15, exploring the latest features and best practices.",
       date: "Feb 20, 2026",
       category: "Web Development",
       readTime: "5 min read",
-      image: "📝"
+      icon: NotesIcon
     },
     {
       title: "Mastering TypeScript in 2026",
@@ -20,7 +53,7 @@ export default function BlogPreview() {
       date: "Feb 18, 2026",
       category: "Programming",
       readTime: "8 min read",
-      image: "💻"
+      icon: LaptopIcon
     },
     {
       title: "Building Scalable APIs with Node.js",
@@ -28,7 +61,7 @@ export default function BlogPreview() {
       date: "Feb 15, 2026",
       category: "Backend",
       readTime: "10 min read",
-      image: "🚀"
+      icon: RocketIcon
     },
   ];
 
@@ -54,7 +87,7 @@ export default function BlogPreview() {
               >
                 {/* Featured Image Placeholder */}
                 <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center text-6xl">
-                  {post.image}
+                  <post.icon />
                 </div>
 
                 {/* Content */}

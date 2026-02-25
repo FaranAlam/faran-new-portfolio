@@ -4,6 +4,57 @@ import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 
+// SVG Icons
+const RestaurantIcon = () => (
+  <svg className="w-16 h-16 text-white" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+  </svg>
+);
+
+const EducationIcon = () => (
+  <svg className="w-16 h-16 text-white" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+  </svg>
+);
+
+const TaskIcon = () => (
+  <svg className="w-16 h-16 text-white" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+  </svg>
+);
+
+const ChallengeIcon = () => (
+  <svg className="w-6 h-6 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="1"/>
+    <circle cx="12" cy="12" r="5"/>
+    <circle cx="12" cy="12" r="9"/>
+  </svg>
+);
+
+const SolutionIcon = () => (
+  <svg className="w-6 h-6 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="8" x2="12" y2="12"/>
+    <line x1="12" y1="16" x2="12.01" y2="16"/>
+  </svg>
+);
+
+const ResultsIcon = () => (
+  <svg className="w-6 h-6 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+    <polyline points="13 2 13 9 20 9"/>
+    <line x1="6" y1="12" x2="18" y2="12"/>
+    <line x1="6" y1="16" x2="18" y2="16"/>
+  </svg>
+);
+
+const ClockIcon = () => (
+  <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10"/>
+    <polyline points="12 6 12 12 16 14"/>
+  </svg>
+);
+
 export default function CaseStudies() {
   const caseStudies = [
     {
@@ -11,7 +62,7 @@ export default function CaseStudies() {
       client: "Local Restaurant Business",
       category: "Web Design",
       duration: "3 weeks",
-      image: "🍽️",
+      icon: RestaurantIcon,
       challenge: "Restaurant had outdated website with poor mobile experience. Losing customers to competitors with modern online presence.",
       solution: "Designed and developed a modern, mobile-first responsive website with online menu, reservation system, photo gallery, and integrated Google Maps. Implemented SEO optimization and fast loading speed.",
       results: [
@@ -29,7 +80,7 @@ export default function CaseStudies() {
       client: "Faran Digital Academy",
       category: "Full Stack",
       duration: "6 weeks",
-      image: "🎓",
+      icon: EducationIcon,
       challenge: "Needed a complete online learning platform to teach web development courses with student management, course materials, and progress tracking.",
       solution: "Built a full-stack educational platform with user authentication, course enrollment system, video hosting, assignments submission, and progress dashboards. Integrated payment gateway for course purchases.",
       results: [
@@ -46,7 +97,7 @@ export default function CaseStudies() {
       client: "Startup Company",
       category: "SaaS Application",
       duration: "8 weeks",
-      image: "📋",
+      icon: TaskIcon,
       challenge: "Company needed a custom task management system with team collaboration features, real-time updates, and detailed analytics.",
       solution: "Developed a full-featured task management application with drag-and-drop interface, real-time collaboration using WebSockets, customizable workflows, and comprehensive analytics dashboard.",
       results: [
@@ -84,13 +135,17 @@ export default function CaseStudies() {
                   <div className={`bg-gradient-to-r ${study.color} p-8 text-white`}>
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                       <div className="flex items-center gap-4">
-                        <div className="text-6xl">{study.image}</div>
+                        <div className="flex-shrink-0">
+                          <study.icon />
+                        </div>
                         <div>
                           <h3 className="text-2xl font-bold mb-2">{study.title}</h3>
                           <div className="flex flex-wrap gap-3 text-sm">
                             <span className="bg-white/20 px-3 py-1 rounded-full">{study.client}</span>
                             <span className="bg-white/20 px-3 py-1 rounded-full">{study.category}</span>
-                            <span className="bg-white/20 px-3 py-1 rounded-full">⏱️ {study.duration}</span>
+                            <span className="bg-white/20 px-3 py-1 rounded-full flex items-center gap-1">
+                              <ClockIcon /> {study.duration}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -103,7 +158,7 @@ export default function CaseStudies() {
                       {/* Challenge */}
                       <div>
                         <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                          <span className="text-2xl">🎯</span> Challenge
+                          <ChallengeIcon /> Challenge
                         </h4>
                         <p className="text-gray-600 leading-relaxed">{study.challenge}</p>
                       </div>
@@ -111,7 +166,7 @@ export default function CaseStudies() {
                       {/* Solution */}
                       <div>
                         <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                          <span className="text-2xl">💡</span> Solution
+                          <SolutionIcon /> Solution
                         </h4>
                         <p className="text-gray-600 leading-relaxed">{study.solution}</p>
                       </div>
@@ -120,7 +175,7 @@ export default function CaseStudies() {
                     {/* Results */}
                     <div className="mb-8">
                       <h4 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                        <span className="text-2xl">📊</span> Results
+                        <ResultsIcon /> Results
                       </h4>
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {study.results.map((result, idx) => (

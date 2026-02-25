@@ -4,11 +4,32 @@ import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 
-export default function Skills() {
+const IconFrontend = () => (
+    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+      <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+    </svg>
+  );
+
+  const IconBackend = () => (
+    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M12 1v6m0 6v6M5.6 5.6l4.2 4.2m5.2 5.2l4.2 4.2M1 12h6m6 0h6M5.6 18.4l4.2-4.2m5.2-5.2l4.2-4.2"/>
+    </svg>
+  );
+
+  const IconTools = () => (
+    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </svg>
+  );
+
+  export default function Skills() {
   const skillCategories = [
     {
       title: "Frontend Development",
-      icon: "🎨",
+      icon: <IconFrontend />,
+      iconBg: "bg-gradient-to-br from-blue-500 to-purple-500",
       skills: [
         { name: "HTML5", level: 95, color: "bg-orange-500" },
         { name: "CSS3/SCSS", level: 90, color: "bg-blue-500" },
@@ -20,7 +41,8 @@ export default function Skills() {
     },
     {
       title: "Backend Development",
-      icon: "⚙️",
+      icon: <IconBackend />,
+      iconBg: "bg-gradient-to-br from-green-500 to-emerald-600",
       skills: [
         { name: "Node.js", level: 78, color: "bg-green-600" },
         { name: "Express.js", level: 75, color: "bg-gray-600" },
@@ -31,7 +53,8 @@ export default function Skills() {
     },
     {
       title: "Tools & Others",
-      icon: "🛠️",
+      icon: <IconTools />,
+      iconBg: "bg-gradient-to-br from-purple-500 to-pink-500",
       skills: [
         { name: "Git & GitHub", level: 85, color: "bg-gray-700" },
         { name: "VS Code", level: 90, color: "bg-blue-600" },
@@ -64,7 +87,9 @@ export default function Skills() {
                 <div className="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-105 h-full">
                   {/* Category Header */}
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="text-4xl">{category.icon}</div>
+                    <div className={`${category.iconBg} p-3 rounded-lg text-white shadow-lg`}>
+                      {category.icon}
+                    </div>
                     <h3 className="text-xl font-bold text-gray-900">
                       {category.title}
                     </h3>

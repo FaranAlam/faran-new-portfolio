@@ -1,47 +1,93 @@
 "use client";
 
-import Image from "next/image";
 import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 
+// SVG Icon Components for Services
+const UIUXIcon = () => (
+  <svg className="w-12 h-12 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+    <line x1="8" y1="21" x2="16" y2="21"/>
+    <line x1="12" y1="17" x2="12" y2="21"/>
+  </svg>
+);
+
+const WebDevIcon = () => (
+  <svg className="w-12 h-12 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="16 18 22 12 16 6"></polyline>
+    <polyline points="8 6 2 12 8 18"></polyline>
+  </svg>
+);
+
+const FullStackIcon = () => (
+  <svg className="w-12 h-12 text-pink-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="1"/>
+    <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"/>
+  </svg>
+);
+
+const ResponsiveIcon = () => (
+  <svg className="w-12 h-12 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="3" width="20" height="14" rx="1"/>
+    <line x1="7" y1="21" x2="17" y2="21"/>
+    <line x1="9" y1="17" x2="9" y2="21"/>
+    <line x1="15" y1="17" x2="15" y2="21"/>
+  </svg>
+);
+
+const MaintenanceIcon = () => (
+  <svg className="w-12 h-12 text-orange-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 1 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+  </svg>
+);
+
+const EducationIcon = () => (
+  <svg className="w-12 h-12 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="12 2 2 7 2 12 12 16.5 22 12 22 7 12 2"></polyline>
+    <polyline points="2 12 12 16.5 22 12"></polyline>
+    <polyline points="12 16.5 12 22"></polyline>
+    <polyline points="9 19 15 19"></polyline>
+  </svg>
+);
+
 export default function Services() {
   const services = [
     {
-      icon: "/images/icons/design.svg",
+      icon: UIUXIcon,
       title: "UI & UX Design",
       description: "As a UI/UX Designer, I've melded user-centric design principles with a keen eye for aesthetics to craft seamless digital experiences.",
       features: ["Responsive Design", "Wireframing", "Prototyping", "User Testing"],
       price: "$25"
     },
     {
-      icon: "/images/icons/code.svg",
+      icon: WebDevIcon,
       title: "Web Development",
       description: "I've translated ideas into robust, user-friendly websites and applications, navigating through intricate coding challenges and staying abreast of evolving technologies.",
       features: ["Custom Websites", "E-commerce Solutions", "Landing Pages", "Portfolio Sites"],
       price: "$50"
     },
     {
-      icon: "/images/icons/rocket.svg",
+      icon: FullStackIcon,
       title: "Full Stack Development",
       description: "I create complete web solutions by combining front-end and back-end expertise. Developing responsive, scalable, and efficient web applications.",
       features: ["React & Node.js", "Database Integration", "API Development", "Authentication"],
       price: "$120"
     },
     {
-      icon: "/images/icons/mobile.svg",
+      icon: ResponsiveIcon,
       title: "Responsive Design",
       description: "Building websites that work perfectly on all devices - from mobile phones to desktop computers with optimal user experience.",
       features: ["Mobile-First Design", "Cross-Browser Compatible", "Fast Loading", "SEO Optimized"]
     },
     {
-      icon: "/images/icons/tools.svg",
+      icon: MaintenanceIcon,
       title: "Website Maintenance",
       description: "Ongoing support and maintenance for your website including updates, bug fixes, and performance optimization.",
       features: ["Regular Updates", "Bug Fixes", "Performance Monitoring", "Security Patches"]
     },
     {
-      icon: "/images/icons/education.svg",
+      icon: EducationIcon,
       title: "Tech Education",
       description: "Teaching web development through Faran Digital Academy. Offering comprehensive courses in web design and full stack development.",
       features: ["Live Classes", "Real Projects", "Certificates", "Expert Support"]
@@ -71,11 +117,7 @@ export default function Services() {
 
                 {/* Icon */}
                 <div className="mb-4">
-                  {service.icon.startsWith("/") ? (
-                    <Image src={service.icon} alt={service.title} width={48} height={48} className="w-12 h-12" />
-                  ) : (
-                    <div className="text-5xl">{service.icon}</div>
-                  )}
+                  <service.icon />
                 </div>
                 
                 {/* Title */}

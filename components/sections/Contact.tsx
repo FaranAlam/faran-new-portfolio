@@ -5,6 +5,22 @@ import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 
+// SVG Icons for Contact
+const AlertIcon = () => (
+  <svg className="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+    <line x1="12" y1="9" x2="12" y2="13" />
+    <line x1="12" y1="17" x2="12.01" y2="17" />
+  </svg>
+);
+
+const LockIcon = () => (
+  <svg className="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+  </svg>
+);
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -273,7 +289,8 @@ export default function Contact() {
                     />
                     {errors.name && (
                       <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
-                        <span>⚠️</span> {errors.name}
+                        <AlertIcon />
+                        {errors.name}
                       </p>
                     )}
                   </div>
@@ -294,7 +311,8 @@ export default function Contact() {
                     />
                     {errors.email && (
                       <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
-                        <span>⚠️</span> {errors.email}
+                        <AlertIcon />
+                        {errors.email}
                       </p>
                     )}
                   </div>
@@ -317,7 +335,8 @@ export default function Contact() {
                   />
                   {errors.subject && (
                     <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
-                      <span>⚠️</span> {errors.subject}
+                      <AlertIcon />
+                      {errors.subject}
                     </p>
                   )}
                 </div>
@@ -341,7 +360,8 @@ export default function Contact() {
                   <div className="flex justify-between mt-2">
                     {errors.message && (
                       <p className="text-sm text-red-600 flex items-center gap-1">
-                        <span>⚠️</span> {errors.message}
+                        <AlertIcon />
+                        {errors.message}
                       </p>
                     )}
                     <p className={`text-sm ml-auto ${
@@ -394,7 +414,10 @@ export default function Contact() {
                 </div>
 
                 <p className="text-sm text-gray-500 text-center">
-                  🔒 Your information is safe and will never be shared with third parties
+                  <span className="inline-flex items-center gap-2">
+                    <LockIcon />
+                    Your information is safe and will never be shared with third parties
+                  </span>
                 </p>
               </form>
             </div>

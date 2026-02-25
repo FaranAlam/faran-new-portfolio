@@ -1,12 +1,52 @@
 "use client";
 
-import Image from "next/image";
 import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 
+// SVG Icons for Work Experience
+const BriefcaseIcon = () => (
+  <svg className="w-10 h-10 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  </svg>
+);
+
+const RocketIcon = () => (
+  <svg className="w-10 h-10 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+  </svg>
+);
+
+const CodeBracketsIcon = () => (
+  <svg className="w-10 h-10 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="16 18 22 12 16 6" />
+    <polyline points="8 6 2 12 8 18" />
+  </svg>
+);
+
+const BookOpenIcon = () => (
+  <svg className="w-10 h-10 text-orange-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+  </svg>
+);
+
+interface Experience {
+  title: string;
+  company: string;
+  period: string;
+  location: string;
+  description: string;
+  type: string;
+  icon: () => JSX.Element;
+}
+
 export default function Experience() {
-  const experiences = [
+  const experiences: Experience[] = [
     {
       title: "Freelance Web Developer",
       company: "Self-Employed",
@@ -14,7 +54,7 @@ export default function Experience() {
       location: "Remote",
       description: "Providing professional web development services as a freelancer, building custom websites and web applications for clients worldwide using modern technologies and best practices.",
       type: "Freelance",
-      icon: "/images/icons/briefcase.svg"
+      icon: BriefcaseIcon
     },
     {
       title: "Web Developer Intern",
@@ -23,7 +63,7 @@ export default function Experience() {
       location: "Pakistan",
       description: "Worked on responsive web applications, focusing on front-end development, clean coding, and enhancing user experience during my internship at NHA.",
       type: "Internship",
-      icon: "/images/icons/rocket.svg"
+      icon: RocketIcon
     },
     {
       title: "Full Stack Developer Intern",
@@ -32,7 +72,7 @@ export default function Experience() {
       location: "Remote",
       description: "Contributed to full-stack development projects by building responsive UIs with modern design principles and implementing secure, scalable backend solutions. Gained hands-on experience with front-end frameworks, REST APIs, and database integration.",
       type: "Internship",
-      icon: "/images/icons/rocket.svg"
+      icon: RocketIcon
     },
     {
       title: "Frontend Developer Intern",
@@ -41,7 +81,7 @@ export default function Experience() {
       location: "Pakistan",
       description: "Developed responsive user interfaces using React, HTML, CSS, and JavaScript, ensuring cross-browser compatibility and smooth user experiences.",
       type: "Internship",
-      icon: "/images/icons/code.svg"
+      icon: CodeBracketsIcon
     },
     {
       title: "Web Developer Intern",
@@ -50,7 +90,7 @@ export default function Experience() {
       location: "Remote",
       description: "Contributed to building and maintaining web applications by developing responsive front-end interfaces with React, HTML, CSS, and JavaScript, while also assisting in backend integration to deliver functional and user-friendly solutions.",
       type: "Internship",
-      icon: "/images/icons/education.svg"
+      icon: BookOpenIcon
     }
   ];
 
@@ -89,12 +129,8 @@ export default function Experience() {
                       index % 2 === 0 ? 'md:text-right' : 'md:text-left'
                     }`}>
                       {/* Icon */}
-                      <div className={`mb-3 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                        {exp.icon.startsWith("/") ? (
-                          <Image src={exp.icon} alt={exp.title} width={40} height={40} className="w-10 h-10" />
-                        ) : (
-                          <span className="text-4xl">{exp.icon}</span>
-                        )}
+                      <div className={`mb-3 flex ${index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'} justify-start`}>
+                        <exp.icon />
                       </div>
                       
                       {/* Title & Company */}

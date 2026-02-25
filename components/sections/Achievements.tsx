@@ -1,67 +1,135 @@
 "use client";
 
-import Image from "next/image";
 import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 
+// SVG Icons for Journey & Achievements
+const RocketLaunchIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+  </svg>
+);
+
+const GraduationCapIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+  </svg>
+);
+
+const StarBadgeIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+  </svg>
+);
+
+const BriefcaseWorkIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  </svg>
+);
+
+const SparklesIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+    <path d="M5 3v4" />
+    <path d="M19 17v4" />
+    <path d="M3 5h4" />
+    <path d="M17 19h4" />
+  </svg>
+);
+
+const TargetIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="12" cy="12" r="6" />
+    <circle cx="12" cy="12" r="2" />
+  </svg>
+);
+
+const UserCheckIcon = () => (
+  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <polyline points="16 11 18 13 22 9" />
+  </svg>
+);
+
+interface Milestone {
+  year: string;
+  title: string;
+  description: string;
+  icon: () => JSX.Element;
+  color: string;
+}
+
+interface Achievement {
+  icon: () => JSX.Element;
+  title: string;
+  description: string;
+}
+
 export default function Achievements() {
-  const milestones = [
+  const milestones: Milestone[] = [
     {
       year: "2022",
       title: "Started Freelancing Journey",
       description: "Began professional web development career, completed first client project successfully.",
-      icon: "/images/icons/rocket.svg",
+      icon: RocketLaunchIcon,
       color: "from-blue-500 to-blue-600"
     },
     {
       year: "2023",
       title: "Launched Faran Digital Academy",
       description: "Started teaching web development to aspiring developers. Trained 20+ students in web design.",
-      icon: "/images/icons/education.svg",
+      icon: GraduationCapIcon,
       color: "from-purple-500 to-purple-600"
     },
     {
       year: "2024",
       title: "Full Stack Certification",
       description: "Earned NAVTTC Full Stack Development certification. Completed Computer Vision course from IIUI.",
-      icon: "/images/icons/star.svg",
+      icon: StarBadgeIcon,
       color: "from-green-500 to-green-600"
     },
     {
       year: "2025",
       title: "Multiple Internships",
       description: "Gained industry experience through 5 internships: NHA, DevelopersHub, JayNex IT, and NextGen Learners.",
-      icon: "/images/icons/briefcase.svg",
+      icon: BriefcaseWorkIcon,
       color: "from-orange-500 to-orange-600"
     },
     {
       year: "2026",
       title: "13+ Projects Milestone",
       description: "Successfully delivered 13+ projects with 100% client satisfaction. Serving 8+ happy clients globally.",
-      icon: "/images/icons/sparkles.svg",
+      icon: SparklesIcon,
       color: "from-pink-500 to-pink-600"
     }
   ];
 
-  const achievements = [
+  const achievements: Achievement[] = [
     {
-      icon: "/images/icons/target.svg",
+      icon: TargetIcon,
       title: "100% Client Satisfaction",
       description: "Perfect track record with all clients"
     },
     {
-      icon: "/images/icons/star.svg",
+      icon: StarBadgeIcon,
       title: "6+ Certifications",
       description: "Verified credentials from top institutions"
     },
     {
-      icon: "/images/icons/rocket.svg",
+      icon: RocketLaunchIcon,
       title: "13+ Projects Delivered",
       description: "Successfully completed diverse projects"
     },
     {
-      icon: "/images/icons/person.svg",
+      icon: UserCheckIcon,
       title: "20+ Students Trained",
       description: "Teaching next-gen developers"
     }
@@ -113,12 +181,8 @@ export default function Achievements() {
                         </div>
 
                         {/* Icon */}
-                        <div className={`mb-3 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                          {milestone.icon.startsWith("/") ? (
-                            <Image src={milestone.icon} alt={milestone.title} width={48} height={48} className="w-12 h-12" />
-                          ) : (
-                            <span className="text-5xl">{milestone.icon}</span>
-                          )}
+                        <div className={`mb-3 flex ${index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'} justify-start`}>
+                          <milestone.icon />
                         </div>
 
                         {/* Title */}
@@ -155,11 +219,7 @@ export default function Achievements() {
                     className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/20 transition-all duration-300 hover:scale-105 border border-white/20"
                   >
                     <div className="mb-4 flex justify-center">
-                      {achievement.icon.startsWith("/") ? (
-                        <Image src={achievement.icon} alt={achievement.title} width={48} height={48} className="w-12 h-12" />
-                      ) : (
-                        <span className="text-5xl">{achievement.icon}</span>
-                      )}
+                      <achievement.icon />
                     </div>
                     <h4 className="text-lg font-bold text-white mb-2">{achievement.title}</h4>
                     <p className="text-blue-100 text-sm">{achievement.description}</p>

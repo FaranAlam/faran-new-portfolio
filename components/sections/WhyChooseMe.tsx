@@ -1,56 +1,110 @@
 "use client";
 
-import Image from "next/image";
 import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 
+// SVG Icons
+const FastDeliveryIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="23 12 20.3 9.3 16.7 12.9 6.3 2.5 2.5 6.3 12.9 16.7 9.3 20.3 12 23"></polyline>
+  </svg>
+);
+
+const QualityCodeIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="16 18 22 12 16 6"></polyline>
+    <polyline points="8 6 2 12 8 18"></polyline>
+  </svg>
+);
+
+const GoalOrientedIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="1"/>
+    <circle cx="12" cy="12" r="5"/>
+    <circle cx="12" cy="12" r="9"/>
+  </svg>
+);
+
+const CommunicationIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+);
+
+const LifetimeSupportIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+  </svg>
+);
+
+const AffordablePricingIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="8"/>
+    <path d="M12 6v12M9 9h6a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-6"/>
+  </svg>
+);
+
+const ResponsiveDesignIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="3" width="20" height="14" rx="2"/>
+    <line x1="8" y1="21" x2="16" y2="21"/>
+    <line x1="12" y1="17" x2="12" y2="21"/>
+  </svg>
+);
+
+const ModernTechIcon = () => (
+  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M13 2L3 14h7v8l10-12h-7V2z"/>
+  </svg>
+);
+
 export default function WhyChooseMe() {
   const benefits = [
     {
-      icon: "⚡",
+      icon: FastDeliveryIcon,
       title: "Fast Delivery",
       description: "Quick turnaround time without compromising quality. Most projects delivered within 2-4 weeks.",
       gradient: "from-yellow-400 to-orange-500"
     },
     {
-      icon: "💎",
+      icon: QualityCodeIcon,
       title: "Quality Code",
       description: "Clean, maintainable, and well-documented code following industry best practices and standards.",
       gradient: "from-blue-400 to-blue-600"
     },
     {
-      icon: "🎯",
+      icon: GoalOrientedIcon,
       title: "Goal-Oriented",
       description: "Focused on achieving your business objectives with solutions that drive real results and ROI.",
       gradient: "from-green-400 to-green-600"
     },
     {
-      icon: "💬",
+      icon: CommunicationIcon,
       title: "Clear Communication",
       description: "Regular updates, transparent progress tracking, and always available for discussions and feedback.",
       gradient: "from-purple-400 to-purple-600"
     },
     {
-      icon: "🔄",
+      icon: LifetimeSupportIcon,
       title: "Lifetime Support",
       description: "Post-launch support and maintenance to ensure your website runs smoothly and stays updated.",
       gradient: "from-pink-400 to-pink-600"
     },
     {
-      icon: "💰",
+      icon: AffordablePricingIcon,
       title: "Affordable Pricing",
       description: "Competitive rates with flexible payment options. Quality work that fits your budget.",
       gradient: "from-indigo-400 to-indigo-600"
     },
     {
-      icon: "📱",
+      icon: ResponsiveDesignIcon,
       title: "Responsive Design",
       description: "Mobile-first approach ensuring perfect functionality across all devices and screen sizes.",
       gradient: "from-cyan-400 to-cyan-600"
     },
     {
-      icon: "🚀",
+      icon: ModernTechIcon,
       title: "Modern Tech Stack",
       description: "Using latest technologies like React, Next.js, Node.js for fast, scalable applications.",
       gradient: "from-red-400 to-red-600"
@@ -79,11 +133,7 @@ export default function WhyChooseMe() {
                 <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-2xl transition-all duration-300 hover:scale-105 h-full group">
                   {/* Icon with Gradient Background */}
                   <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${benefit.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    {benefit.icon.startsWith("/") ? (
-                      <Image src={benefit.icon} alt={benefit.title} width={32} height={32} className="w-8 h-8" />
-                    ) : (
-                      <span className="text-3xl">{benefit.icon}</span>
-                    )}
+                    <benefit.icon />
                   </div>
 
                   {/* Title */}

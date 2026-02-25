@@ -4,12 +4,49 @@ import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 
+// SVG Icons for Portfolio Projects
+const EducationIcon = () => (
+  <svg className="w-20 h-20 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+  </svg>
+);
+
+const TaskIcon = () => (
+  <svg className="w-20 h-20 text-purple-600" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+  </svg>
+);
+
+const HealthcareIcon = () => (
+  <svg className="w-20 h-20 text-red-600" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/>
+  </svg>
+);
+
+const SalaryIcon = () => (
+  <svg className="w-20 h-20 text-green-600" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+  </svg>
+);
+
+const InterviewIcon = () => (
+  <svg className="w-20 h-20 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+  </svg>
+);
+
+const RestaurantIcon = () => (
+  <svg className="w-20 h-20 text-orange-600" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
+  </svg>
+);
+
 export default function Portfolio() {
   const projects = [
     {
       title: "Educational Website Design",
       description: "A modern educational platform with responsive design, course management, and interactive learning features.",
-      image: "🎓",
+      icon: EducationIcon,
       technologies: ["HTML", "CSS", "JavaScript", "Responsive Design"],
       liveUrl: "#",
       githubUrl: "#",
@@ -18,7 +55,7 @@ export default function Portfolio() {
     {
       title: "TaskTrackr Website",
       description: "A full-stack task management application with user authentication, real-time updates, and intuitive interface.",
-      image: "📋",
+      icon: TaskIcon,
       technologies: ["React", "Node.js", "MongoDB", "Express"],
       liveUrl: "#",
       githubUrl: "#",
@@ -27,7 +64,7 @@ export default function Portfolio() {
     {
       title: "Diabetes Risk Predictor",
       description: "AI-powered web application that predicts diabetes risk based on medical parameters using machine learning algorithms.",
-      image: "🏥",
+      icon: HealthcareIcon,
       technologies: ["Python", "Machine Learning", "Flask", "React"],
       liveUrl: "#",
       githubUrl: "#",
@@ -36,7 +73,7 @@ export default function Portfolio() {
     {
       title: "SmartSalary Predictor",
       description: "Intelligent salary prediction system using AI to estimate salary ranges based on skills, experience, and location.",
-      image: "💰",
+      icon: SalaryIcon,
       technologies: ["Python", "AI/ML", "Data Analysis", "Web App"],
       liveUrl: "#",
       githubUrl: "#",
@@ -45,7 +82,7 @@ export default function Portfolio() {
     {
       title: "AI-Mock Interview App",
       description: "Interactive AI-powered mock interview platform helping candidates prepare for technical interviews with real-time feedback.",
-      image: "🎤",
+      icon: InterviewIcon,
       technologies: ["React", "AI Integration", "Voice Recognition", "Firebase"],
       liveUrl: "#",
       githubUrl: "#",
@@ -54,7 +91,7 @@ export default function Portfolio() {
     {
       title: "Restaurant Website",
       description: "Beautiful and responsive restaurant website with online menu, reservation system, and gallery showcase.",
-      image: "🍽️",
+      icon: RestaurantIcon,
       technologies: ["HTML", "CSS", "JavaScript", "Bootstrap"],
       liveUrl: "https://faranrestaurant.netlify.app/",
       githubUrl: "#",
@@ -84,8 +121,8 @@ export default function Portfolio() {
                 <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:scale-105 hover:border-blue-200 h-full">
 
                 {/* Project Image Placeholder */}
-                <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center text-6xl">
-                  {project.image}
+                <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center">
+                  <project.icon />
                 </div>
 
                 {/* Project Content */}

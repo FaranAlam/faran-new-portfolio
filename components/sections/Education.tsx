@@ -4,8 +4,40 @@ import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 
+// SVG Icons for Education
+const GraduationCapIcon = () => (
+  <svg className="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+  </svg>
+);
+
+const BooksIcon = () => (
+  <svg className="w-8 h-8 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M3 4h6a3 3 0 0 1 3 3v13H6a3 3 0 0 0-3 3z" />
+    <path d="M21 4h-6a3 3 0 0 0-3 3v13h6a3 3 0 0 1 3 3z" />
+  </svg>
+);
+
+const BookOpenIcon = () => (
+  <svg className="w-8 h-8 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+  </svg>
+);
+
+interface EducationItem {
+  degree: string;
+  institution: string;
+  period: string;
+  location: string;
+  description: string;
+  tags: string[];
+  icon: () => JSX.Element;
+  status: string;
+}
+
 export default function Education() {
-  const education = [
+  const education: EducationItem[] = [
     {
       degree: "Bachelor of Science in Computer Engineering",
       institution: "International Islamic University Islamabad (IIUI)",
@@ -13,7 +45,7 @@ export default function Education() {
       location: "Islamabad, Pakistan",
       description: "Currently pursuing BS in Computer Engineering, focusing on software development, computer architecture, algorithms, and modern web technologies. Actively engaged in projects involving full-stack development and system design.",
       tags: ["Full-Stack Development", "Data Structures", "Web Technologies"],
-      icon: "🎓",
+      icon: GraduationCapIcon,
       status: "In Progress"
     },
     {
@@ -23,7 +55,7 @@ export default function Education() {
       location: "Karak, Pakistan",
       description: "Completed intermediate education with focus on science subjects. Built strong foundation in mathematics, physics, and computer science which paved the way for engineering studies.",
       tags: ["English Medium", "Science Group", "Computer Science"],
-      icon: "📚",
+      icon: BooksIcon,
       status: "Completed"
     },
     {
@@ -33,7 +65,7 @@ export default function Education() {
       location: "Karak, Pakistan",
       description: "Successfully completed secondary education with strong academic performance. Developed interest in technology and programming during this period.",
       tags: ["English Medium", "Science Stream"],
-      icon: "📖",
+      icon: BookOpenIcon,
       status: "Completed"
     }
   ];
@@ -64,7 +96,7 @@ export default function Education() {
                   {/* Icon */}
                   <div className="flex-shrink-0">
                     <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-3xl">
-                      {edu.icon}
+                      <edu.icon />
                     </div>
                   </div>
 
