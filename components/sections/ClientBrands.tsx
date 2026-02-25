@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
