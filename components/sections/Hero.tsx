@@ -14,9 +14,11 @@ export default function Hero() {
           {/* Text Content */}
           <div className="flex-1 text-center md:text-left">
             <FadeIn direction="down" duration={0.6}>
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-                Hi, I&apos;m <span className="text-blue-600">Faran Alam</span>
-              </h1>
+              <div className="flex items-center justify-center md:justify-start gap-4 mb-4">
+                <h1 className="text-5xl md:text-6xl font-bold text-gray-900">
+                  Hi, I&apos;m <span className="text-blue-600">Faran Alam</span>
+                </h1>
+              </div>
             </FadeIn>
             
             <FadeIn direction="left" delay={0.2} duration={0.6}>

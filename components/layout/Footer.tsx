@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -37,9 +38,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1">
-            <Link href="/" className="text-2xl font-bold text-white">
-              Faran<span className="text-blue-500">.</span>
-            </Link>
+            <div className="flex items-center gap-3">
+              <Image
+                src="/images/logos/logo1.jpg"
+                alt="Faran Alam Logo"
+                width={50}
+                height={50}
+                className="rounded-full object-cover border-2 border-blue-500"
+              />
+              <Link href="/" className="text-2xl font-bold text-white">
+                Faran<span className="text-blue-500">.</span>
+              </Link>
+            </div>
             <p className="mt-4 text-gray-400 max-w-md">
               Full Stack Developer & Computer Engineer at IIUI. 
               Building innovative solutions and helping others learn since 2022.

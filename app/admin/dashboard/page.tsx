@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
-import FadeIn from "@/components/animations/FadeIn";
+import { useSession } from "next-auth/react";
 
 interface ContactMessage {
   _id: string;
@@ -23,6 +22,7 @@ export default function AdminDashboardPage() {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Check auth status
   useEffect(() => {
@@ -61,155 +61,190 @@ export default function AdminDashboardPage() {
       });
 
       if (response.ok) {
-        fetchMessages(); // Refresh messages
+        fetchMessages();
       }
     } catch (error) {
       console.error("Failed to mark as read:", error);
     }
   };
 
-  const handleLogout = () => {
-    router.push("/");
+  // Calculate stats
+  const totalMessages = messages.length;
+  const newMessages = messages.filter(m => !m.read).length;
+  const repliedMessages = messages.filter(m => m.replied).length;
+
+  // Filter messages based on search
+  const filteredMessages = messages.filter(msg =>
+    msg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    msg.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    msg.subject.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div>
       {/* Header */}
-      <div className="bg-slate-800/50 backdrop-blur-xl border-b border-slate-700">
-        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-            <p className="text-gray-400 text-sm mt-1">
-              Manage contact messages and subscribers
-            </p>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Logout
-          </button>
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-gray-900">Contact Messages</h1>
+        <p className="text-gray-600 mt-2">View and manage contact form submissions</p>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+          <div className="text-3xl font-bold text-blue-600">{totalMessages}</div>
+          <div className="text-sm text-gray-600 mt-1">Total Messages</div>
+        </div>
+        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+          <div className="text-3xl font-bold text-yellow-600">{newMessages}</div>
+          <div className="text-sm text-gray-600 mt-1">🔔 New Messages</div>
+        </div>
+        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+          <div className="text-3xl font-bold text-green-600">{repliedMessages}</div>
+          <div className="text-sm text-gray-600 mt-1">✅ Replied</div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
-        <FadeIn>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Messages List */}
-            <div className="lg:col-span-2">
-              <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-2xl p-6">
-                <h2 className="text-2xl font-bold text-white mb-6">
-                  Contact Messages ({messages.length})
-                </h2>
+      {/* Search */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+        <input
+          type="text"
+          placeholder="🔍 Search by name, email, or subject..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
 
-                {loading ? (
-                  <p className="text-gray-400">Loading messages...</p>
-                ) : messages.length === 0 ? (
-                  <p className="text-gray-400">No messages yet.</p>
-                ) : (
-                  <div className="space-y-4">
-                    {messages.map((msg) => (
-                      <div
-                        key={msg._id}
-                        onClick={() => setSelectedMessage(msg)}
-                        className={`p-4 rounded-lg cursor-pointer border transition-all ${
-                          msg.read
-                            ? "bg-slate-700/30 border-slate-600"
-                            : "bg-blue-500/10 border-blue-500/30"
-                        } hover:border-blue-500/50`}
-                      >
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h3 className="font-semibold text-white">{msg.name}</h3>
-                            <p className="text-sm text-gray-400">{msg.email}</p>
-                            <p className="text-sm text-gray-300 mt-1">{msg.subject}</p>
-                          </div>
-                          <div className="text-right">
-                            {!msg.read && (
-                              <span className="inline-block px-3 py-1 bg-blue-600 text-white text-xs rounded-full">
-                                New
-                              </span>
-                            )}
-                            <p className="text-xs text-gray-500 mt-2">
-                              {new Date(msg.createdAt).toLocaleDateString()}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Messages List */}
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            {loading ? (
+              <div className="p-12 text-center text-gray-500">
+                <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+                Loading messages...
               </div>
-            </div>
-
-            {/* Message Details */}
-            <div className="lg:col-span-1">
-              <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-2xl p-6 sticky top-6">
-                <h2 className="text-xl font-bold text-white mb-4">
-                  {selectedMessage ? "Message Details" : "Select a message"}
-                </h2>
-
-                {selectedMessage ? (
-                  <div className="space-y-4">
-                    <div>
-                      <p className="text-sm text-gray-400">From</p>
-                      <p className="text-white font-semibold">{selectedMessage.name}</p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-gray-400">Email</p>
-                      <a
-                        href={`mailto:${selectedMessage.email}`}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {selectedMessage.email}
-                      </a>
-                    </div>
-
-                    {selectedMessage.phone && (
-                      <div>
-                        <p className="text-sm text-gray-400">Phone</p>
-                        <p className="text-white">{selectedMessage.phone}</p>
+            ) : filteredMessages.length === 0 ? (
+              <div className="p-12 text-center text-gray-500">
+                <div className="text-5xl mb-4">📭</div>
+                <p className="text-lg font-medium">No messages found</p>
+                <p className="text-sm text-gray-400 mt-2">
+                  {searchQuery ? "Try a different search term" : "No contact messages yet"}
+                </p>
+              </div>
+            ) : (
+              <div className="divide-y divide-gray-100">
+                {filteredMessages.map((msg) => (
+                  <div
+                    key={msg._id}
+                    onClick={() => {
+                      setSelectedMessage(msg);
+                      if (!msg.read) {
+                        handleMarkAsRead(msg._id);
+                      }
+                    }}
+                    className={`p-6 cursor-pointer transition hover:bg-gray-50 ${
+                      !msg.read ? "bg-blue-50 border-l-4 border-blue-600" : ""
+                    }`}
+                  >
+                    <div className="flex justify-between items-start gap-4">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-gray-900">{msg.name}</h3>
+                        <p className="text-sm text-gray-600">{msg.email}</p>
+                        <p className="text-sm text-gray-700 font-medium mt-2">
+                          {msg.subject}
+                        </p>
                       </div>
-                    )}
-
-                    <div>
-                      <p className="text-sm text-gray-400">Subject</p>
-                      <p className="text-white">{selectedMessage.subject}</p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-gray-400">Message</p>
-                      <p className="text-gray-200 text-sm mt-2 p-3 bg-slate-700/50 rounded-lg">
-                        {selectedMessage.message}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-slate-600">
-                      <p className="text-xs text-gray-500">
-                        {new Date(selectedMessage.createdAt).toLocaleString()}
-                      </p>
-
-                      {!selectedMessage.read && (
-                        <button
-                          onClick={() => handleMarkAsRead(selectedMessage._id)}
-                          className="mt-4 w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                        >
-                          Mark as Read
-                        </button>
-                      )}
+                      <div className="text-right whitespace-nowrap ml-4">
+                        {!msg.read && (
+                          <span className="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full mb-2">
+                            New
+                          </span>
+                        )}
+                        <p className="text-xs text-gray-500">{formatDate(msg.createdAt)}</p>
+                      </div>
                     </div>
                   </div>
-                ) : (
-                  <p className="text-gray-400 text-sm">
-                    Click on a message to view details
-                  </p>
-                )}
+                ))}
               </div>
-            </div>
+            )}
           </div>
-        </FadeIn>
+        </div>
+
+        {/* Message Details */}
+        <div className="lg:col-span-1">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sticky top-20">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">
+              {selectedMessage ? "Message Details" : "Select a message"}
+            </h2>
+
+            {selectedMessage ? (
+              <div className="space-y-4">
+                <div>
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">From</p>
+                  <p className="text-gray-900 font-semibold mt-1">{selectedMessage.name}</p>
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Email</p>
+                  <a
+                    href={`mailto:${selectedMessage.email}`}
+                    className="text-blue-600 hover:text-blue-700 font-medium mt-1"
+                  >
+                    {selectedMessage.email}
+                  </a>
+                </div>
+
+                {selectedMessage.phone && (
+                  <div>
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Phone</p>
+                    <p className="text-gray-900 mt-1">{selectedMessage.phone}</p>
+                  </div>
+                )}
+
+                <div>
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Subject</p>
+                  <p className="text-gray-900 mt-1">{selectedMessage.subject}</p>
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Message</p>
+                  <p className="text-gray-700 text-sm mt-2 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                    {selectedMessage.message}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-gray-200">
+                  <p className="text-xs text-gray-500">
+                    {new Date(selectedMessage.createdAt).toLocaleString()}
+                  </p>
+
+                  {!selectedMessage.read && (
+                    <button
+                      onClick={() => handleMarkAsRead(selectedMessage._id)}
+                      className="mt-4 w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                    >
+                      ✅ Mark as Read
+                    </button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <p className="text-gray-500 text-sm">
+                Click on a message to view details
+              </p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Testimonials() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const testimonials = [
     {
@@ -33,32 +33,30 @@ export default function Testimonials() {
     }
   ];
 
-  // Duplicate testimonials for seamless loop
+  // Duplicate testimonials for seamless infinite scroll on desktop
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
+  // Navigation functions
+  const nextTestimonial = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const goToTestimonial = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  // Auto-scroll effect
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000); // Change every 5 seconds
 
-    let scrollPosition = 0;
-    const scrollSpeed = 0.5; // Slow speed
-
-    const scroll = () => {
-      scrollPosition += scrollSpeed;
-      
-      // Reset position when halfway through (seamless loop)
-      if (scrollPosition >= scrollContainer.scrollWidth / 2) {
-        scrollPosition = 0;
-      }
-      
-      scrollContainer.scrollLeft = scrollPosition;
-      requestAnimationFrame(scroll);
-    };
-
-    const animationFrame = requestAnimationFrame(scroll);
-
-    return () => cancelAnimationFrame(animationFrame);
-  }, []);
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
 
   return (
     <section id="testimonials" className="py-28 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
@@ -80,61 +78,169 @@ export default function Testimonials() {
           </motion.div>
 
           {/* Auto-scrolling Testimonials */}
-          <div 
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-hidden scrollbar-hide py-8"
-            style={{ 
-              scrollBehavior: 'auto',
-              msOverflowStyle: 'none',
-              scrollbarWidth: 'none'
-            }}
-          >
-            {duplicatedTestimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow w-[calc(33.333%-16px)] flex-shrink-0"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
+          <div className="relative px-0 md:px-0">
+            {/* Mobile View: Slider */}
+            <div className="md:hidden overflow-hidden py-8">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ 
+                  transform: `translateX(-${currentIndex * 100}%)`,
+                }}
               >
-                <div className="flex flex-col h-full">
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <svg 
-                        key={i} 
-                        className={`w-4 h-4 ${i < Math.floor(testimonial.rating) ? 'text-yellow-400' : 'text-gray-300'}`} 
-                        fill="currentColor" 
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-xl p-6 shadow-lg w-full flex-shrink-0"
+                  >
+                    <div className="flex flex-col h-full">
+                      {/* Stars */}
+                      <div className="flex gap-1 mb-3">
+                        {[...Array(5)].map((_, i) => (
+                          <svg 
+                            key={i} 
+                            className={`w-4 h-4 ${i < Math.floor(testimonial.rating) ? 'text-yellow-400' : 'text-gray-300'}`} 
+                            fill="currentColor" 
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        ))}
+                      </div>
 
-                  {/* Quote icon */}
-                  <div className="text-3xl text-blue-600 mb-3">&ldquo;</div>
+                      {/* Quote icon */}
+                      <div className="text-3xl text-blue-600 mb-3">&ldquo;</div>
 
-                  {/* Text */}
-                  <p className="text-sm text-gray-700 mb-4 flex-grow leading-relaxed">{testimonial.text}</p>
+                      {/* Text */}
+                      <p className="text-sm text-gray-700 mb-4 flex-grow leading-relaxed">{testimonial.text}</p>
 
-                  {/* Divider */}
-                  <div className="h-px bg-gray-200 mb-4"></div>
+                      {/* Divider */}
+                      <div className="h-px bg-gray-200 mb-4"></div>
 
-                  {/* Author */}
-                  <div className="flex items-center gap-3">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${testimonial.gradient} rounded-full flex items-center justify-center text-white font-bold text-base flex-shrink-0`}>
-                      {testimonial.initials}
+                      {/* Author */}
+                      <div className="flex items-center gap-3">
+                        <div className={`w-12 h-12 bg-gradient-to-br ${testimonial.gradient} rounded-full flex items-center justify-center text-white font-bold text-base flex-shrink-0`}>
+                          {testimonial.initials}
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-bold text-gray-900 text-base">{testimonial.name}</div>
+                          <div className="text-xs text-gray-600">{testimonial.role}</div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <div className="font-bold text-gray-900 text-base">{testimonial.name}</div>
-                      <div className="text-xs text-gray-600">{testimonial.role}</div>
-                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile: Navigation Arrows and Dots at Bottom */}
+            <div className="md:hidden flex items-center justify-between gap-4">
+              {/* Left Arrow */}
+              <button
+                onClick={prevTestimonial}
+                className="bg-white hover:bg-blue-50 text-blue-600 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110"
+                aria-label="Previous testimonial"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              {/* Indicator Dots */}
+              <div className="flex gap-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToTestimonial(index)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === currentIndex ? 'w-8 bg-blue-600' : 'w-2 bg-gray-300'
+                    }`}
+                    aria-label={`Go to testimonial ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Right Arrow */}
+              <button
+                onClick={nextTestimonial}
+                className="bg-white hover:bg-blue-50 text-blue-600 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110"
+                aria-label="Next testimonial"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Desktop View: Sliding Carousel */}
+            <div className="hidden md:block overflow-hidden py-8">
+              <div 
+                className="flex gap-6 transition-transform duration-1000 ease-in-out"
+                style={{ 
+                  transform: `translateX(-${(currentIndex * 33.333)}%)`,
+                }}
+              >
+                {duplicatedTestimonials.map((testimonial, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow w-[calc(33.333%-16px)] flex-shrink-0"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="flex flex-col h-full">
+                      {/* Stars */}
+                      <div className="flex gap-1 mb-3">
+                        {[...Array(5)].map((_, i) => (
+                          <svg 
+                            key={i} 
+                            className={`w-4 h-4 ${i < Math.floor(testimonial.rating) ? 'text-yellow-400' : 'text-gray-300'}`} 
+                            fill="currentColor" 
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        ))}
+                      </div>
+
+                      {/* Quote icon */}
+                      <div className="text-3xl text-blue-600 mb-3">&ldquo;</div>
+
+                      {/* Text */}
+                      <p className="text-sm text-gray-700 mb-4 flex-grow leading-relaxed">{testimonial.text}</p>
+
+                      {/* Divider */}
+                      <div className="h-px bg-gray-200 mb-4"></div>
+
+                      {/* Author */}
+                      <div className="flex items-center gap-3">
+                        <div className={`w-12 h-12 bg-gradient-to-br ${testimonial.gradient} rounded-full flex items-center justify-center text-white font-bold text-base flex-shrink-0`}>
+                          {testimonial.initials}
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-bold text-gray-900 text-base">{testimonial.name}</div>
+                          <div className="text-xs text-gray-600">{testimonial.role}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Indicator Dots - Desktop Only */}
+            <div className="hidden md:flex justify-center gap-2 mt-6">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToTestimonial(index)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex ? 'w-8 bg-blue-600' : 'w-2 bg-gray-300'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
