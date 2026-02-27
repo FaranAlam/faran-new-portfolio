@@ -248,9 +248,31 @@ export default function FreeResources() {
   };
 
   const handlePreview = (resourceId: string, courseSlug: string, fileName: string) => {
-    const resourcePath = resourceId === 'developer' ? 'developer' : `engineer/${resourceId.replace('semester-', 'semester-')}`;
-    const previewUrl = `/api/approved-download?resourceId=${encodeURIComponent(resourceId)}&courseSlug=${encodeURIComponent(courseSlug)}&fileName=${encodeURIComponent(fileName)}&preview=true`;
-    window.open(previewUrl, '_blank');
+    // Check if file can be previewed in browser
+    const ext = fileName.toLowerCase().split('.').pop();
+    const previewableExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'txt'];
+    
+    const params = new URLSearchParams({
+      resourceId,
+      courseSlug,
+      fileName,
+      preview: 'true'
+    });
+    
+    const previewUrl = `/api/approved-download?${params.toString()}`;
+    
+    if (previewableExtensions.includes(ext || '')) {
+      // Open in new tab for preview
+      window.open(previewUrl, '_blank');
+    } else {
+      // Trigger download for non-previewable files
+      const link = document.createElement('a');
+      link.href = previewUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   const fetchResourceFiles = async (resourceId: string, courseSlug: string) => {
