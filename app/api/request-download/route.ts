@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { sendAdminNotification } from '@/lib/email';
+import { sendApprovalEmail } from '@/lib/email';
 import { 
   saveRequest, 
   getRequest,
   findDuplicateRequest,
+  updateRequestStatus,
   DownloadRequest 
 } from '@/lib/storage';
 
@@ -60,6 +61,12 @@ export async function POST(request: NextRequest) {
 
     // Create new request
     const requestId = crypto.randomUUID();
+    
+    // Generate instant approval token for IIU emails
+    const approvalToken = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+    const approvedAt = new Date().toISOString();
+
     const downloadRequest: DownloadRequest = {
       id: requestId,
       email: email.toLowerCase(),
@@ -67,37 +74,41 @@ export async function POST(request: NextRequest) {
       courseSlug,
       fileName,
       requestedAt: new Date().toISOString(),
-      status: 'pending'
+      status: 'approved', // Instant approval for IIU emails
+      approvalToken,
+      approvedAt,
+      expiresAt: expiresAt.toISOString()
     };
 
     await saveRequest(downloadRequest);
 
-    // Send email notification to admin
-    console.log('📩 New download request:', {
+    // Send approval email with download link
+    const downloadLink = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002'}/api/approved-download?token=${approvalToken}`;
+    
+    console.log('✅ Instant download approved:', {
       id: requestId,
       email,
       file: `${resourceId}/${courseSlug}/${fileName}`,
-      time: new Date().toLocaleString()
+      downloadLink,
+      expiresAt: expiresAt.toLocaleString()
     });
 
-    // Send email to admin
-    const adminEmail = process.env.ADMIN_EMAIL || 'faran.bsce40@iiu.edu.pk';
-    await sendAdminNotification({
-      adminEmail,
+    // Send approval email to student with download link
+    await sendApprovalEmail({
       userEmail: email,
       fileName,
-      courseSlug,
-      resourceId,
-      requestId,
-      requestedAt: downloadRequest.requestedAt
+      downloadLink,
+      expiresAt: expiresAt.toISOString()
     });
 
     return NextResponse.json(
       {
         success: true,
-        message: 'Download request submitted! Admin will review and send approval email.',
+        message: '✅ Download approved! Check your email for the download link.',
         requestId,
-        status: 'pending'
+        status: 'approved',
+        downloadLink,
+        expiresAt: expiresAt.toISOString()
       },
       { status: 200 }
     );
