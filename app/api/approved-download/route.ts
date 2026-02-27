@@ -20,18 +20,66 @@ const fileMapping: Record<string, string> = {
 export async function GET(request: NextRequest) {
   try {
     const token = request.nextUrl.searchParams.get('token');
+    const resourceId = request.nextUrl.searchParams.get('resourceId');
+    const courseSlug = request.nextUrl.searchParams.get('courseSlug');
+    const fileNameParam = request.nextUrl.searchParams.get('fileName');
+    const isPreview = request.nextUrl.searchParams.get('preview') === 'true';
 
-    if (!token) {
+    const hasDirectParams = !!(resourceId && courseSlug && fileNameParam);
+    if (!token && !hasDirectParams) {
       return NextResponse.json(
         { success: false, message: 'Approval token required' },
         { status: 400 }
       );
     }
 
+    if (hasDirectParams) {
+      const resourcePath = fileMapping[resourceId!];
+      if (!resourcePath) {
+        return NextResponse.json(
+          { success: false, message: 'Resource not found' },
+          { status: 404 }
+        );
+      }
+
+      const fullPath = path.join(
+        process.cwd(),
+        'resources',
+        resourcePath,
+        courseSlug!,
+        fileNameParam!
+      );
+
+      const resourcesDir = path.join(process.cwd(), 'resources');
+      if (!fullPath.startsWith(resourcesDir)) {
+        return NextResponse.json(
+          { success: false, message: 'Invalid file path' },
+          { status: 400 }
+        );
+      }
+
+      if (!fs.existsSync(fullPath)) {
+        return NextResponse.json(
+          { success: false, message: 'File not found on server. Contact admin.' },
+          { status: 404 }
+        );
+      }
+
+      const fileBuffer = fs.readFileSync(fullPath);
+
+      return new NextResponse(fileBuffer, {
+        headers: {
+          'Content-Type': 'application/octet-stream',
+          'Content-Disposition': `${isPreview ? 'inline' : 'attachment'}; filename="${fileNameParam}"`,
+          'Content-Length': fileBuffer.length.toString()
+        }
+      });
+    }
+
     // Find request by token in database
     const collection = await getCollection<DownloadRequest>('downloadRequests');
     const req = await collection.findOne({
-      approvalToken: token,
+      approvalToken: token || undefined,
       status: 'approved'
     });
 
