@@ -179,14 +179,6 @@ export default function FreeResources() {
     { name: "API Development Fundamentals", resourceId: "api-development-fundamentals", files: [{ type: "Tutorial", downloadCount: 1380 }, { type: "Codebase", downloadCount: 1050 }, { type: "Resource", downloadCount: 820 }] },
   ];
 
-  const normalizeCourseSlug = (value: string) =>
-    value
-      .trim()
-      .replace(/\s+/g, " ")
-      .replace(/\s*–\s*/g, "-")
-      .replace(/\s*—\s*/g, "-")
-      .replace(/\s*-\s*/g, "-")
-      .replace(/\//g, "-");
 
   const getResourceKey = (resourceId: string, courseSlug: string) => `${resourceId}/${courseSlug}`;
 
@@ -485,7 +477,7 @@ export default function FreeResources() {
                             <div key={courseIdx} className="bg-white rounded-lg p-4 border-l-2 border-purple-300">
                               <button
                                 type="button"
-                                onClick={() => handleToggleResource(`semester-${semester.semesterNum}`, normalizeCourseSlug(course.name))}
+                                onClick={() => handleToggleResource(`semester-${semester.semesterNum}`, course.name)}
                                 className="w-full text-left"
                               >
                                 <div className="flex items-center justify-between">
@@ -497,15 +489,15 @@ export default function FreeResources() {
                                 </div>
                               </button>
 
-                              {expandedResource === getResourceKey(`semester-${semester.semesterNum}`, normalizeCourseSlug(course.name)) && (
+                              {expandedResource === getResourceKey(`semester-${semester.semesterNum}`, course.name) && (
                                 <div className="mt-3 pt-3 border-t border-gray-100 space-y-2">
-                                  {loadingResource === getResourceKey(`semester-${semester.semesterNum}`, normalizeCourseSlug(course.name)) && (
+                                  {loadingResource === getResourceKey(`semester-${semester.semesterNum}`, course.name) && (
                                     <p className="text-sm text-gray-500">Loading files...</p>
                                   )}
-                                  {(resourceFiles[getResourceKey(`semester-${semester.semesterNum}`, normalizeCourseSlug(course.name))] || []).length === 0 && loadingResource !== getResourceKey(`semester-${semester.semesterNum}`, normalizeCourseSlug(course.name)) && (
+                                  {(resourceFiles[getResourceKey(`semester-${semester.semesterNum}`, course.name)] || []).length === 0 && loadingResource !== getResourceKey(`semester-${semester.semesterNum}`, course.name) && (
                                     <p className="text-sm text-gray-500">No files uploaded yet.</p>
                                   )}
-                                  {(resourceFiles[getResourceKey(`semester-${semester.semesterNum}`, normalizeCourseSlug(course.name))] || []).map((fileName) => (
+                                  {(resourceFiles[getResourceKey(`semester-${semester.semesterNum}`, course.name)] || []).map((fileName) => (
                                     <div
                                       key={fileName}
                                       className="p-3 bg-purple-50 rounded-lg border border-purple-100"
@@ -515,13 +507,13 @@ export default function FreeResources() {
                                       </div>
                                       <div className="flex gap-2">
                                         <button
-                                          onClick={() => handlePreview(`semester-${semester.semesterNum}`, normalizeCourseSlug(course.name), fileName)}
+                                          onClick={() => handlePreview(`semester-${semester.semesterNum}`, course.name, fileName)}
                                           className="flex-1 px-3 py-2 bg-white border border-purple-300 text-purple-700 rounded-lg hover:bg-purple-50 transition-colors text-xs font-semibold"
                                         >
                                           👁️ Preview
                                         </button>
                                         <button
-                                          onClick={() => handleDownload(`semester-${semester.semesterNum}`, normalizeCourseSlug(course.name), fileName)}
+                                          onClick={() => handleDownload(`semester-${semester.semesterNum}`, course.name, fileName)}
                                           className="flex-1 px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-xs font-semibold"
                                         >
                                           📩 Request Download
