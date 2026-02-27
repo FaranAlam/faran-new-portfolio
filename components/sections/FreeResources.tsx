@@ -221,28 +221,28 @@ export default function FreeResources() {
     }
 
     try {
-      const response = await fetch('/api/request-download', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: verifiedEmail,
-          resourceId,
-          courseSlug,
-          fileName
-        })
+      setDownloadStatus("⬇️ Downloading...");
+      
+      const params = new URLSearchParams({
+        resourceId,
+        courseSlug,
+        fileName
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setDownloadStatus("✅ " + data.message);
-        setTimeout(() => setDownloadStatus(""), 5000);
-      } else {
-        setDownloadStatus("❌ " + data.message);
-        setTimeout(() => setDownloadStatus(""), 4000);
-      }
+      
+      const downloadUrl = `/api/approved-download?${params.toString()}`;
+      
+      // Trigger download
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      setDownloadStatus("✅ Download started!");
+      setTimeout(() => setDownloadStatus(""), 3000);
     } catch (error) {
-      setDownloadStatus("❌ Request failed. Please try again.");
+      setDownloadStatus("❌ Download failed. Please try again.");
       setTimeout(() => setDownloadStatus(""), 3000);
     }
   };
@@ -429,7 +429,7 @@ export default function FreeResources() {
                                   onClick={() => handleDownload("developer", topic.resourceId, fileName)}
                                   className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs font-semibold"
                                 >
-                                  📩 Request Download
+                                  ⬇️ Download
                                 </button>
                               </div>
                             </div>
@@ -521,7 +521,7 @@ export default function FreeResources() {
                                           onClick={() => handleDownload(`semester-${semester.semesterNum}`, course.name, fileName)}
                                           className="flex-1 px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-xs font-semibold"
                                         >
-                                          📩 Request Download
+                                          ⬇️ Download
                                         </button>
                                       </div>
                                     </div>
