@@ -132,8 +132,13 @@ export async function GET(request: NextRequest) {
     // List available files in resource folder
     const folderPath = path.join(process.cwd(), 'resources', resourcePath, courseSlug);
     
+    console.log('📁 Listing files from:', folderPath);
+    console.log('Folder exists:', fs.existsSync(folderPath));
+    
     try {
       const files = fs.existsSync(folderPath) ? fs.readdirSync(folderPath) : [];
+      
+      console.log('✅ Files found:', files);
       
       return NextResponse.json(
         {
@@ -145,12 +150,15 @@ export async function GET(request: NextRequest) {
         },
         { status: 200 }
       );
-    } catch {
+    } catch (err) {
+      console.error('❌ Error reading folder:', err);
       return NextResponse.json(
         {
           success: false,
           message: 'Folder not ready. Awaiting file uploads.',
-          resourcePath
+          resourcePath,
+          folderPath,
+          error: (err as Error).message
         },
         { status: 404 }
       );
