@@ -66,10 +66,34 @@ export async function GET(request: NextRequest) {
       }
 
       const fileBuffer = fs.readFileSync(fullPath);
+      
+      // Detect MIME type from file extension
+      let contentType = 'application/octet-stream';
+      const ext = path.extname(fileNameParam!).toLowerCase();
+      const mimeTypes: Record<string, string> = {
+        '.pdf': 'application/pdf',
+        '.doc': 'application/msword',
+        '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        '.ppt': 'application/vnd.ms-powerpoint',
+        '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        '.xls': 'application/vnd.ms-excel',
+        '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        '.txt': 'text/plain',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.png': 'image/png',
+        '.gif': 'image/gif',
+        '.zip': 'application/zip',
+        '.rar': 'application/x-rar-compressed',
+      };
+      
+      if (mimeTypes[ext]) {
+        contentType = mimeTypes[ext];
+      }
 
       return new NextResponse(fileBuffer, {
         headers: {
-          'Content-Type': 'application/octet-stream',
+          'Content-Type': contentType,
           'Content-Disposition': `${isPreview ? 'inline' : 'attachment'}; filename="${fileNameParam}"`,
           'Content-Length': fileBuffer.length.toString()
         }
