@@ -49,7 +49,6 @@ export async function POST(request: NextRequest) {
 
     const fullPath = path.join(
       process.cwd(),
-      'public',
       'resources',
       resourcePath,
       courseSlug,
@@ -57,8 +56,8 @@ export async function POST(request: NextRequest) {
     );
 
     // Validate file exists and is in allowed directory
-    const publicResourcesDir = path.join(process.cwd(), 'public', 'resources');
-    if (!fullPath.startsWith(publicResourcesDir)) {
+    const protectedResourcesDir = path.join(process.cwd(), 'resources');
+    if (!fullPath.startsWith(protectedResourcesDir)) {
       return NextResponse.json(
         { success: false, message: 'Invalid file path' },
         { status: 400 }
@@ -131,7 +130,7 @@ export async function GET(request: NextRequest) {
     }
 
     // List available files in resource folder
-    const folderPath = path.join(process.cwd(), 'public', 'resources', resourcePath, courseSlug);
+    const folderPath = path.join(process.cwd(), 'resources', resourcePath, courseSlug);
     
     try {
       const files = fs.existsSync(folderPath) ? fs.readdirSync(folderPath) : [];
