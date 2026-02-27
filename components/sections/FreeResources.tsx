@@ -231,13 +231,25 @@ export default function FreeResources() {
       
       const downloadUrl = `/api/approved-download?${params.toString()}`;
       
+      // Fetch file as blob for more reliable download
+      const response = await fetch(downloadUrl);
+      if (!response.ok) {
+        throw new Error('Download failed');
+      }
+      
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      
       // Trigger download
       const link = document.createElement('a');
-      link.href = downloadUrl;
+      link.href = blobUrl;
       link.download = fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      
+      // Clean up
+      window.URL.revokeObjectURL(blobUrl);
       
       setDownloadStatus("✅ Download started!");
       setTimeout(() => setDownloadStatus(""), 3000);
@@ -247,7 +259,7 @@ export default function FreeResources() {
     }
   };
 
-  const handlePreview = (resourceId: string, courseSlug: string, fileName: string) => {
+  const handlePreview = async (resourceId: string, courseSlug: string, fileName: string) => {
     // Check if file can be previewed in browser
     const ext = fileName.toLowerCase().split('.').pop();
     const previewableExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'txt'];
@@ -265,13 +277,29 @@ export default function FreeResources() {
       // Open in new tab for preview
       window.open(previewUrl, '_blank');
     } else {
-      // Trigger download for non-previewable files
-      const link = document.createElement('a');
-      link.href = previewUrl;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // Download non-previewable files using blob
+      try {
+        setDownloadStatus("⬇️ Downloading...");
+        const response = await fetch(previewUrl);
+        if (!response.ok) throw new Error('Download failed');
+        
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        window.URL.revokeObjectURL(blobUrl);
+        setDownloadStatus("✅ Download started!");
+        setTimeout(() => setDownloadStatus(""), 3000);
+      } catch (error) {
+        setDownloadStatus("❌ Download failed.");
+        setTimeout(() => setDownloadStatus(""), 3000);
+      }
     }
   };
 
