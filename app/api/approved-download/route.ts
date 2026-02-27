@@ -61,7 +61,6 @@ export async function GET(request: NextRequest) {
 
     const fullPath = path.join(
       process.cwd(),
-      'public',
       'resources',
       resourcePath,
       req.courseSlug,
@@ -69,8 +68,8 @@ export async function GET(request: NextRequest) {
     );
 
     // Security check
-    const publicResourcesDir = path.join(process.cwd(), 'public', 'resources');
-    if (!fullPath.startsWith(publicResourcesDir)) {
+    const resourcesDir = path.join(process.cwd(), 'resources');
+    if (!fullPath.startsWith(resourcesDir)) {
       return NextResponse.json(
         { success: false, message: 'Invalid file path' },
         { status: 400 }
