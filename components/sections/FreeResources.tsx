@@ -264,7 +264,12 @@ export default function FreeResources() {
     setLoadingResource(key);
 
     try {
-      const response = await fetch(`/api/download?email=${verifiedEmail}&resourceId=${resourceId}&courseSlug=${courseSlug}`);
+      const params = new URLSearchParams({
+        email: verifiedEmail,
+        resourceId,
+        courseSlug
+      });
+      const response = await fetch(`/api/download?${params.toString()}`);
       const data = await response.json();
 
       if (response.ok) {
