@@ -219,8 +219,14 @@ export default function CodePreview() {
   const highlightSyntax = (code: string) => {
     const keywords = ['const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'while', 'class', 'interface', 'type', 'async', 'await', 'import', 'export', 'from', 'try', 'catch'];
     const strings = /(['"`])(.*?)\1/g;
+
+    const escapeHtml = (value: string) =>
+      value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
     
-    let highlighted = code;
+    let highlighted = escapeHtml(code);
     
     // Highlight strings
     highlighted = highlighted.replace(strings, '<span class="text-green-400">$&</span>');

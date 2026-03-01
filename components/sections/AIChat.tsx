@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Send, X, Paperclip } from 'lucide-react';
+import { MessageSquare, Send, X } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -17,6 +17,11 @@ interface QuickReply {
   question: string;
   answer: string;
   keywords: string[];
+}
+
+interface ApiChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
 }
 
 const quickReplies: QuickReply[] = [
@@ -97,6 +102,47 @@ export default function AIChat() {
     return "That's a great question! 🤔 For detailed information about this topic, I recommend scheduling a consultation. Could you share your contact details so I can reach out to you?";
   };
 
+  const buildConversationForApi = (nextUserMessage: Message): ApiChatMessage[] => {
+    const history: ApiChatMessage[] = messages
+      .slice(-10)
+      .map((message) => ({
+        role: message.sender === 'user' ? 'user' : 'assistant',
+        content: message.text,
+      }));
+
+    history.push({ role: 'user', content: nextUserMessage.text });
+    return history;
+  };
+
+  const getAiResponse = async (nextUserMessage: Message): Promise<string | null> => {
+    const apiMessages = buildConversationForApi(nextUserMessage);
+
+    try {
+      const response = await fetch('/api/ai-chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ messages: apiMessages }),
+      });
+
+      if (!response.ok) {
+        return null;
+      }
+
+      const data = await response.json();
+      const reply = data?.reply;
+
+      if (!reply || typeof reply !== 'string') {
+        return null;
+      }
+
+      return reply;
+    } catch {
+      return null;
+    }
+  };
+
   const handleSendMessage = async (text?: string) => {
     const messageText = text || userInput.trim();
     if (!messageText) return;
@@ -111,17 +157,18 @@ export default function AIChat() {
     setMessages((prev) => [...prev, userMessage]);
     setUserInput('');
 
-    // Simulate typing
+    // Show typing indicator while getting AI response
     setIsTyping(true);
-    await new Promise((resolve) => setTimeout(resolve, 800 + Math.random() * 800));
 
-    // Add bot response
+    const aiReply = await getAiResponse(userMessage);
+
     const botResponse: Message = {
       id: (Date.now() + 1).toString(),
-      text: findBotResponse(messageText),
+      text: aiReply ?? findBotResponse(messageText),
       sender: 'bot',
       timestamp: new Date(),
     };
+
     setMessages((prev) => [...prev, botResponse]);
     setIsTyping(false);
   };
