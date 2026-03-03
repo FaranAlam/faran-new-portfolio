@@ -48,6 +48,11 @@ export async function POST(req: NextRequest) {
     });
 
     // Send email
+    console.log("[FORGOT-PASSWORD] Creating email transporter...");
+    console.log("[FORGOT-PASSWORD] EMAIL_USER:", process.env.EMAIL_USER);
+    console.log("[FORGOT-PASSWORD] EMAIL_PASSWORD present:", !!process.env.EMAIL_PASSWORD);
+    console.log("[FORGOT-PASSWORD] NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -56,9 +61,22 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    // Verify connection
+    console.log("[FORGOT-PASSWORD] Verifying transporter connection...");
+    try {
+      await transporter.verify();
+      console.log("[FORGOT-PASSWORD] Transporter verified successfully");
+    } catch (verifyError) {
+      console.error("[FORGOT-PASSWORD] Transporter verification failed:", verifyError);
+      throw verifyError;
+    }
+
     const resetUrl = `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/admin/reset-password/${resetToken}`;
 
-    await transporter.sendMail({
+    console.log("[FORGOT-PASSWORD] Sending email to:", email);
+    console.log("[FORGOT-PASSWORD] Reset URL:", resetUrl);
+
+    const mailResult = await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Password Reset - Faran Alam Admin Panel",
@@ -99,14 +117,20 @@ export async function POST(req: NextRequest) {
       `,
     });
 
+    console.log("[FORGOT-PASSWORD] Email sent successfully:", mailResult.messageId);
+
     return NextResponse.json(
       { message: "Reset link has been sent to your email" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Forgot password error:", error);
+    console.error("[FORGOT-PASSWORD] ERROR:", error);
+    if (error instanceof Error) {
+      console.error("[FORGOT-PASSWORD] Error message:", error.message);
+      console.error("[FORGOT-PASSWORD] Error stack:", error.stack);
+    }
     return NextResponse.json(
-      { message: "Failed to process reset request" },
+      { message: "Failed to process reset request", error: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }
