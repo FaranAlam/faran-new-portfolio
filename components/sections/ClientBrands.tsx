@@ -267,16 +267,21 @@ export default function ClientBrands() {
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-10 text-white text-center shadow-2xl">
               <div className="text-6xl mb-4 opacity-50">&ldquo;</div>
               <p className="text-xl md:text-2xl font-medium mb-6 max-w-3xl mx-auto leading-relaxed">
-                Working with talented professionals who deliver quality work on time is rare. 
-                Faran exceeded our expectations in every way!
+                Faran is an exceptionally talented developer. Having worked with us at RSG Pakistan for several months, he has consistently delivered high-quality work and demonstrated a deep understanding of web technologies. His dedication to the ISCB-SC RSG Pakistan team is truly commendable.
               </p>
               <div className="flex items-center justify-center gap-3">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl">
-                  <UserIcon />
+                <div className="w-12 h-12 bg-white rounded-full overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/images/testimonials/rsg pakistan.jpg"
+                    alt="RSG Pakistan Logo"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
                 </div>
                 <div className="text-left">
-                  <div className="font-bold">Client Name</div>
-                  <div className="text-blue-200 text-sm">CEO, Tech Company</div>
+                  <div className="font-bold">Javaria Bahadur</div>
+                  <div className="text-blue-200 text-sm">President of RSG Pakistan</div>
                 </div>
               </div>
             </div>

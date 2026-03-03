@@ -4,6 +4,7 @@ import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 // SVG Icons for Academy Section
 const DurationIcon = () => (
@@ -104,7 +105,7 @@ export default function Academy() {
       name: "Faran Alam",
       title: "Full Stack Developer & HOD",
       bio: "Experienced web developer with expertise in modern web technologies. Dedicated to teaching and mentoring the next generation of web designers.",
-      image: InstructorIcon
+      image: "/images/accademy/instructor.jpg"
     },
     curriculum: [
       { week: 1, title: "Introduction to Web & Internet Basics" },
@@ -140,6 +141,18 @@ export default function Academy() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
+            {/* Academy Logo */}
+            <div className="flex justify-center mb-6">
+              <div className="w-48 h-48 rounded-full overflow-hidden bg-white shadow-lg p-4 flex items-center justify-center">
+                <Image
+                  src="/images/accademy/faran digital accademy logo.png"
+                  alt="Faran Digital Academy Logo"
+                  width={160}
+                  height={160}
+                  className="object-contain"
+                />
+              </div>
+            </div>
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Faran Digital Academy</h2>
             <div className="w-20 h-1 bg-purple-600 mx-auto mb-4"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -235,8 +248,14 @@ export default function Academy() {
                 <div className="border-t border-gray-200 pt-6">
                   <h4 className="font-semibold text-gray-900 mb-4">Your Instructor</h4>
                   <div className="flex items-start gap-4">
-                    <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-3xl flex-shrink-0">
-                      <course.instructor.image />
+                    <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                      <Image
+                        src={course.instructor.image}
+                        alt={course.instructor.name}
+                        width={64}
+                        height={64}
+                        className="object-cover w-full h-full"
+                      />
                     </div>
                     <div>
                       <div className="font-bold text-gray-900">{course.instructor.name}</div>

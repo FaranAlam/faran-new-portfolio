@@ -6,10 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-password": "node scripts/generate-password.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dompurify": "^3.3.1",
     "framer-motion": "^12.34.3",
+    "isomorphic-dompurify": "^3.0.0",
     "lucide-react": "^0.575.0",
     "mongodb": "^7.1.0",
     "next": "^15.1.6",
@@ -19,6 +23,8 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/dompurify": "^3.0.5",
     "@types/node": "^22",
     "@types/nodemailer": "^7.0.11",
     "@types/react": "^18",

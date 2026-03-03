@@ -2,29 +2,45 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase } from '@/lib/mongodb';
 import { sendContactNotification } from '@/lib/email';
 import { ObjectId } from 'mongodb';
+import { rateLimit, getClientIp, RateLimits } from '@/lib/rate-limit';
+import { sanitizeContactForm } from '@/lib/sanitization';
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting check
+    const clientIp = getClientIp(request);
+    const rateLimitResult = rateLimit(clientIp, RateLimits.CONTACT);
+
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { 
+          error: 'Too many requests. Please try again later.',
+          resetTime: new Date(rateLimitResult.reset).toISOString()
+        },
+        { 
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': rateLimitResult.limit.toString(),
+            'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+            'X-RateLimit-Reset': rateLimitResult.reset.toString(),
+          }
+        }
+      );
+    }
+
     const body = await request.json();
     
-    // Validate required fields
-    const { name, email, message } = body;
+    // Sanitize and validate input
+    const sanitizedData = sanitizeContactForm(body);
     
-    if (!name || !email || !message) {
+    if (!sanitizedData) {
       return NextResponse.json(
-        { error: 'All fields are required' },
+        { error: 'Invalid input data. Please check all fields.' },
         { status: 400 }
       );
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      );
-    }
+    const { name, email, message, phone, subject } = sanitizedData;
 
     // Connect to database
     const db = await getDatabase();
@@ -34,8 +50,8 @@ export async function POST(request: NextRequest) {
       name,
       email,
       message,
-      phone: body.phone || null,
-      subject: body.subject || null,
+      phone: phone || null,
+      subject: subject || null,
       createdAt: new Date(),
       read: false,
       replied: false,
@@ -46,8 +62,8 @@ export async function POST(request: NextRequest) {
       name,
       email,
       message,
-      subject: body.subject || 'No Subject',
-      phone: body.phone,
+      subject: subject || 'No Subject',
+      phone: phone || undefined,
     }).catch(err => console.error('Email notification failed:', err));
 
     return NextResponse.json({

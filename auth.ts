@@ -3,14 +3,20 @@ import Credentials from "next-auth/providers/credentials";
 import type { JWT } from "next-auth/jwt";
 import type { Session } from "next-auth";
 import type { User } from "next-auth";
+import { verifyPassword } from "./lib/password";
 
 /**
  * Admin Authentication Configuration
  * Using Credentials provider for email/password authentication
+ * IMPORTANT: Set ADMIN_EMAIL and ADMIN_PASSWORD_HASH in .env.local
  */
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "faran.bsce40@iiu.edu.pk";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin@123secure";
+const getAdminCredentials = () => {
+  return {
+    email: process.env.ADMIN_EMAIL,
+    passwordHash: process.env.ADMIN_PASSWORD_HASH,
+  };
+};
 
 // Extend the User type to include role
 declare module "next-auth" {
@@ -50,24 +56,40 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         },
       },
       async authorize(credentials) {
+        const { email: adminEmail, passwordHash: adminPasswordHash } = getAdminCredentials();
+
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid email or password");
         }
 
-        // Check if credentials match admin
-        if (
-          credentials.email === ADMIN_EMAIL &&
-          credentials.password === ADMIN_PASSWORD
-        ) {
-          return {
-            id: "1",
-            email: ADMIN_EMAIL,
-            name: "Admin",
-            role: "admin",
-          } as User;
+        // Check if credentials are configured
+        if (!adminEmail || !adminPasswordHash) {
+          throw new Error("Admin credentials not configured");
         }
 
-        throw new Error("Invalid email or password");
+        // Check if email matches
+        if (credentials.email !== adminEmail) {
+          // Add small delay to prevent timing attacks
+          await new Promise(resolve => setTimeout(resolve, 100));
+          throw new Error("Invalid email or password");
+        }
+
+        // Verify password using bcrypt
+        const isValidPassword = await verifyPassword(
+          credentials.password as string,
+          adminPasswordHash
+        );
+
+        if (!isValidPassword) {
+          throw new Error("Invalid email or password");
+        }
+
+        return {
+          id: "1",
+          email: adminEmail,
+          name: "Admin",
+          role: "admin",
+        } as User;
       },
     }),
   ],
@@ -97,7 +119,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     async signIn({ user }: { user?: User }) {
       // Allow only admin email
-      if (user?.email === ADMIN_EMAIL) {
+      if (user?.email === process.env.ADMIN_EMAIL) {
         return true;
       }
       return false;
@@ -106,7 +128,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 7 * 24 * 60 * 60, // 7 days (reduced from 30 for security)
     updateAge: 24 * 60 * 60, // 24 hours
   },
 

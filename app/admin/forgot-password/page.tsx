@@ -1,40 +1,40 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import FadeIn from "@/components/animations/FadeIn";
 import { motion } from "framer-motion";
 
-export default function AdminLoginPage() {
-  const router = useRouter();
+export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("faran.bsce40@iiu.edu.pk");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
 
     try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
+      const response = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
       });
 
-      if (result?.error) {
-        setError(result.error || "Invalid email or password");
-      } else if (result?.ok) {
-        router.push("/admin/dashboard");
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Failed to send reset email");
+      } else {
+        setSuccess("Check your email for password reset instructions");
+        setEmail("");
       }
     } catch (err) {
-      setError("Login failed. Please try again.");
-      console.error("Login error:", err);
+      setError("An error occurred. Please try again.");
+      console.error("Forgot password error:", err);
     } finally {
       setLoading(false);
     }
@@ -53,7 +53,7 @@ export default function AdminLoginPage() {
           transition={{ duration: 0.6 }}
           className="w-full max-w-md relative z-10"
         >
-          {/* Logo/Header */}
+          {/* Header */}
           <div className="text-center mb-10">
             <motion.div
               initial={{ scale: 0 }}
@@ -62,16 +62,16 @@ export default function AdminLoginPage() {
               className="inline-block mb-4"
             >
               <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                 </svg>
               </div>
             </motion.div>
-            <h1 className="text-4xl font-bold text-white mb-2">Admin Panel</h1>
-            <p className="text-gray-400">Secure access to your portfolio dashboard</p>
+            <h1 className="text-4xl font-bold text-white mb-2">Reset Password</h1>
+            <p className="text-gray-400">Enter your email to receive a reset link</p>
           </div>
 
-          {/* Login Card */}
+          {/* Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -94,6 +94,22 @@ export default function AdminLoginPage() {
               </motion.div>
             )}
 
+            {/* Success Message */}
+            {success && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg"
+              >
+                <p className="text-green-400 text-sm flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                  </svg>
+                  {success}
+                </p>
+              </motion.div>
+            )}
+
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Email Input */}
@@ -109,49 +125,9 @@ export default function AdminLoginPage() {
                   required
                   className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
                 />
-              </div>
-
-              {/* Password Input */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Password
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    required
-                    className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300"
-                  >
-                    {showPassword ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    ) : (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-4.803m5.596-3.856a3.375 3.375 0 11-4.753 4.753m4.753-4.753L3.596 3.039M9.856 17.6l13.6-13.6" />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Forgot Password Link */}
-              <div className="flex justify-end">
-                <Link
-                  href="/admin/forgot-password"
-                  className="text-sm text-blue-400 hover:text-blue-300 transition"
-                >
-                  Forgot password?
-                </Link>
+                <p className="text-xs text-gray-400 mt-2">
+                  We&apos;ll send you a link to reset your password
+                </p>
               </div>
 
               {/* Submit Button */}
@@ -165,28 +141,35 @@ export default function AdminLoginPage() {
                     <svg className="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m0 0l-2-1m2 1v2.5M14 4l-2 1m0 0L10 4m2 1V2.5M14 4v2.5M4 7l2 1m0 0l2-1m-2 1v2.5" />
                     </svg>
-                    Logging in...
+                    Sending...
                   </>
                 ) : (
-                  <>Login to Dashboard</>
+                  <>Send Reset Link</>
                 )}
               </button>
             </form>
+
+            {/* Back to Login */}
+            <div className="mt-6 pt-6 border-t border-slate-700 text-center">
+              <p className="text-gray-400 text-sm mb-3">Remember your password?</p>
+              <Link
+                href="/admin/login"
+                className="inline-block px-6 py-2 border border-slate-600 text-gray-300 rounded-lg hover:bg-slate-700/50 transition"
+              >
+                Back to Login
+              </Link>
+            </div>
           </motion.div>
 
-          {/* Demo Info */}
+          {/* Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-6 p-4 bg-slate-800/30 border border-slate-700 rounded-lg"
+            className="mt-6 p-4 bg-slate-800/30 border border-slate-700 rounded-lg text-center"
           >
-            <p className="text-xs text-gray-400 mb-2">Demo Credentials:</p>
-            <p className="text-sm text-gray-300">
-              <span className="font-semibold">Email:</span> faran.bsce40@iiu.edu.pk
-            </p>
-            <p className="text-sm text-gray-300">
-              <span className="font-semibold">Password:</span> ********
+            <p className="text-xs text-gray-400">
+              Reset link will expire in 24 hours
             </p>
           </motion.div>
         </motion.div>

@@ -19,14 +19,24 @@ export default function ConditionalLayout({ children }: { children: React.ReactN
   
   // Check if current route is admin
   const isAdminRoute = pathname?.startsWith('/admin');
+  
+  // Pages that should NOT have the admin sidebar
+  const isAuthPage = pathname === '/admin/login' || 
+                     pathname === '/admin/forgot-password' || 
+                     pathname?.startsWith('/admin/reset-password');
 
-  // If admin route, render with admin layout (sidebar + content)
-  if (isAdminRoute) {
+  // If admin route but NOT auth page, render with admin layout (sidebar + content)
+  if (isAdminRoute && !isAuthPage) {
     return (
       <AdminWrapper>
         {children}
       </AdminWrapper>
     );
+  }
+  
+  // If auth page, render without any layout wrapper
+  if (isAuthPage) {
+    return <>{children}</>;
   }
 
   // Otherwise, render full portfolio layout

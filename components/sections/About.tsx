@@ -23,7 +23,7 @@ export default function About() {
               <div className="relative">
                 <div className="aspect-square bg-gradient-to-br from-blue-100 to-indigo-200 rounded-2xl flex items-center justify-center overflow-hidden">
                   <Image
-                    src="/images/hero/story2.jpg"
+                    src="/images/hero/story.jpg"
                     alt="Faran Alam"
                     width={520}
                     height={520}

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase } from '@/lib/mongodb';
 import { sendNewsletterNotification, sendWelcomeEmail } from '@/lib/email';
+import { rateLimit, getClientIp, RateLimits } from '@/lib/rate-limit';
+import { sanitizeEmail } from '@/lib/sanitization';
 
 /**
  * Newsletter Subscription API
@@ -10,22 +12,36 @@ import { sendNewsletterNotification, sendWelcomeEmail } from '@/lib/email';
 // POST /api/newsletter - Subscribe to newsletter
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { email, source } = body;
+    // Rate limiting check
+    const clientIp = getClientIp(request);
+    const rateLimitResult = rateLimit(clientIp, RateLimits.NEWSLETTER);
 
-    // 1. Validation: Email required
-    if (!email) {
+    if (!rateLimitResult.success) {
       return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 }
+        { 
+          error: 'Too many subscription attempts. Please try again later.',
+          resetTime: new Date(rateLimitResult.reset).toISOString()
+        },
+        { 
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': rateLimitResult.limit.toString(),
+            'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+            'X-RateLimit-Reset': rateLimitResult.reset.toString(),
+          }
+        }
       );
     }
 
-    // 2. Validation: Email format check
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    const body = await request.json();
+    const { source } = body;
+
+    // Sanitize and validate email
+    const email = sanitizeEmail(body.email);
+
+    if (!email) {
       return NextResponse.json(
-        { error: 'Invalid email format' },
+        { error: 'Invalid email address' },
         { status: 400 }
       );
     }
@@ -36,7 +52,7 @@ export async function POST(request: NextRequest) {
 
     // 4. Check if email already subscribed
     const existingSubscriber = await collection.findOne({ 
-      email: email.toLowerCase() 
+      email: email 
     });
 
     if (existingSubscriber) {

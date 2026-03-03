@@ -91,7 +91,7 @@ export default function Hero() {
             <div className="animate-hero-float">
               <div className="relative w-64 h-64 md:w-96 md:h-96 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl transform-gpu">
                 <Image
-                  src="/images/hero/story2.jpg"
+                  src="/images/hero/story.jpg"
                   alt="Faran Alam - Full Stack Developer"
                   fill
                   className="object-cover"
