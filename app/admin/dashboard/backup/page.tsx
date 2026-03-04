@@ -315,7 +315,7 @@ export default function BackupPage() {
           </li>
           <li className="flex items-start gap-2">
             <MdWarning className="text-yellow-600 dark:text-yellow-400 mt-1 flex-shrink-0" />
-            <span>Restoring will add documents - it doesn't delete existing data</span>
+            <span>Restoring will add documents - it doesn&apos;t delete existing data</span>
           </li>
         </ul>
       </div>
