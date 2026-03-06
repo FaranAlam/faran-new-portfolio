@@ -159,7 +159,7 @@ export default function BlogManagementPage() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Blog Management</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Blog Management</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">Create and manage blog posts</p>
         </div>
         <button

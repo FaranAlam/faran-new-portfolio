@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import FadeIn from "@/components/animations/FadeIn";
 import { motion } from "framer-motion";
 
@@ -53,20 +54,20 @@ export default function ForgotPasswordPage() {
           transition={{ duration: 0.6 }}
           className="w-full max-w-md relative z-10"
         >
+          <div className="flex justify-center mb-5">
+            <Image
+              src="/images/logos/logo1.jpg"
+              alt="Faran Portfolio Logo"
+              width={120}
+              height={120}
+              sizes="(max-width: 640px) 88px, 112px"
+              className="w-[88px] h-[88px] sm:w-[112px] sm:h-[112px] rounded-2xl shadow-xl border border-slate-700"
+              priority
+            />
+          </div>
+
           {/* Header */}
-          <div className="text-center mb-10">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-block mb-4"
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                </svg>
-              </div>
-            </motion.div>
+          <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-white mb-2">Reset Password</h1>
             <p className="text-gray-400">Enter your email to receive a reset link</p>
           </div>

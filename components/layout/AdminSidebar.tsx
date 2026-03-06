@@ -2,11 +2,12 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
 import { 
   MdDashboard, MdMessage, MdNewspaper, MdDownload, 
   MdArticle, MdWork, MdEmail, MdAnalytics, 
   MdHistory, MdSettings, MdBackup, MdLogout,
-  MdExpandMore, MdChevronRight
+  MdExpandMore, MdChevronRight, MdClose
 } from "react-icons/md";
 import { IconType } from "react-icons";
 
@@ -140,38 +141,56 @@ const menuCategories: MenuCategory[] = [
   }
 ];
 
-export default function AdminSidebar() {
+interface AdminSidebarProps {
+  isMobileOpen: boolean;
+  onMobileClose: () => void;
+}
+
+export default function AdminSidebar({ isMobileOpen, onMobileClose }: AdminSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [openCategories, setOpenCategories] = useState<string[]>([
-    "Dashboard", "Content", "Communications", "Analytics", "Settings"
-  ]);
+  const [openCategory, setOpenCategory] = useState<string>("Dashboard");
 
   const toggleCategory = (title: string) => {
-    setOpenCategories(prev =>
-      prev.includes(title)
-        ? prev.filter(t => t !== title)
-        : [...prev, title]
-    );
+    setOpenCategory(prev => (prev === title ? "" : title));
   };
 
   return (
     <div
       className={`${
-        isCollapsed ? 'w-20' : 'w-64'
-      } bg-gradient-to-b from-blue-600 to-blue-700 text-white transition-all duration-300 fixed left-0 top-0 h-screen shadow-lg overflow-y-auto`}
+        isCollapsed ? 'md:w-20' : 'md:w-64'
+      } w-72 bg-gradient-to-b from-blue-600 to-blue-700 text-white transition-all duration-300 fixed left-0 top-0 h-screen shadow-lg flex flex-col z-50 transform ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}
     >
       {/* Logo/Header */}
       <div className="p-4 border-b border-blue-500">
-        <div className="flex items-center justify-between">
-          <div className={`${isCollapsed ? 'hidden' : 'block'}`}>
-            <h1 className="text-xl font-bold">Admin Panel</h1>
-            <p className="text-xs text-blue-200">Control Center</p>
-          </div>
+        <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
+          {!isCollapsed && (
+            <div className="flex items-center gap-3">
+              <Image
+                src="/images/logos/logo1.jpg"
+                alt="Faran Portfolio Logo"
+                width={44}
+                height={44}
+                className="w-11 h-11 rounded-xl shadow-lg border border-blue-400/40"
+                priority
+              />
+              <div>
+                <h1 className="text-xl font-bold">Admin Panel</h1>
+                <p className="text-xs text-blue-200">Control Center</p>
+              </div>
+            </div>
+          )}
+          <button
+            onClick={onMobileClose}
+            className="p-2 hover:bg-blue-500 rounded-lg transition md:hidden"
+            title="Close"
+          >
+            <MdClose className="text-xl" />
+          </button>
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 hover:bg-blue-500 rounded-lg transition"
+            className="hidden md:inline-flex p-2 hover:bg-blue-500 rounded-lg transition"
             title={isCollapsed ? 'Expand' : 'Collapse'}
           >
             {isCollapsed ? '→' : '←'}
@@ -180,7 +199,7 @@ export default function AdminSidebar() {
       </div>
 
       {/* Menu Categories */}
-      <nav className="mt-4 px-2 space-y-1">
+      <nav className="mt-4 px-2 space-y-1 flex-1 overflow-y-auto">
         {menuCategories.map((category) => {
           const CategoryIcon = category.icon;
           return (
@@ -198,7 +217,7 @@ export default function AdminSidebar() {
                     </span>
                   </div>
                   <span className="text-xs">
-                    {openCategories.includes(category.title) ? 
+                    {openCategory === category.title ? 
                       <MdExpandMore className="text-lg" /> : 
                       <MdChevronRight className="text-lg" />
                     }
@@ -207,7 +226,7 @@ export default function AdminSidebar() {
               ) : null}
 
               {/* Category Items */}
-              {(isCollapsed || openCategories.includes(category.title) || category.items.length === 1) && (
+              {(isCollapsed || openCategory === category.title || category.items.length === 1) && (
                 <div className={`${!isCollapsed && category.items.length > 1 ? 'ml-2' : ''}`}>
                   {category.items.map((item) => {
                     const isActive = pathname === item.path;
@@ -215,7 +234,10 @@ export default function AdminSidebar() {
                     return (
                       <button
                         key={item.path}
-                        onClick={() => router.push(item.path)}
+                        onClick={() => {
+                          router.push(item.path);
+                          onMobileClose();
+                        }}
                         className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all mb-1 ${
                           isActive
                             ? 'bg-white/10 text-white shadow-lg border border-white/20'
@@ -241,11 +263,12 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Footer */}
-      <div className={`absolute bottom-0 left-0 right-0 border-t border-blue-500 p-4 bg-gradient-to-t from-blue-800 to-transparent ${isCollapsed ? 'text-center' : ''}`}>
+      <div className={`border-t border-blue-500 p-4 bg-gradient-to-t from-blue-800 to-transparent ${isCollapsed ? 'text-center' : ''}`}>
         <button
           onClick={() => {
             // Logout logic
             router.push('/');
+            onMobileClose();
           }}
           className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all shadow-lg hover:shadow-xl"
         >

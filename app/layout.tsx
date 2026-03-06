@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SessionProvider } from "next-auth/react";
+import SessionProviderWrapper from "@/components/providers/SessionProviderWrapper";
 import ConditionalLayout from "@/components/layout/ConditionalLayout";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 
@@ -70,9 +70,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased transition-colors duration-300" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SessionProvider>
+          <SessionProviderWrapper>
             <ConditionalLayout>{children}</ConditionalLayout>
-          </SessionProvider>
+          </SessionProviderWrapper>
         </ThemeProvider>
       </body>
     </html>

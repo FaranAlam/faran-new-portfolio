@@ -12,9 +12,16 @@ import { verifyPassword } from "./lib/password";
  */
 
 const getAdminCredentials = () => {
+  const email = process.env.ADMIN_EMAIL;
+  const hash = process.env.ADMIN_PASSWORD_HASH;
+  
+  console.log('🔐 Loading credentials...');
+  console.log('   Email configured:', !!email);
+  console.log('   Password hash configured:', !!hash);
+  
   return {
-    email: process.env.ADMIN_EMAIL,
-    passwordHash: process.env.ADMIN_PASSWORD_HASH,
+    email,
+    passwordHash: hash,
   };
 };
 
@@ -64,7 +71,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         // Check if credentials are configured
         if (!adminEmail || !adminPasswordHash) {
-          throw new Error("Admin credentials not configured");
+          console.error("ADMIN_EMAIL or ADMIN_PASSWORD_HASH not configured");
+          throw new Error("Configuration error");
         }
 
         // Check if email matches
@@ -128,10 +136,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   session: {
     strategy: "jwt",
-    maxAge: 7 * 24 * 60 * 60, // 7 days (reduced from 30 for security)
+    maxAge: 7 * 24 * 60 * 60, // 7 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
 
   secret: process.env.NEXTAUTH_SECRET,
   trustHost: true,
+  debug: process.env.NODE_ENV === "development",
 });

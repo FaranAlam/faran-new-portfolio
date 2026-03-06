@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import FadeIn from "@/components/animations/FadeIn";
 import { motion } from "framer-motion";
 
@@ -27,14 +28,25 @@ export default function AdminLoginPage() {
         redirect: false,
       });
 
+      console.log("Login result:", result);
+
       if (result?.error) {
-        setError(result.error || "Invalid email or password");
+        // Handle error - check if it's a valid error message
+        const errorMessage = result.error;
+        if (errorMessage && errorMessage !== "undefined" && errorMessage.trim() !== "") {
+          setError(errorMessage);
+        } else {
+          setError("Invalid email or password");
+        }
       } else if (result?.ok) {
-        router.push("/admin/dashboard");
+        router.push("/admin/dashboard/home");
+        router.refresh();
+      } else {
+        setError("Login failed. Please try again.");
       }
     } catch (err) {
-      setError("Login failed. Please try again.");
       console.error("Login error:", err);
+      setError("An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -53,20 +65,20 @@ export default function AdminLoginPage() {
           transition={{ duration: 0.6 }}
           className="w-full max-w-md relative z-10"
         >
+          <div className="flex justify-center mb-5">
+            <Image
+              src="/images/logos/logo1.jpg"
+              alt="Faran Portfolio Logo"
+              width={120}
+              height={120}
+              sizes="(max-width: 640px) 88px, 112px"
+              className="w-[88px] h-[88px] sm:w-[112px] sm:h-[112px] rounded-2xl shadow-xl border border-slate-700"
+              priority
+            />
+          </div>
+
           {/* Logo/Header */}
-          <div className="text-center mb-10">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-block mb-4"
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-                </svg>
-              </div>
-            </motion.div>
+          <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-white mb-2">Admin Panel</h1>
             <p className="text-gray-400">Secure access to your portfolio dashboard</p>
           </div>
@@ -174,21 +186,6 @@ export default function AdminLoginPage() {
             </form>
           </motion.div>
 
-          {/* Demo Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-6 p-4 bg-slate-800/30 border border-slate-700 rounded-lg"
-          >
-            <p className="text-xs text-gray-400 mb-2">Demo Credentials:</p>
-            <p className="text-sm text-gray-300">
-              <span className="font-semibold">Email:</span> faran.bsce40@iiu.edu.pk
-            </p>
-            <p className="text-sm text-gray-300">
-              <span className="font-semibold">Password:</span> ********
-            </p>
-          </motion.div>
         </motion.div>
       </FadeIn>
     </div>
