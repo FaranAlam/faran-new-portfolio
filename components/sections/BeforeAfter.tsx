@@ -191,17 +191,17 @@ export default function BeforeAfter() {
   const currentComparison = comparisons[activeTab];
 
   return (
-    <section id="before-after" className="py-20 bg-white">
+    <section id="before-after" className="py-20 bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 Before & After Transformations
               </h2>
               <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 See the dramatic improvements my clients experienced after website redesigns
               </p>
             </div>
@@ -217,7 +217,7 @@ export default function BeforeAfter() {
                   className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
                     activeTab === index
                       ? 'bg-blue-600 text-white shadow-lg scale-105'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-gray-100 dark:bg-gray-800 dark:text-gray-300 text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700'
                   }`}
                 >
                   {comparison.client}
@@ -228,22 +228,22 @@ export default function BeforeAfter() {
 
           {/* Comparison Content */}
           <FadeIn key={activeTab} delay={0.1}>
-            <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-8 mb-12">
-              <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800/80 dark:to-blue-900/50 rounded-2xl p-8 mb-12">
+              <h3 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
                 {currentComparison.title}
               </h3>
 
               {/* Before & After Grid */}
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 {/* BEFORE */}
-                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-red-200">
+                <div className="bg-white dark:bg-gray-800/80 rounded-xl p-6 shadow-lg border-2 border-red-200 dark:border-red-500/40">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="flex-shrink-0">
                       <currentComparison.before.icon />
                     </div>
                     <div>
                       <h4 className="text-2xl font-bold text-red-600">BEFORE</h4>
-                      <p className="text-gray-600 text-sm">The Problems</p>
+                      <p className="text-gray-600 dark:text-gray-300 text-sm">The Problems</p>
                     </div>
                   </div>
 
@@ -252,17 +252,17 @@ export default function BeforeAfter() {
                     {currentComparison.before.issues.map((issue, idx) => (
                       <div key={idx} className="flex items-start gap-2">
                         <XIcon />
-                        <span className="text-gray-700">{issue}</span>
+                        <span className="text-gray-700 dark:text-gray-300">{issue}</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Metrics */}
                   <div className="border-t pt-4 space-y-2">
-                    <h5 className="font-bold text-gray-900 mb-3">Metrics:</h5>
+                    <h5 className="font-bold text-gray-900 dark:text-white mb-3">Metrics:</h5>
                     {Object.entries(currentComparison.before.metrics).map(([key, value]) => (
                       <div key={key} className="flex justify-between text-sm">
-                        <span className="text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1')}:</span>
+                        <span className="text-gray-600 dark:text-gray-300 capitalize">{key.replace(/([A-Z])/g, ' $1')}:</span>
                         <span className="font-semibold text-red-600">{value}</span>
                       </div>
                     ))}
@@ -270,14 +270,14 @@ export default function BeforeAfter() {
                 </div>
 
                 {/* AFTER */}
-                <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-green-200">
+                <div className="bg-white dark:bg-gray-800/80 rounded-xl p-6 shadow-lg border-2 border-green-200 dark:border-green-500/40">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="flex-shrink-0">
                       <currentComparison.after.icon />
                     </div>
                     <div>
                       <h4 className="text-2xl font-bold text-green-600">AFTER</h4>
-                      <p className="text-gray-600 text-sm">The Solutions</p>
+                      <p className="text-gray-600 dark:text-gray-300 text-sm">The Solutions</p>
                     </div>
                   </div>
 
@@ -286,17 +286,17 @@ export default function BeforeAfter() {
                     {currentComparison.after.improvements.map((improvement, idx) => (
                       <div key={idx} className="flex items-start gap-2">
                         <CheckIcon />
-                        <span className="text-gray-700">{improvement}</span>
+                        <span className="text-gray-700 dark:text-gray-300">{improvement}</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Metrics */}
                   <div className="border-t pt-4 space-y-2">
-                    <h5 className="font-bold text-gray-900 mb-3">Metrics:</h5>
+                    <h5 className="font-bold text-gray-900 dark:text-white mb-3">Metrics:</h5>
                     {Object.entries(currentComparison.after.metrics).map(([key, value]) => (
                       <div key={key} className="flex justify-between text-sm">
-                        <span className="text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1')}:</span>
+                        <span className="text-gray-600 dark:text-gray-300 capitalize">{key.replace(/([A-Z])/g, ' $1')}:</span>
                         <span className="font-semibold text-green-600">{value}</span>
                       </div>
                     ))}
@@ -307,11 +307,11 @@ export default function BeforeAfter() {
               {/* Results Cards */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {currentComparison.results.map((result, idx) => (
-                  <div key={idx} className="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-shadow">
+                  <div key={idx} className="bg-white dark:bg-gray-800/80 rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-shadow">
                     <div className="text-3xl font-bold text-green-600 mb-2">
                       {result.increase}
                     </div>
-                    <div className="text-sm text-gray-600">{result.label}</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300">{result.label}</div>
                   </div>
                 ))}
               </div>
@@ -330,7 +330,7 @@ export default function BeforeAfter() {
               <div className="flex flex-wrap gap-4 justify-center">
                 <a
                   href="#book-consultation"
-                  className="px-8 py-3 bg-white text-blue-600 rounded-lg hover:scale-105 transition-all duration-300 font-bold shadow-lg"
+                  className="px-8 py-3 bg-white dark:bg-gray-100 text-blue-600 rounded-lg hover:scale-105 transition-all duration-300 font-bold shadow-lg"
                 >
                   Get Free Website Audit
                 </a>

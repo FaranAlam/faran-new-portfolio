@@ -112,15 +112,15 @@ export default function WhyChooseMe() {
   ];
 
   return (
-    <section id="why-choose-me" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section id="why-choose-me" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Me?</h2>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Why Choose Me?</h2>
               <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 What sets me apart and makes me the right choice for your next project
               </p>
             </div>
@@ -130,19 +130,19 @@ export default function WhyChooseMe() {
           <StaggerContainer staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((benefit, index) => (
               <StaggerItem key={index}>
-                <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-2xl transition-all duration-300 hover:scale-105 h-full group">
+                <div className="bg-white dark:bg-gray-800/70 rounded-xl p-6 shadow-sm hover:shadow-2xl dark:hover:shadow-blue-900/40 transition-all duration-300 hover:scale-105 h-full group">
                   {/* Icon with Gradient Background */}
                   <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${benefit.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                     <benefit.icon />
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                     {benefit.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
                     {benefit.description}
                   </p>
                 </div>
@@ -152,11 +152,11 @@ export default function WhyChooseMe() {
 
           {/* Bottom CTA */}
           <FadeIn delay={0.5}>
-            <div className="mt-16 text-center bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            <div className="mt-16 text-center bg-white dark:bg-gray-800/70 rounded-2xl p-8 shadow-lg dark:shadow-blue-900/40">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 Ready to Work Together?
               </h3>
-              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
                 Let&apos;s discuss your project and see how I can help you achieve your goals. Free consultation available!
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

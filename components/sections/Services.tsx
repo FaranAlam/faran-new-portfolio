@@ -95,15 +95,15 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-20 bg-gray-50">
+    <section id="services" className="py-20 bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Services</h2>
-              <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Services</h2>
+              <div className="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-4"></div>
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Offering a wide range of services to help bring your ideas to life and grow your business.
               </p>
             </div>
@@ -113,7 +113,7 @@ export default function Services() {
           <StaggerContainer staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <StaggerItem key={index}>
-                <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:scale-105 hover:border-blue-200 h-full">
+                <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm hover:shadow-xl dark:hover:shadow-gray-950/50 transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:scale-105 hover:border-blue-200 dark:hover:border-blue-500 h-full">
 
                 {/* Icon */}
                 <div className="mb-4">
@@ -121,21 +121,21 @@ export default function Services() {
                 </div>
                 
                 {/* Title */}
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                   {service.title}
                 </h3>
                 
                 {/* Description */}
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
                   {service.description}
                 </p>
                 
                 {/* Features */}
                 <ul className="space-y-2">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-gray-600">
+                    <li key={idx} className="flex items-center text-sm text-gray-600 dark:text-gray-300">
                       <svg
-                        className="w-4 h-4 text-blue-600 mr-2"
+                        className="w-4 h-4 text-blue-600 dark:text-blue-400 mr-2"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -152,9 +152,9 @@ export default function Services() {
                 
                 {/* Pricing */}
                 {service.price && (
-                  <div className="mt-4 pt-4 border-t border-gray-100">
-                    <div className="text-2xl font-bold text-blue-600">{service.price}</div>
-                    <div className="text-xs text-gray-500">Starting from</div>
+                  <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                    <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{service.price}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">Starting from</div>
                   </div>
                 )}
                 </div>
@@ -165,12 +165,12 @@ export default function Services() {
           {/* CTA */}
           <FadeIn delay={0.3}>
             <div className="text-center mt-12">
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Interested in working together?
               </p>
               <a
                 href="#contact"
-                className="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-medium hover:scale-105 hover:shadow-lg"
+                className="inline-block px-8 py-3 bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-all duration-300 font-medium hover:scale-105 hover:shadow-lg"
               >
                 Get a Quote
               </a>

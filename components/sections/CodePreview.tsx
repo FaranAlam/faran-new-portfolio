@@ -228,20 +228,20 @@ export default function CodePreview() {
     
     let highlighted = escapeHtml(code);
     
-    // Highlight strings
-    highlighted = highlighted.replace(strings, '<span class="text-green-400">$&</span>');
+    // Highlight strings - use CSS var for light/dark theming
+    highlighted = highlighted.replace(strings, '<span style="color: var(--code-string)">$&</span>');
     
-    // Highlight keywords
+    // Highlight keywords - use CSS var for light/dark theming
     keywords.forEach(keyword => {
       const regex = new RegExp(`\\b${keyword}\\b`, 'g');
-      highlighted = highlighted.replace(regex, `<span class="text-purple-400 font-semibold">${keyword}</span>`);
+      highlighted = highlighted.replace(regex, `<span style="color: var(--code-keyword); font-weight: 600">${keyword}</span>`);
     });
     
     return highlighted;
   };
 
   return (
-    <section id="code-preview" className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-black dark:via-gray-950 dark:to-black relative overflow-hidden">
+    <section id="code-preview" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:via-blue-900 dark:to-gray-900 relative overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute inset-0" style={{
@@ -259,13 +259,13 @@ export default function CodePreview() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-4">
               <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-3 rounded-lg text-white shadow-lg">
                 <CodeIcon />
               </div>
               Live Code Preview
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
               Watch me code in real-time. Full-stack development expertise across modern frameworks.
             </p>
           </motion.div>
@@ -279,7 +279,7 @@ export default function CodePreview() {
                 className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
                   selectedExample.id === example.id
                     ? 'bg-blue-600 text-white shadow-lg scale-105'
-                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white'
+                    : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 {example.title}
@@ -293,17 +293,17 @@ export default function CodePreview() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-gray-700"
+            className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700"
           >
             {/* Editor Header */}
-            <div className="bg-gray-800 px-6 py-4 flex items-center justify-between border-b border-gray-700">
+            <div className="bg-gray-100 dark:bg-gray-800 px-6 py-4 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-3">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>
-                <span className="text-gray-400 text-sm ml-4">
+                <span className="text-gray-600 dark:text-gray-400 text-sm ml-4">
                   {selectedExample.title}.{selectedExample.language}
                 </span>
               </div>
@@ -323,7 +323,7 @@ export default function CodePreview() {
             <div className="relative">
               <pre className="p-6 overflow-x-auto text-sm leading-relaxed">
                 <code
-                  className="text-gray-300 font-mono"
+                  className="text-gray-800 dark:text-gray-300 font-mono"
                   dangerouslySetInnerHTML={{
                     __html: highlightSyntax(displayedCode || selectedExample.code)
                   }}
@@ -351,8 +351,8 @@ export default function CodePreview() {
             </div>
 
             {/* Code Description */}
-            <div className="bg-gray-800/50 px-6 py-4 border-t border-gray-700">
-              <p className="text-gray-400 text-sm">
+            <div className="bg-gray-50 dark:bg-gray-800/50 px-6 py-4 border-t border-gray-200 dark:border-gray-700">
+              <p className="text-gray-700 dark:text-gray-400 text-sm">
                 📝 {selectedExample.description}
               </p>
             </div>
@@ -366,7 +366,7 @@ export default function CodePreview() {
             transition={{ delay: 0.3 }}
             className="mt-12 text-center"
           >
-            <p className="text-gray-400 mb-6">
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
               Want to see more of my code? Check out my GitHub repositories!
             </p>
             <a

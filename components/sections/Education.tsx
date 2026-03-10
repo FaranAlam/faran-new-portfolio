@@ -71,15 +71,15 @@ export default function Education() {
   ];
 
   return (
-    <section id="education" className="py-20 bg-gray-50">
+    <section id="education" className="py-20 bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Education & Qualifications</h2>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Education & Qualifications</h2>
               <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 My academic journey and educational background
               </p>
             </div>
@@ -90,7 +90,7 @@ export default function Education() {
             {education.map((edu, index) => (
               <StaggerItem key={index}>
               <div
-                className="bg-white rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:scale-105 hover:border-blue-200"
+                className="bg-white dark:bg-gray-800/70 rounded-xl p-8 shadow-sm hover:shadow-xl dark:hover:shadow-blue-900/40 transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:scale-105 hover:border-blue-200 dark:hover:border-blue-500"
               >
                 <div className="flex flex-col md:flex-row gap-6">
                   {/* Icon */}
@@ -105,13 +105,13 @@ export default function Education() {
                     {/* Header */}
                     <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                       <div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                           {edu.degree}
                         </h3>
                         <div className="text-blue-600 font-semibold mb-1">
                           {edu.institution}
                         </div>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-500">
+                        <div className="flex flex-wrap gap-3 text-sm text-gray-500 dark:text-gray-400">
                           <span className="flex items-center">
                             <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
@@ -138,7 +138,7 @@ export default function Education() {
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
                       {edu.description}
                     </p>
 
@@ -147,7 +147,7 @@ export default function Education() {
                       {edu.tags.map((tag, idx) => (
                         <span
                           key={idx}
-                          className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                          className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm"
                         >
                           {tag}
                         </span>

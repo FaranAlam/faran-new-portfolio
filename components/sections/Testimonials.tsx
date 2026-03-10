@@ -137,7 +137,7 @@ export default function Testimonials() {
   }, [currentIndex, testimonials.length]);
 
   return (
-    <section id="testimonials" className="py-28 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
+    <section id="testimonials" className="py-28 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900 dark:to-gray-900 overflow-hidden">
       <div className="container mx-auto px-4 overflow-hidden">
         <div className="max-w-6xl mx-auto overflow-hidden">
           {/* Section Header */}
@@ -148,9 +148,9 @@ export default function Testimonials() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">What People Say</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">What People Say</h2>
+            <div className="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Real feedback from clients I&apos;ve worked with
             </p>
           </motion.div>
@@ -168,7 +168,7 @@ export default function Testimonials() {
                 {testimonials.map((testimonial, index) => (
                   <div
                     key={index}
-                    className="bg-white rounded-xl p-6 shadow-lg w-full flex-shrink-0"
+                    className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg w-full flex-shrink-0"
                   >
                     <div className="flex flex-col h-full">
                       {/* Stars */}
@@ -176,7 +176,7 @@ export default function Testimonials() {
                         {[...Array(5)].map((_, i) => (
                           <svg 
                             key={i} 
-                            className={`w-4 h-4 ${i < Math.floor(testimonial.rating) ? 'text-yellow-400' : 'text-gray-300'}`} 
+                            className={`w-4 h-4 ${i < Math.floor(testimonial.rating) ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`}
                             fill="currentColor" 
                             viewBox="0 0 20 20"
                           >
@@ -186,13 +186,13 @@ export default function Testimonials() {
                       </div>
 
                       {/* Quote icon */}
-                      <div className="text-3xl text-blue-600 mb-3">&ldquo;</div>
+                      <div className="text-3xl text-blue-600 dark:text-blue-400 mb-3">&ldquo;</div>
 
                       {/* Text */}
-                      <p className="text-sm text-gray-700 mb-4 flex-grow leading-relaxed">{testimonial.text}</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 mb-4 flex-grow leading-relaxed">{testimonial.text}</p>
 
                       {/* Divider */}
-                      <div className="h-px bg-gray-200 mb-4"></div>
+                      <div className="h-px bg-gray-200 dark:bg-gray-700 mb-4"></div>
 
                       {/* Author */}
                       <div className="flex items-center gap-3">
@@ -200,8 +200,8 @@ export default function Testimonials() {
                           {testimonial.initials}
                         </div>
                         <div className="flex-1">
-                          <div className="font-bold text-gray-900 text-base">{testimonial.name}</div>
-                          <div className="text-xs text-gray-600">{testimonial.role}</div>
+                          <div className="font-bold text-gray-900 dark:text-white text-base">{testimonial.name}</div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400">{testimonial.role}</div>
                         </div>
                       </div>
                     </div>
@@ -215,7 +215,7 @@ export default function Testimonials() {
               {/* Left Arrow */}
               <button
                 onClick={prevTestimonial}
-                className="bg-white hover:bg-blue-50 text-blue-600 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110"
+                className="bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-blue-600 dark:text-blue-400 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110"
                 aria-label="Previous testimonial"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,7 +230,7 @@ export default function Testimonials() {
                     key={index}
                     onClick={() => goToTestimonial(index)}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      index === currentIndex ? 'w-8 bg-blue-600' : 'w-2 bg-gray-300'
+                      index === currentIndex ? 'w-8 bg-blue-600 dark:bg-blue-400' : 'w-2 bg-gray-300 dark:bg-gray-600'
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
@@ -240,7 +240,7 @@ export default function Testimonials() {
               {/* Right Arrow */}
               <button
                 onClick={nextTestimonial}
-                className="bg-white hover:bg-blue-50 text-blue-600 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110"
+                className="bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-blue-600 dark:text-blue-400 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110"
                 aria-label="Next testimonial"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -262,7 +262,7 @@ export default function Testimonials() {
                 {duplicatedTestimonials.map((testimonial, index) => (
                   <div
                     key={index}
-                    className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow w-[calc(33.333%-1rem)] flex-shrink-0"
+                    className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl dark:hover:shadow-gray-950/50 transition-shadow w-[calc(33.333%-1rem)] flex-shrink-0"
                   >
                     <div className="flex flex-col h-full">
                       {/* Stars */}
@@ -270,7 +270,7 @@ export default function Testimonials() {
                         {[...Array(5)].map((_, i) => (
                           <svg 
                             key={i} 
-                            className={`w-4 h-4 ${i < Math.floor(testimonial.rating) ? 'text-yellow-400' : 'text-gray-300'}`} 
+                            className={`w-4 h-4 ${i < Math.floor(testimonial.rating) ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} 
                             fill="currentColor" 
                             viewBox="0 0 20 20"
                           >
@@ -280,13 +280,13 @@ export default function Testimonials() {
                       </div>
 
                       {/* Quote icon */}
-                      <div className="text-3xl text-blue-600 mb-3">&ldquo;</div>
+                      <div className="text-3xl text-blue-600 dark:text-blue-400 mb-3">&ldquo;</div>
 
                       {/* Text */}
-                      <p className="text-sm text-gray-700 mb-4 flex-grow leading-relaxed">{testimonial.text}</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 mb-4 flex-grow leading-relaxed">{testimonial.text}</p>
 
                       {/* Divider */}
-                      <div className="h-px bg-gray-200 mb-4"></div>
+                      <div className="h-px bg-gray-200 dark:bg-gray-700 mb-4"></div>
 
                       {/* Author */}
                       <div className="flex items-center gap-3">
@@ -294,8 +294,8 @@ export default function Testimonials() {
                           {testimonial.initials}
                         </div>
                         <div className="flex-1">
-                          <div className="font-bold text-gray-900 text-base">{testimonial.name}</div>
-                          <div className="text-xs text-gray-600">{testimonial.role}</div>
+                          <div className="font-bold text-gray-900 dark:text-white text-base">{testimonial.name}</div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400">{testimonial.role}</div>
                         </div>
                       </div>
                     </div>
@@ -311,7 +311,7 @@ export default function Testimonials() {
                   key={index}
                   onClick={() => goToTestimonial(index)}
                   className={`h-2 rounded-full transition-all duration-300 ${
-                    index === (currentIndex % testimonials.length) ? 'w-8 bg-blue-600' : 'w-2 bg-gray-300'
+                    index === (currentIndex % testimonials.length) ? 'w-8 bg-blue-600 dark:bg-blue-400' : 'w-2 bg-gray-300 dark:bg-gray-600'
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />

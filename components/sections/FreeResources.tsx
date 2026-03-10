@@ -347,15 +347,15 @@ export default function FreeResources() {
   };
 
   return (
-    <section id="free-resources" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section id="free-resources" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Free Learning Resources</h2>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Free Learning Resources</h2>
               <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Access comprehensive study materials compiled from my computer engineering journey and full-stack development expertise.
               </p>
             </div>
@@ -364,14 +364,14 @@ export default function FreeResources() {
           {/* Email Verification */}
           <FadeIn delay={0.2}>
             <div className="max-w-2xl mx-auto mb-12">
-              <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-blue-100">
+              <div className="bg-white dark:bg-gray-800/70 rounded-2xl p-6 shadow-lg border-2 border-blue-100 dark:border-blue-500/30">
                 <div className="flex flex-col sm:flex-row gap-3">
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email to access resources"
-                    className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-colors"
+                    className="flex-1 px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:border-blue-600 focus:outline-none transition-colors bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                     disabled={!!verifiedEmail}
                   />
                   <button
@@ -406,7 +406,7 @@ export default function FreeResources() {
                 className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
                   activeTab === "developer"
                     ? "bg-blue-600 text-white shadow-lg scale-105"
-                    : "bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-600"
+                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-gray-600 hover:border-blue-600"
                 }`}
               >
                 <CodeIcon />
@@ -417,7 +417,7 @@ export default function FreeResources() {
                 className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
                   activeTab === "engineer"
                     ? "bg-purple-600 text-white shadow-lg scale-105"
-                    : "bg-white text-gray-700 border-2 border-gray-200 hover:border-purple-600"
+                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-gray-600 hover:border-purple-600"
                 }`}
               >
                 <BookIcon />
@@ -432,7 +432,7 @@ export default function FreeResources() {
               <StaggerContainer staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {developerTopics.map((topic, idx) => (
                   <StaggerItem key={idx}>
-                    <div className="bg-white rounded-xl p-5 shadow-md hover:shadow-xl transition-all duration-300 border-l-4 border-blue-600">
+                    <div className="bg-white dark:bg-gray-800/70 rounded-xl p-5 shadow-md hover:shadow-xl dark:hover:shadow-blue-900/40 transition-all duration-300 border-l-4 border-blue-600">
                       <button
                         type="button"
                         onClick={() => handleToggleResource("developer", topic.resourceId)}
@@ -440,8 +440,8 @@ export default function FreeResources() {
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
-                            <h3 className="text-lg font-bold text-gray-900">{topic.name}</h3>
-                            <p className="text-sm text-gray-600 mt-1">Click to view files</p>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">{topic.name}</h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Click to view files</p>
                           </div>
                           <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold">
                             Files
@@ -450,12 +450,12 @@ export default function FreeResources() {
                       </button>
 
                       {expandedResource === getResourceKey("developer", topic.resourceId) && (
-                        <div className="mt-4 pt-4 border-t-2 border-gray-100 space-y-2">
+                        <div className="mt-4 pt-4 border-t-2 border-gray-100 dark:border-gray-700 space-y-2">
                           {loadingResource === getResourceKey("developer", topic.resourceId) && (
-                            <p className="text-sm text-gray-500">Loading files...</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Loading files...</p>
                           )}
                           {(resourceFiles[getResourceKey("developer", topic.resourceId)] || []).length === 0 && loadingResource !== getResourceKey("developer", topic.resourceId) && (
-                            <p className="text-sm text-gray-500">No files uploaded yet.</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">No files uploaded yet.</p>
                           )}
                           {(resourceFiles[getResourceKey("developer", topic.resourceId)] || []).map((fileName) => (
                             <div
@@ -465,13 +465,13 @@ export default function FreeResources() {
                               <div className="flex items-center justify-between mb-2">
                                 <div className="flex items-center gap-3">
                                   <DownloadIcon />
-                                  <span className="font-semibold text-gray-800 text-sm">{fileName}</span>
+                                  <span className="font-semibold text-gray-800 dark:text-gray-200 text-sm">{fileName}</span>
                                 </div>
                               </div>
                              <div className="flex gap-2">
                                 <button
                                   onClick={() => handlePreview("developer", topic.resourceId, fileName)}
-                                  className="flex-1 px-3 py-2 bg-white border border-blue-300 text-blue-700 rounded-lg hover:bg-blue-50 transition-colors text-xs font-semibold"
+                                  className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 border border-blue-300 dark:border-blue-500/40 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors text-xs font-semibold"
                                 >
                                   👁️ Preview
                                 </button>
@@ -499,18 +499,18 @@ export default function FreeResources() {
               <StaggerContainer staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {engineeringData.map((semester, semIdx) => (
                   <StaggerItem key={semIdx}>
-                    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-l-4 border-purple-600 overflow-hidden">
+                    <div className="bg-white dark:bg-gray-800/70 rounded-xl shadow-md hover:shadow-xl dark:hover:shadow-blue-900/40 transition-all duration-300 border-l-4 border-purple-600 overflow-hidden">
                       {/* Semester Header */}
                       <div
                         onClick={() => setExpandedSemester(expandedSemester === semester.semesterNum ? null : semester.semesterNum)}
-                        className="p-5 cursor-pointer hover:bg-purple-50 transition-colors"
+                        className="p-5 cursor-pointer hover:bg-purple-50 dark:hover:bg-gray-700 transition-colors"
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-900">
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                               Semester {semester.semesterNum}
                             </h3>
-                            <p className="text-sm text-gray-600 mt-1">{semester.courses.length} courses</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{semester.courses.length} courses</p>
                           </div>
                           <svg
                             className={`w-6 h-6 text-purple-600 transition-transform ${
@@ -527,9 +527,9 @@ export default function FreeResources() {
 
                       {/* Courses List */}
                       {expandedSemester === semester.semesterNum && (
-                        <div className="bg-gray-50 p-4 space-y-3">
+                        <div className="bg-gray-50 dark:bg-gray-900/50 p-4 space-y-3">
                           {semester.courses.map((course, courseIdx) => (
-                            <div key={courseIdx} className="bg-white rounded-lg p-4 border-l-2 border-purple-300">
+                            <div key={courseIdx} className="bg-white dark:bg-gray-800 rounded-lg p-4 border-l-2 border-purple-300">
                               <button
                                 type="button"
                                 onClick={() => handleToggleResource(`semester-${semester.semesterNum}`, course.name)}
@@ -538,19 +538,19 @@ export default function FreeResources() {
                                 <div className="flex items-center justify-between">
                                   <div className="flex items-center gap-3">
                                     <DownloadIcon />
-                                    <span className="font-semibold text-gray-900">{course.name}</span>
+                                    <span className="font-semibold text-gray-900 dark:text-white">{course.name}</span>
                                   </div>
-                                  <span className="text-xs text-gray-600">Click to view files</span>
+                                  <span className="text-xs text-gray-600 dark:text-gray-300">Click to view files</span>
                                 </div>
                               </button>
 
                               {expandedResource === getResourceKey(`semester-${semester.semesterNum}`, course.name) && (
-                                <div className="mt-3 pt-3 border-t border-gray-100 space-y-2">
+                                <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700 space-y-2">
                                   {loadingResource === getResourceKey(`semester-${semester.semesterNum}`, course.name) && (
-                                    <p className="text-sm text-gray-500">Loading files...</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">Loading files...</p>
                                   )}
                                   {(resourceFiles[getResourceKey(`semester-${semester.semesterNum}`, course.name)] || []).length === 0 && loadingResource !== getResourceKey(`semester-${semester.semesterNum}`, course.name) && (
-                                    <p className="text-sm text-gray-500">No files uploaded yet.</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">No files uploaded yet.</p>
                                   )}
                                   {(resourceFiles[getResourceKey(`semester-${semester.semesterNum}`, course.name)] || []).map((fileName) => (
                                     <div
@@ -558,12 +558,12 @@ export default function FreeResources() {
                                       className="p-3 bg-purple-50 rounded-lg border border-purple-100"
                                     >
                                       <div className="flex items-center justify-between mb-2">
-                                        <span className="font-medium text-gray-800 text-sm">{fileName}</span>
+                                        <span className="font-medium text-gray-800 dark:text-gray-200 text-sm">{fileName}</span>
                                       </div>
                                       <div className="flex gap-2">
                                         <button
                                           onClick={() => handlePreview(`semester-${semester.semesterNum}`, course.name, fileName)}
-                                          className="flex-1 px-3 py-2 bg-white border border-purple-300 text-purple-700 rounded-lg hover:bg-purple-50 transition-colors text-xs font-semibold"
+                                          className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 border border-purple-300 dark:border-purple-500/40 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-50 dark:hover:bg-gray-700 transition-colors text-xs font-semibold"
                                         >
                                           👁️ Preview
                                         </button>

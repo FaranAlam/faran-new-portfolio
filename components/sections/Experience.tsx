@@ -95,15 +95,15 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="py-20 bg-white">
+    <section id="experience" className="py-20 bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">My Work Experience</h2>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">My Work Experience</h2>
               <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Professional journey and hands-on experience in web development
               </p>
             </div>
@@ -125,7 +125,7 @@ export default function Experience() {
                 >
                   {/* Content */}
                   <div className="flex-1">
-                    <div className={`bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 ${
+                    <div className={`bg-gray-50 dark:bg-gray-800/70 rounded-xl p-6 shadow-sm hover:shadow-lg dark:hover:shadow-blue-900/40 transition-all duration-300 hover:scale-105 ${
                       index % 2 === 0 ? 'md:text-right' : 'md:text-left'
                     }`}>
                       {/* Icon */}
@@ -134,7 +134,7 @@ export default function Experience() {
                       </div>
                       
                       {/* Title & Company */}
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                         {exp.title}
                       </h3>
                       <div className="text-blue-600 font-semibold mb-2">
@@ -142,7 +142,7 @@ export default function Experience() {
                       </div>
                       
                       {/* Period & Location */}
-                      <div className="flex flex-wrap gap-2 mb-3 text-sm text-gray-500 justify-start md:justify-end">
+                      <div className="flex flex-wrap gap-2 mb-3 text-sm text-gray-500 dark:text-gray-400 justify-start md:justify-end">
                         <span className="flex items-center">
                           <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
@@ -158,19 +158,19 @@ export default function Experience() {
                       </div>
 
                       {/* Type Badge */}
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium mb-3">
+                      <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium mb-3">
                         {exp.type}
                       </span>
 
                       {/* Description */}
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 dark:text-gray-300 text-sm">
                         {exp.description}
                       </p>
                     </div>
                   </div>
 
                   {/* Timeline Dot */}
-                  <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow"></div>
+                  <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white dark:border-gray-900 shadow"></div>
 
                   {/* Spacer */}
                   <div className="flex-1 hidden md:block"></div>

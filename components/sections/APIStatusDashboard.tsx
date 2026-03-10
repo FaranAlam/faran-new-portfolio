@@ -279,7 +279,7 @@ export default function APIStatusDashboard() {
   ).toFixed(2);
 
   return (
-    <section id="api-status-dashboard" className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 dark:from-black dark:via-gray-950 dark:to-black relative overflow-hidden">
+    <section id="api-status-dashboard" className="py-20 bg-gradient-to-br from-blue-50 to-gray-50 dark:from-gray-900 dark:via-blue-900 dark:to-gray-900 relative overflow-hidden">
       {/* Animated grid background */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -294,11 +294,11 @@ export default function APIStatusDashboard() {
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-3">
                 <BoltHeaderIcon />
                 Live API Status Dashboard
               </h2>
-              <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
                 Real-time monitoring of backend services and infrastructure. Updates every 5 seconds.
               </p>
             </div>
@@ -338,12 +338,12 @@ export default function APIStatusDashboard() {
                    <XCircleIcon />}
                 </motion.div>
                 <div>
-                  <h3 className="text-3xl font-bold text-white mb-1">
+                  <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
                     {overallStatus === 'operational' ? 'All Systems Operational' : 
                      overallStatus === 'degraded' ? 'Partial Outage' : 
                      'System Down'}
                   </h3>
-                  <p className="text-gray-300">
+                  <p className="text-gray-700 dark:text-gray-300">
                     {apis.filter(api => api.status === 'operational').length} of {apis.length} services running
                   </p>
                 </div>
@@ -351,12 +351,12 @@ export default function APIStatusDashboard() {
 
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-white">{averageResponseTime}ms</div>
-                  <div className="text-sm text-gray-400">Avg Response Time</div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white">{averageResponseTime}ms</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Avg Response Time</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-white">{averageUptime}%</div>
-                  <div className="text-sm text-gray-400">Avg Uptime</div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white">{averageUptime}%</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Avg Uptime</div>
                 </div>
               </div>
             </div>
@@ -372,17 +372,17 @@ export default function APIStatusDashboard() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ scale: 1.03, y: -5 }}
-                  className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-gray-700 hover:border-blue-500 transition-all duration-300"
+                  className="bg-white/90 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-gray-200 dark:border-gray-700 hover:border-blue-500 transition-all duration-300"
                 >
                   {/* API Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="text-blue-400">
+                      <div className="text-blue-600 dark:text-blue-400">
                         <api.icon />
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-white">{api.name}</h3>
-                        <p className="text-xs text-gray-400">{api.endpoint}</p>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">{api.name}</h3>
+                        <p className="text-xs text-gray-600 dark:text-gray-400">{api.endpoint}</p>
                       </div>
                     </div>
                     <motion.div
@@ -402,7 +402,7 @@ export default function APIStatusDashboard() {
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-gray-400 mb-4">{api.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{api.description}</p>
 
                   {/* Status Badge */}
                   <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold mb-4 ${getStatusColor(api.status)} border`}>
@@ -436,27 +436,27 @@ export default function APIStatusDashboard() {
                   {/* Metrics */}
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-400">Response Time</span>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Response Time</span>
                       <span className={`text-lg font-bold ${getResponseTimeColor(api.responseTime)}`}>
                         {api.responseTime}ms
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-400">Uptime</span>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Uptime</span>
                       <span className="text-lg font-bold text-green-500">
                         {api.uptime}%
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-400">Last Checked</span>
-                      <span className="text-xs text-gray-500" suppressHydrationWarning>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Last Checked</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-500" suppressHydrationWarning>
                         {formatTime(api.lastChecked)}
                       </span>
                     </div>
                   </div>
 
                   {/* Progress Bar */}
-                  <div className="mt-4 h-1 bg-gray-700 rounded-full overflow-hidden">
+                  <div className="mt-4 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: '100%' }}
@@ -475,9 +475,9 @@ export default function APIStatusDashboard() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="mt-12 bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-2xl p-8 border border-blue-500/30"
+            className="mt-12 bg-gradient-to-r from-blue-100/70 to-purple-100/70 dark:from-blue-900/30 dark:to-purple-900/30 rounded-2xl p-8 border border-blue-300 dark:border-blue-500/30"
           >
-            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
               <WrenchIcon />
               Technical Stack
             </h3>
@@ -498,12 +498,12 @@ export default function APIStatusDashboard() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-gray-800/50 rounded-lg p-4 text-center hover:bg-gray-700/50 transition-all duration-300"
+                  className="bg-white/90 dark:bg-gray-800/50 rounded-lg p-4 text-center hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-all duration-300 border border-gray-200 dark:border-gray-700"
                 >
-                  <div className="flex justify-center mb-2 text-blue-400">
+                  <div className="flex justify-center mb-2 text-blue-600 dark:text-blue-400">
                     <tech.icon />
                   </div>
-                  <div className="text-sm text-gray-300 font-medium">{tech.label}</div>
+                  <div className="text-sm text-gray-700 dark:text-gray-300 font-medium">{tech.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -517,7 +517,7 @@ export default function APIStatusDashboard() {
             transition={{ delay: 0.5 }}
             className="mt-12 text-center"
           >
-            <p className="text-gray-300 mb-6 text-lg flex items-center justify-center gap-2">
+            <p className="text-gray-700 dark:text-gray-300 mb-6 text-lg flex items-center justify-center gap-2">
               <LightbulbSmallIcon />
               This dashboard proves real full-stack expertise with backend, APIs, and infrastructure monitoring.
             </p>

@@ -190,7 +190,7 @@ export default function SkillAssessmentQuiz() {
   }, [percentage]);
 
   return (
-    <section id="skill-assessment-quiz" className="py-20 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
+    <section id="skill-assessment-quiz" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-96 h-96 bg-green-500/5 rounded-full blur-3xl" />
@@ -200,10 +200,10 @@ export default function SkillAssessmentQuiz() {
       <div className="max-w-4xl mx-auto relative z-10">
         <FadeIn>
           <div className="mb-12 text-center">
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               Skill <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Assessment Quiz</span>
             </h2>
-            <p className="text-xl text-gray-400">
+            <p className="text-xl text-gray-600 dark:text-gray-400">
               Test your knowledge and discover my expertise across various technologies
             </p>
           </div>
@@ -216,19 +216,19 @@ export default function SkillAssessmentQuiz() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl border border-gray-700 p-8"
+              className="bg-gradient-to-br from-white via-gray-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-black rounded-2xl border border-gray-200 dark:border-gray-700 p-8"
             >
               {/* Progress Bar */}
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-semibold text-gray-300">
+                  <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Question {currentQuestion + 1} of {questions.length}
                   </span>
-                  <span className="text-sm text-gray-400">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
                     {Math.round(((currentQuestion + 1) / questions.length) * 100)}%
                   </span>
                 </div>
-                <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
@@ -240,7 +240,7 @@ export default function SkillAssessmentQuiz() {
 
               {/* Category Badge */}
               <div className="mb-6">
-                <span className="inline-block px-3 py-1 bg-green-500/20 border border-green-500/50 rounded-full text-xs font-semibold text-green-300">
+                <span className="inline-block px-3 py-1 bg-green-100 dark:bg-green-500/20 border border-green-300 dark:border-green-500/50 rounded-full text-xs font-semibold text-green-700 dark:text-green-300">
                   {questions[currentQuestion].category}
                 </span>
               </div>
@@ -252,7 +252,7 @@ export default function SkillAssessmentQuiz() {
                 animate={{ opacity: 1 }}
                 className="mb-8"
               >
-                <h3 className="text-2xl font-bold text-white mb-6">{questions[currentQuestion].question}</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{questions[currentQuestion].question}</h3>
 
                 {/* Options */}
                 <div className="space-y-3">
@@ -274,12 +274,12 @@ export default function SkillAssessmentQuiz() {
                           answered
                             ? isSelected
                               ? isCorrect
-                                ? 'bg-green-500/20 border-green-500 text-green-200'
-                                : 'bg-red-500/20 border-red-500 text-red-200'
+                                ? 'bg-green-100 dark:bg-green-500/20 border-green-500 text-green-700 dark:text-green-200'
+                                : 'bg-red-100 dark:bg-red-500/20 border-red-500 text-red-700 dark:text-red-200'
                               : isCorrect
-                              ? 'bg-green-500/20 border-green-500 text-green-200'
-                              : 'bg-gray-800 border-gray-600 text-gray-300'
-                            : 'bg-gray-800 border-gray-600 text-gray-100 cursor-pointer hover:border-gray-500'
+                              ? 'bg-green-100 dark:bg-green-500/20 border-green-500 text-green-700 dark:text-green-200'
+                              : 'bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
+                            : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 cursor-pointer hover:border-gray-400 dark:hover:border-gray-500'
                         }`}
                       >
                         <div className="flex items-center gap-3">
@@ -313,9 +313,9 @@ export default function SkillAssessmentQuiz() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 mb-6"
+                    className="bg-blue-100 dark:bg-blue-500/10 border border-blue-300 dark:border-blue-500/30 rounded-lg p-4 mb-6"
                   >
-                    <p className="text-sm text-blue-200">
+                    <p className="text-sm text-blue-700 dark:text-blue-200">
                       <span className="font-semibold">Explanation:</span> {questions[currentQuestion].explanation}
                     </p>
                   </motion.div>
@@ -331,7 +331,7 @@ export default function SkillAssessmentQuiz() {
                 className={`w-full py-3 rounded-lg font-semibold transition-all ${
                   showExplanation
                     ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white cursor-pointer hover:shadow-lg hover:shadow-green-500/50'
-                    : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                    : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                 }`}
               >
                 {currentQuestion === questions.length - 1 ? 'View Results' : 'Next Question'}
@@ -346,8 +346,8 @@ export default function SkillAssessmentQuiz() {
               className="space-y-8"
             >
               {/* Score Summary */}
-              <motion.div className="bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl border border-gray-700 p-8 text-center">
-                <h3 className="text-2xl font-bold text-white mb-6">Quiz Complete! 🎉</h3>
+              <motion.div className="bg-gradient-to-br from-white via-gray-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-black rounded-2xl border border-gray-200 dark:border-gray-700 p-8 text-center">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Quiz Complete! 🎉</h3>
 
                 {/* Score Circle */}
                 <div className="flex justify-center mb-8">
@@ -387,8 +387,8 @@ export default function SkillAssessmentQuiz() {
                       </defs>
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <div className="text-5xl font-bold text-white">{percentage}%</div>
-                      <div className="text-sm text-gray-400">Score</div>
+                      <div className="text-5xl font-bold text-gray-900 dark:text-white">{percentage}%</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">Score</div>
                     </div>
                   </motion.div>
                 </div>
@@ -401,10 +401,10 @@ export default function SkillAssessmentQuiz() {
                 </div>
 
                 {/* Score Text */}
-                <p className="text-2xl font-bold text-white mb-2">
+                <p className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                   {score} out of {questions.length} correct
                 </p>
-                <p className="text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400">
                   {percentage >= 90
                     ? "Outstanding! You have expert-level knowledge."
                     : percentage >= 75
@@ -420,19 +420,19 @@ export default function SkillAssessmentQuiz() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl border border-gray-700 p-8"
+                className="bg-gradient-to-br from-white via-gray-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-black rounded-2xl border border-gray-200 dark:border-gray-700 p-8"
               >
-                <h4 className="text-xl font-bold text-white mb-6">Category Breakdown</h4>
+                <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Category Breakdown</h4>
                 <div className="space-y-4">
                   {categoryStats.map((cat, idx) => (
                     <motion.div key={idx} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 + idx * 0.1 }}>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-gray-300 font-semibold">{cat.name}</span>
-                        <span className="text-green-400 font-bold">
+                        <span className="text-gray-700 dark:text-gray-300 font-semibold">{cat.name}</span>
+                        <span className="text-green-600 dark:text-green-400 font-bold">
                           {cat.correct}/{cat.total}
                         </span>
                       </div>
-                      <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${(cat.correct / cat.total) * 100}%` }}
@@ -454,7 +454,7 @@ export default function SkillAssessmentQuiz() {
               >
                 <button
                   onClick={handleReset}
-                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 rounded-lg text-white font-semibold transition-colors"
                 >
                   <RotateCcw size={18} />
                   Retake Quiz

@@ -188,7 +188,7 @@ export default function ClientBrands() {
   ];
 
   return (
-    <section id="clients" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
+    <section id="clients" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:via-blue-900 dark:to-gray-900 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -202,9 +202,9 @@ export default function ClientBrands() {
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Trusted by Amazing Clients</h2>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Trusted by Amazing Clients</h2>
               <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Proud to work with leading organizations, startups, and businesses across multiple industries
               </p>
             </div>
@@ -214,12 +214,12 @@ export default function ClientBrands() {
           <StaggerContainer staggerDelay={0.1} className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             {stats.map((stat, index) => (
               <StaggerItem key={index}>
-                <div className="text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300">
+                <div className="text-center p-6 bg-white dark:bg-gray-800/70 rounded-xl shadow-sm hover:shadow-lg dark:hover:shadow-blue-900/40 transition-all duration-300">
                   <div className="flex justify-center mb-2">
                     <stat.icon />
                   </div>
                   <div className="text-2xl font-bold text-blue-600 mb-1">{stat.value}</div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300">{stat.label}</div>
                 </div>
               </StaggerItem>
             ))}
@@ -229,7 +229,7 @@ export default function ClientBrands() {
           <StaggerContainer staggerDelay={0.08} className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             {clients.map((client, index) => (
               <StaggerItem key={index}>
-                <div className="group relative bg-white rounded-xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden">
+                <div className="group relative bg-white dark:bg-gray-800/70 rounded-xl p-8 shadow-sm hover:shadow-2xl dark:hover:shadow-blue-900/40 transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden">
                   {/* Gradient Background on Hover */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${client.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
                   
@@ -249,10 +249,10 @@ export default function ClientBrands() {
                         {client.icon && <client.icon />}
                       </div>
                     )}
-                    <h3 className="font-bold text-gray-900 mb-1 text-sm group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-1 text-sm group-hover:text-blue-600 transition-colors">
                       {client.name}
                     </h3>
-                    <p className="text-xs text-gray-500">{client.category}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{client.category}</p>
                   </div>
 
                   {/* Hover Border Effect */}
@@ -270,7 +270,7 @@ export default function ClientBrands() {
                 Faran is an exceptionally talented developer. Having worked with us at RSG Pakistan for several months, he has consistently delivered high-quality work and demonstrated a deep understanding of web technologies. His dedication to the ISCB-SC RSG Pakistan team is truly commendable.
               </p>
               <div className="flex items-center justify-center gap-3">
-                <div className="w-12 h-12 bg-white rounded-full overflow-hidden flex items-center justify-center">
+                <div className="w-12 h-12 bg-white dark:bg-gray-100 rounded-full overflow-hidden flex items-center justify-center">
                   <Image
                     src="/images/testimonials/rsg pakistan.jpg"
                     alt="RSG Pakistan Logo"
@@ -290,7 +290,7 @@ export default function ClientBrands() {
           {/* CTA */}
           <FadeIn delay={0.4}>
             <div className="text-center mt-12">
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Want to join these successful clients?
               </p>
               <a

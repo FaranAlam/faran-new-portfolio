@@ -69,15 +69,15 @@ export default function TechStack() {
   };
 
   return (
-    <section id="tech-stack" className="py-20 bg-white">
+    <section id="tech-stack" className="py-20 bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Technologies I Work With</h2>
-              <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Technologies I Work With</h2>
+              <div className="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-4"></div>
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 A comprehensive toolkit to build modern, scalable, and high-performance web applications
               </p>
             </div>
@@ -88,8 +88,8 @@ export default function TechStack() {
             {Object.entries(technologies).map(([category, techs], catIndex) => (
               <div key={catIndex}>
                 <FadeIn delay={catIndex * 0.1}>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                    <div className="w-2 h-8 bg-blue-600 rounded-full"></div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                    <div className="w-2 h-8 bg-blue-600 dark:bg-blue-400 rounded-full"></div>
                     {category}
                   </h3>
                 </FadeIn>
@@ -120,21 +120,21 @@ export default function TechStack() {
           {/* Stats Section */}
           <FadeIn delay={0.5}>
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl">
-                <div className="text-3xl font-bold text-blue-600 mb-2">20+</div>
-                <div className="text-gray-700 text-sm">Technologies</div>
+              <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-xl">
+                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">20+</div>
+                <div className="text-gray-700 dark:text-gray-300 text-sm">Technologies</div>
               </div>
-              <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl">
-                <div className="text-3xl font-bold text-green-600 mb-2">5+</div>
-                <div className="text-gray-700 text-sm">Frameworks</div>
+              <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl">
+                <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">5+</div>
+                <div className="text-gray-700 dark:text-gray-300 text-sm">Frameworks</div>
               </div>
-              <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
-                <div className="text-3xl font-bold text-purple-600 mb-2">10+</div>
-                <div className="text-gray-700 text-sm">Tools</div>
+              <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-xl">
+                <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">10+</div>
+                <div className="text-gray-700 dark:text-gray-300 text-sm">Tools</div>
               </div>
-              <div className="text-center p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl">
-                <div className="text-3xl font-bold text-orange-600 mb-2">2+</div>
-                <div className="text-gray-700 text-sm">Years Experience</div>
+              <div className="text-center p-6 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-xl">
+                <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">2+</div>
+                <div className="text-gray-700 dark:text-gray-300 text-sm">Years Experience</div>
               </div>
             </div>
           </FadeIn>

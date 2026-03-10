@@ -7,7 +7,7 @@ import StaggerItem from "../animations/StaggerItem";
 
 // SVG Icons for Book Consultation
 const CoffeeIcon = () => (
-  <svg className="w-10 h-10 text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-10 h-10 text-blue-600 dark:text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
     <path d="M3 8h14v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z" />
     <line x1="6" y1="2" x2="6" y2="4" />
@@ -17,7 +17,7 @@ const CoffeeIcon = () => (
 );
 
 const TargetIcon = () => (
-  <svg className="w-10 h-10 text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-10 h-10 text-blue-600 dark:text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="12" cy="12" r="10" />
     <circle cx="12" cy="12" r="6" />
     <circle cx="12" cy="12" r="2" />
@@ -25,7 +25,7 @@ const TargetIcon = () => (
 );
 
 const DiamondIcon = () => (
-  <svg className="w-10 h-10 text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-10 h-10 text-blue-600 dark:text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M12 2 2 9l10 13 10-13-10-7z" />
     <path d="M2 9h20" />
     <path d="M12 2v20" />
@@ -63,27 +63,27 @@ const HandIcon = () => (
 );
 
 const BoltIcon = () => (
-  <svg className="w-8 h-8 text-blue-200" viewBox="0 0 24 24" fill="currentColor">
+  <svg className="w-8 h-8 text-blue-600 dark:text-blue-200" viewBox="0 0 24 24" fill="currentColor">
     <path d="M7 2v11h3v9l7-12h-4l4-8z" />
   </svg>
 );
 
 const LockIcon = () => (
-  <svg className="w-8 h-8 text-blue-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-8 h-8 text-blue-600 dark:text-blue-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
   </svg>
 );
 
 const BadgeIcon = () => (
-  <svg className="w-8 h-8 text-blue-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-8 h-8 text-blue-600 dark:text-blue-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="12" cy="8" r="5" />
     <path d="M8.21 13.89 7 22l5-2.5L17 22l-1.21-8.11" />
   </svg>
 );
 
 const GiftIcon = () => (
-  <svg className="w-8 h-8 text-blue-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-8 h-8 text-blue-600 dark:text-blue-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <rect x="3" y="8" width="18" height="13" rx="2" ry="2" />
     <path d="M12 8v13" />
     <path d="M3 12h18" />
@@ -178,11 +178,11 @@ export default function BookConsultation() {
   };
 
   return (
-    <section id="book-consultation" className="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white relative overflow-hidden">
+    <section id="book-consultation" className="py-20 bg-gradient-to-br from-blue-50 to-gray-50 dark:from-gray-900 dark:via-blue-900 dark:to-gray-900 text-gray-900 dark:text-white relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.35) 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }}></div>
       </div>
@@ -192,9 +192,9 @@ export default function BookConsultation() {
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4">Book a Consultation</h2>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Book a Consultation</h2>
               <div className="w-20 h-1 bg-blue-400 mx-auto mb-4"></div>
-              <p className="text-blue-100 max-w-2xl mx-auto">
+              <p className="text-blue-700 dark:text-blue-100 max-w-2xl mx-auto">
                 Get expert guidance for your project. Choose the consultation package that fits your needs.
               </p>
             </div>
@@ -206,10 +206,10 @@ export default function BookConsultation() {
               <StaggerItem key={index}>
                 <div 
                   onClick={() => setSelectedService(service.title)}
-                  className={`relative bg-white/10 backdrop-blur-sm rounded-xl p-6 cursor-pointer transition-all duration-300 hover:scale-105 border-2 h-full ${
+                  className={`relative bg-white/90 dark:bg-white/10 backdrop-blur-sm rounded-xl p-6 cursor-pointer transition-all duration-300 hover:scale-105 border-2 h-full ${
                     selectedService === service.title 
-                      ? 'border-blue-400 bg-white/20 shadow-2xl' 
-                      : 'border-white/20 hover:border-blue-400/50'
+                      ? 'border-blue-400 bg-blue-50 dark:bg-white/20 shadow-2xl' 
+                      : 'border-gray-200 dark:border-white/20 hover:border-blue-400/50'
                   }`}
                 >
                   {/* Popular Badge */}
@@ -227,20 +227,20 @@ export default function BookConsultation() {
                     <div className="flex justify-center mb-3">
                       <service.icon />
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">{service.title}</h3>
-                    <div className="text-blue-200 text-sm mb-3">{service.duration}</div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{service.title}</h3>
+                    <div className="text-blue-600 dark:text-blue-200 text-sm mb-3">{service.duration}</div>
                     <div className="text-4xl font-bold text-blue-400">{service.price}</div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-blue-100 text-sm mb-4 text-center">
+                  <p className="text-gray-700 dark:text-blue-100 text-sm mb-4 text-center">
                     {service.description}
                   </p>
 
                   {/* Features */}
                   <ul className="space-y-2">
                     {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-sm text-blue-100">
+                      <li key={idx} className="flex items-start gap-2 text-sm text-gray-700 dark:text-blue-100">
                         <CheckIcon />
                         <span>{feature}</span>
                       </li>
@@ -265,8 +265,8 @@ export default function BookConsultation() {
 
           {/* Time Slot Selection */}
           <FadeIn delay={0.3}>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 mb-8 border border-white/20">
-              <h3 className="text-2xl font-bold text-white mb-6 text-center">
+            <div className="bg-white/90 dark:bg-white/10 backdrop-blur-sm rounded-xl p-8 mb-8 border border-gray-200 dark:border-white/20">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                 Select Preferred Time (Optional)
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -277,7 +277,7 @@ export default function BookConsultation() {
                     className={`px-4 py-3 rounded-lg font-semibold transition-all duration-300 ${
                       selectedTime === slot
                         ? 'bg-blue-500 text-white shadow-lg scale-105'
-                        : 'bg-white/20 text-white hover:bg-white/30'
+                        : 'bg-gray-100 dark:bg-white/20 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/30'
                     }`}
                   >
                     {slot}
@@ -296,7 +296,7 @@ export default function BookConsultation() {
                 className={`px-12 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-2xl ${
                   selectedService
                     ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:scale-110 hover:shadow-blue-500/50'
-                    : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                    : 'bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                 }`}
               >
                 {selectedService ? (
@@ -311,7 +311,7 @@ export default function BookConsultation() {
                   </span>
                 )}
               </button>
-              <p className="text-blue-200 text-sm mt-4">
+              <p className="text-blue-700 dark:text-blue-200 text-sm mt-4">
                 Booking confirmation will be done via WhatsApp
               </p>
             </div>
@@ -330,8 +330,8 @@ export default function BookConsultation() {
                   <div className="flex justify-center mb-2">
                     <benefit.icon />
                   </div>
-                  <h4 className="font-bold text-white mb-1">{benefit.title}</h4>
-                  <p className="text-blue-200 text-sm">{benefit.desc}</p>
+                  <h4 className="font-bold text-gray-900 dark:text-white mb-1">{benefit.title}</h4>
+                  <p className="text-blue-700 dark:text-blue-200 text-sm">{benefit.desc}</p>
                 </div>
               ))}
             </div>

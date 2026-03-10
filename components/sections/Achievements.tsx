@@ -6,7 +6,7 @@ import StaggerItem from "../animations/StaggerItem";
 
 // SVG Icons for Journey & Achievements
 const RocketLaunchIcon = () => (
-  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-12 h-12 text-blue-600 dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
     <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
     <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
@@ -15,26 +15,26 @@ const RocketLaunchIcon = () => (
 );
 
 const GraduationCapIcon = () => (
-  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
+  <svg className="w-12 h-12 text-blue-600 dark:text-white" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
   </svg>
 );
 
 const StarBadgeIcon = () => (
-  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
+  <svg className="w-12 h-12 text-blue-600 dark:text-white" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
   </svg>
 );
 
 const BriefcaseWorkIcon = () => (
-  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-12 h-12 text-blue-600 dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
   </svg>
 );
 
 const SparklesIcon = () => (
-  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-12 h-12 text-blue-600 dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
     <path d="M5 3v4" />
     <path d="M19 17v4" />
@@ -44,7 +44,7 @@ const SparklesIcon = () => (
 );
 
 const TargetIcon = () => (
-  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-12 h-12 text-blue-600 dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="12" cy="12" r="10" />
     <circle cx="12" cy="12" r="6" />
     <circle cx="12" cy="12" r="2" />
@@ -52,7 +52,7 @@ const TargetIcon = () => (
 );
 
 const UserCheckIcon = () => (
-  <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg className="w-12 h-12 text-blue-600 dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
     <circle cx="9" cy="7" r="4" />
     <polyline points="16 11 18 13 22 9" />
@@ -136,11 +136,11 @@ export default function Achievements() {
   ];
 
   return (
-    <section id="achievements" className="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white relative overflow-hidden">
+    <section id="achievements" className="py-20 bg-gradient-to-br from-blue-50 to-gray-50 dark:from-gray-900 dark:via-blue-900 dark:to-gray-900 text-gray-900 dark:text-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.35) 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }}></div>
       </div>
@@ -150,9 +150,9 @@ export default function Achievements() {
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4">My Journey & Achievements</h2>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">My Journey & Achievements</h2>
               <div className="w-20 h-1 bg-blue-400 mx-auto mb-4"></div>
-              <p className="text-blue-100 max-w-2xl mx-auto">
+              <p className="text-blue-700 dark:text-blue-100 max-w-2xl mx-auto">
                 Milestones that define my growth as a developer and educator
               </p>
             </div>
@@ -172,7 +172,7 @@ export default function Achievements() {
                   }`}>
                     {/* Content */}
                     <div className="flex-1">
-                      <div className={`bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-white/20 ${
+                      <div className={`bg-white/90 dark:bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-gray-200 dark:border-white/20 ${
                         index % 2 === 0 ? 'md:text-right' : 'md:text-left'
                       }`}>
                         {/* Year Badge */}
@@ -186,12 +186,12 @@ export default function Achievements() {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-2xl font-bold text-white mb-3">
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
                           {milestone.title}
                         </h3>
 
                         {/* Description */}
-                        <p className="text-blue-100 leading-relaxed">
+                        <p className="text-gray-700 dark:text-blue-100 leading-relaxed">
                           {milestone.description}
                         </p>
                       </div>
@@ -211,18 +211,18 @@ export default function Achievements() {
           {/* Key Achievements Grid */}
           <FadeIn delay={0.5}>
             <div className="mt-20">
-              <h3 className="text-3xl font-bold text-white text-center mb-10">Key Highlights</h3>
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-10">Key Highlights</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {achievements.map((achievement, index) => (
                   <div
                     key={index}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/20 transition-all duration-300 hover:scale-105 border border-white/20"
+                    className="bg-white/90 dark:bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-gray-100 dark:hover:bg-white/20 transition-all duration-300 hover:scale-105 border border-gray-200 dark:border-white/20"
                   >
                     <div className="mb-4 flex justify-center">
                       <achievement.icon />
                     </div>
-                    <h4 className="text-lg font-bold text-white mb-2">{achievement.title}</h4>
-                    <p className="text-blue-100 text-sm">{achievement.description}</p>
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{achievement.title}</h4>
+                    <p className="text-gray-700 dark:text-blue-100 text-sm">{achievement.description}</p>
                   </div>
                 ))}
               </div>

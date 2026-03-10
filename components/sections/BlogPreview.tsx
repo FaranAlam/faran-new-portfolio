@@ -66,14 +66,14 @@ export default function BlogPreview() {
   ];
 
   return (
-    <section id="blog" className="py-20 bg-gray-50">
+    <section id="blog" className="py-20 bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Latest Blog Posts</h2>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Latest Blog Posts</h2>
             <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Thoughts, tutorials, and insights on web development, programming, and technology.
             </p>
           </div>
@@ -83,7 +83,7 @@ export default function BlogPreview() {
             {blogPosts.map((post, index) => (
               <article
                 key={index}
-                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+                className="bg-white dark:bg-gray-800/70 rounded-xl overflow-hidden shadow-sm hover:shadow-xl dark:hover:shadow-blue-900/40 transition-shadow duration-300 border border-gray-100 dark:border-gray-700"
               >
                 {/* Featured Image Placeholder */}
                 <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center text-6xl">
@@ -94,25 +94,25 @@ export default function BlogPreview() {
                 <div className="p-6">
                   {/* Meta Info */}
                   <div className="flex items-center justify-between mb-3">
-                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                    <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">
                       {post.category}
                     </span>
-                    <span className="text-xs text-gray-500">{post.readTime}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{post.readTime}</span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors cursor-pointer">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 hover:text-blue-600 transition-colors cursor-pointer">
                     {post.title}
                   </h3>
 
                   {/* Excerpt */}
-                  <p className="text-gray-600 text-sm mb-4">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
                     {post.excerpt}
                   </p>
 
                   {/* Footer */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <span className="text-xs text-gray-500">{post.date}</span>
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{post.date}</span>
                     <a
                       href="#"
                       className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center"

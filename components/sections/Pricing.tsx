@@ -108,14 +108,14 @@ export default function Pricing() {
   ];
 
   return (
-    <section id="pricing" className="py-20 bg-gray-50">
+    <section id="pricing" className="py-20 bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Pricing & Packages</h2>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Pricing & Packages</h2>
             <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Choose the perfect package for your project needs
             </p>
           </div>
@@ -125,8 +125,8 @@ export default function Pricing() {
             {packages.map((pkg, index) => (
               <div
                 key={index}
-                className={`relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl ${
-                  pkg.popular ? 'border-4 border-blue-600 transform md:scale-105' : 'border border-gray-200'
+                className={`relative bg-white dark:bg-gray-800/70 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl dark:hover:shadow-blue-900/40 ${
+                  pkg.popular ? 'border-4 border-blue-600 transform md:scale-105' : 'border border-gray-200 dark:border-gray-700'
                 }`}
               >
                 {/* Popular Badge */}
@@ -143,18 +143,18 @@ export default function Pricing() {
                   </div>
 
                   {/* Package Name */}
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                     {pkg.name}
                   </h3>
 
                   {/* Price */}
                   <div className="mb-6">
                     <span className="text-5xl font-bold text-blue-600">{pkg.price}</span>
-                    <span className="text-gray-500 ml-2">starting from</span>
+                    <span className="text-gray-500 dark:text-gray-400 ml-2">starting from</span>
                   </div>
 
                   {/* Description */}
-                  <p className="text-gray-600 text-sm mb-6">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-6">
                     {pkg.description}
                   </p>
 
@@ -163,7 +163,7 @@ export default function Pricing() {
                     {pkg.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start text-sm">
                         <CheckCircleIcon />
-                        <span className="text-gray-700">{feature}</span>
+                        <span className="text-gray-700 dark:text-gray-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -176,7 +176,7 @@ export default function Pricing() {
                     className={`block w-full px-6 py-3 rounded-lg font-semibold text-center transition-colors ${
                       pkg.popular
                         ? 'bg-blue-600 text-white hover:bg-blue-700'
-                        : 'bg-gray-100 text-blue-600 hover:bg-gray-200'
+                        : 'bg-gray-100 dark:bg-gray-700 text-blue-600 dark:text-blue-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
                     GET STARTED
@@ -187,15 +187,15 @@ export default function Pricing() {
           </div>
 
           {/* Additional Info */}
-          <div className="mt-16 bg-blue-50 rounded-2xl p-8 md:p-12">
+          <div className="mt-16 bg-blue-50 dark:bg-gray-800/70 rounded-2xl p-8 md:p-12">
             <div className="max-w-3xl mx-auto text-center">
               <div className="flex justify-center mb-4">
                 <LightbulbIcon />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 Need a Custom Solution?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Every project is unique. If you need something specific or have special requirements, 
                 I&apos;m happy to create a custom package tailored to your needs.
               </p>
@@ -210,12 +210,12 @@ export default function Pricing() {
 
           {/* Quote Section */}
           <div className="mt-16 text-center">
-            <blockquote className="text-2xl italic text-gray-700 mb-4">
+            <blockquote className="text-2xl italic text-gray-700 dark:text-gray-300 mb-4">
               &ldquo;Code is not just about solving problems—it&apos;s about creating experiences that inspire 
               and empower. My mission is to build digital solutions that make a difference, turning 
               ideas into reality one line of code at a time.&rdquo;
             </blockquote>
-            <div className="text-gray-600">
+            <div className="text-gray-600 dark:text-gray-300">
               — <span className="font-semibold">Faran Alam</span>
               <br />
               <span className="text-sm">Full Stack Developer & Computer Engineer</span>

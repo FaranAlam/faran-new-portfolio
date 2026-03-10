@@ -112,15 +112,15 @@ export default function CaseStudies() {
   ];
 
   return (
-    <section id="case-studies" className="py-20 bg-white">
+    <section id="case-studies" className="py-20 bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Case Studies</h2>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Case Studies</h2>
               <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Real projects, real results. See how I helped businesses achieve their goals
               </p>
             </div>
@@ -130,7 +130,7 @@ export default function CaseStudies() {
           <StaggerContainer staggerDelay={0.2} className="space-y-16">
             {caseStudies.map((study, index) => (
               <StaggerItem key={index}>
-                <div className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                <div className="bg-gray-50 dark:bg-gray-800/70 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl dark:hover:shadow-blue-900/40 transition-all duration-300">
                   {/* Header */}
                   <div className={`bg-gradient-to-r ${study.color} p-8 text-white`}>
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -157,33 +157,33 @@ export default function CaseStudies() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                       {/* Challenge */}
                       <div>
-                        <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                        <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
                           <ChallengeIcon /> Challenge
                         </h4>
-                        <p className="text-gray-600 leading-relaxed">{study.challenge}</p>
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{study.challenge}</p>
                       </div>
 
                       {/* Solution */}
                       <div>
-                        <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                        <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
                           <SolutionIcon /> Solution
                         </h4>
-                        <p className="text-gray-600 leading-relaxed">{study.solution}</p>
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{study.solution}</p>
                       </div>
                     </div>
 
                     {/* Results */}
                     <div className="mb-8">
-                      <h4 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                      <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                         <ResultsIcon /> Results
                       </h4>
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {study.results.map((result, idx) => (
-                          <div key={idx} className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                          <div key={idx} className="text-center p-4 bg-white dark:bg-gray-700/80 rounded-xl shadow-sm hover:shadow-md transition-shadow">
                             <div className={`text-3xl font-bold bg-gradient-to-r ${study.color} bg-clip-text text-transparent mb-2`}>
                               {result.metric}
                             </div>
-                            <div className="text-gray-600 text-sm">{result.label}</div>
+                            <div className="text-gray-600 dark:text-gray-300 text-sm">{result.label}</div>
                           </div>
                         ))}
                       </div>
@@ -192,7 +192,7 @@ export default function CaseStudies() {
                     {/* Technologies */}
                     <div className="flex flex-wrap gap-2 mb-6">
                       {study.technologies.map((tech, idx) => (
-                        <span key={idx} className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                        <span key={idx} className="px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">
                           {tech}
                         </span>
                       ))}
@@ -220,11 +220,11 @@ export default function CaseStudies() {
 
           {/* Bottom CTA */}
           <FadeIn delay={0.5}>
-            <div className="mt-16 text-center bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            <div className="mt-16 text-center bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800/80 dark:to-blue-900/60 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 Want Similar Results for Your Business?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Let&apos;s discuss how I can help you achieve your goals
               </p>
               <a

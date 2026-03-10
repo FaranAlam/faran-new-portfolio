@@ -66,15 +66,15 @@ const IconFrontend = () => (
   ];
 
   return (
-    <section id="skills" className="py-20 bg-white">
+    <section id="skills" className="py-20 bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Technical Skills</h2>
-              <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Technical Skills</h2>
+              <div className="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-4"></div>
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 My expertise across the full development stack
               </p>
             </div>
@@ -84,13 +84,13 @@ const IconFrontend = () => (
           <StaggerContainer staggerDelay={0.15} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {skillCategories.map((category, catIndex) => (
               <StaggerItem key={catIndex}>
-                <div className="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-105 h-full">
+                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 shadow-sm hover:shadow-xl dark:hover:shadow-gray-900/50 transition-all duration-300 hover:scale-105 h-full">
                   {/* Category Header */}
                   <div className="flex items-center gap-3 mb-6">
                     <div className={`${category.iconBg} p-3 rounded-lg text-white shadow-lg`}>
                       {category.icon}
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                       {category.title}
                     </h3>
                   </div>
@@ -100,14 +100,14 @@ const IconFrontend = () => (
                     {category.skills.map((skill, skillIndex) => (
                       <div key={skillIndex}>
                         <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm font-medium text-gray-700">
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                             {skill.name}
                           </span>
-                          <span className="text-sm font-bold text-blue-600">
+                          <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
                             {skill.level}%
                           </span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
                           <div
                             className={`h-full ${skill.color} rounded-full transition-all duration-1000 ease-out`}
                             style={{ width: `${skill.level}%` }}
@@ -124,18 +124,18 @@ const IconFrontend = () => (
           {/* Additional Info */}
           <FadeIn delay={0.5}>
             <div className="mt-16 text-center">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-8 border border-blue-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-8 border border-blue-100 dark:border-blue-800">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Always Learning & Growing
                 </h3>
-                <p className="text-gray-600 max-w-2xl mx-auto mb-6">
+                <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
                   I&apos;m constantly updating my skills and learning new technologies to stay ahead in the ever-evolving world of web development. Currently exploring AI integration, advanced animations, and modern DevOps practices.
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
                   {["TypeScript", "GraphQL", "Web3", "AI/ML", "Cloud Services", "Microservices"].map((tech, index) => (
                     <span
                       key={index}
-                      className="px-4 py-2 bg-white text-gray-700 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
+                      className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
                     >
                       {tech}
                     </span>

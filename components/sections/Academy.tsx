@@ -130,7 +130,7 @@ export default function Academy() {
   };
 
   return (
-    <section id="academy" className="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+    <section id="academy" className="py-20 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
@@ -143,7 +143,7 @@ export default function Academy() {
           >
             {/* Academy Logo */}
             <div className="flex justify-center mb-6">
-              <div className="w-48 h-48 rounded-full overflow-hidden bg-white shadow-lg p-4 flex items-center justify-center">
+              <div className="w-48 h-48 rounded-full overflow-hidden bg-white dark:bg-gray-800 shadow-lg dark:shadow-blue-900/40 p-4 flex items-center justify-center">
                 <Image
                   src="/images/accademy/faran digital accademy logo.png"
                   alt="Faran Digital Academy Logo"
@@ -153,9 +153,9 @@ export default function Academy() {
                 />
               </div>
             </div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Faran Digital Academy</h2>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Faran Digital Academy</h2>
             <div className="w-20 h-1 bg-purple-600 mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Master the art of web design with industry-expert instruction
             </p>
           </motion.div>
@@ -166,7 +166,7 @@ export default function Academy() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl shadow-xl overflow-hidden"
+            className="bg-white dark:bg-gray-800/70 rounded-2xl shadow-xl dark:shadow-blue-900/40 overflow-hidden"
           >
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Left Side - Course Info */}
@@ -177,12 +177,12 @@ export default function Academy() {
                 </span>
 
                 {/* Title */}
-                <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                   {course.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600 dark:text-gray-300 mb-6">
                   {course.description}
                 </p>
 
@@ -193,8 +193,8 @@ export default function Academy() {
                       <DurationIcon />
                     </div>
                     <div>
-                      <div className="text-sm text-gray-500">Duration</div>
-                      <div className="font-semibold text-gray-900">{course.duration}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Duration</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">{course.duration}</div>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -202,8 +202,8 @@ export default function Academy() {
                       <TimeIcon />
                     </div>
                     <div>
-                      <div className="text-sm text-gray-500">Class Timing</div>
-                      <div className="font-semibold text-gray-900">{course.timing}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Class Timing</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">{course.timing}</div>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -211,8 +211,8 @@ export default function Academy() {
                       <LevelIcon />
                     </div>
                     <div>
-                      <div className="text-sm text-gray-500">Level</div>
-                      <div className="font-semibold text-gray-900">{course.level}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Level</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">{course.level}</div>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -220,8 +220,8 @@ export default function Academy() {
                       <FeesIcon />
                     </div>
                     <div>
-                      <div className="text-sm text-gray-500">Fees</div>
-                      <div className="font-semibold text-gray-900">{course.fees}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Fees</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">{course.fees}</div>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -229,8 +229,8 @@ export default function Academy() {
                       <ModeIcon />
                     </div>
                     <div>
-                      <div className="text-sm text-gray-500">Mode</div>
-                      <div className="font-semibold text-gray-900">{course.mode}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Mode</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">{course.mode}</div>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -238,15 +238,15 @@ export default function Academy() {
                       <CertificateIcon />
                     </div>
                     <div>
-                      <div className="text-sm text-gray-500">Certificate</div>
-                      <div className="font-semibold text-gray-900">{course.certificate}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Certificate</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">{course.certificate}</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Instructor */}
-                <div className="border-t border-gray-200 pt-6">
-                  <h4 className="font-semibold text-gray-900 mb-4">Your Instructor</h4>
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Your Instructor</h4>
                   <div className="flex items-start gap-4">
                     <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
                       <Image
@@ -258,9 +258,9 @@ export default function Academy() {
                       />
                     </div>
                     <div>
-                      <div className="font-bold text-gray-900">{course.instructor.name}</div>
+                      <div className="font-bold text-gray-900 dark:text-white">{course.instructor.name}</div>
                       <div className="text-sm text-purple-600 mb-2">{course.instructor.title}</div>
-                      <p className="text-sm text-gray-600">{course.instructor.bio}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{course.instructor.bio}</p>
                     </div>
                   </div>
                 </div>
@@ -277,9 +277,9 @@ export default function Academy() {
               </div>
 
               {/* Right Side - Curriculum & Benefits */}
-              <div className="bg-gray-50 p-8 lg:p-12">
+              <div className="bg-gray-50 dark:bg-gray-900/50 p-8 lg:p-12">
                 {/* Curriculum */}
-                <h4 className="font-semibold text-gray-900 mb-6">Course Curriculum</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-6">Course Curriculum</h4>
                 <div className="space-y-3 mb-8 max-h-96 overflow-y-auto">
                   {course.curriculum.map((item, index) => (
                     <motion.div
@@ -288,21 +288,21 @@ export default function Academy() {
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5, delay: index * 0.05 }}
                       viewport={{ once: true }}
-                      className="flex items-start bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+                      className="flex items-start bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
                     >
                       <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white text-sm font-semibold mr-3 flex-shrink-0">
                         {item.week}
                       </div>
                       <div>
-                        <div className="text-sm text-gray-500">Week {item.week}</div>
-                        <div className="font-medium text-gray-900">{item.title}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">Week {item.week}</div>
+                        <div className="font-medium text-gray-900 dark:text-white">{item.title}</div>
                       </div>
                     </motion.div>
                   ))}
                 </div>
 
                 {/* Benefits */}
-                <h4 className="font-semibold text-gray-900 mb-6">What You&apos;ll Get</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-6">What You&apos;ll Get</h4>
                 <div className="grid grid-cols-2 gap-4">
                   {course.benefits.map((benefit, index) => (
                     <motion.div
@@ -312,13 +312,13 @@ export default function Academy() {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                       viewport={{ once: true }}
                       whileHover={{ scale: 1.05, y: -5 }}
-                      className="text-center bg-white rounded-lg p-4 shadow-sm hover:shadow-lg transition-shadow cursor-pointer"
+                      className="text-center bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm hover:shadow-lg transition-shadow cursor-pointer"
                     >
                       <div className="flex justify-center mb-2">
                         <benefit.icon />
                       </div>
-                      <div className="font-semibold text-gray-900 text-sm">{benefit.title}</div>
-                      <div className="text-xs text-gray-600 mt-1">{benefit.description}</div>
+                      <div className="font-semibold text-gray-900 dark:text-white text-sm">{benefit.title}</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-300 mt-1">{benefit.description}</div>
                     </motion.div>
                   ))}
                 </div>

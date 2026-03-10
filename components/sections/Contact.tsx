@@ -155,14 +155,14 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section id="contact" className="py-20 bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Get In Touch</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Get In Touch</h2>
+            <div className="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Have a project in mind or want to discuss something? Feel free to reach out!
             </p>
           </div>
@@ -170,8 +170,8 @@ export default function Contact() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Info */}
             <div className="lg:col-span-1">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
-              <p className="text-gray-600 mb-8">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Information</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-8">
                 Let&apos;s discuss your project and see how I can help you achieve your goals.
               </p>
 
@@ -180,14 +180,14 @@ export default function Contact() {
                   <a
                     key={index}
                     href={info.href}
-                    className="flex items-start space-x-4 text-gray-700 hover:text-blue-600 transition-colors"
+                    className="flex items-start space-x-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
+                    <div className="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400">
                       {info.icon}
                     </div>
                     <div>
                       <div className="font-semibold">{info.title}</div>
-                      <div className="text-sm text-gray-600">{info.value}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">{info.value}</div>
                     </div>
                   </a>
                 ))}
@@ -195,7 +195,7 @@ export default function Contact() {
 
               {/* Social Links */}
               <div className="mt-8">
-                <h4 className="font-semibold text-gray-900 mb-4">Follow Me</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Follow Me</h4>
                 <div className="flex space-x-4">
                   <a
                     href="https://github.com/FaranAlam"
@@ -273,7 +273,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Your Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -282,8 +282,8 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${
-                        errors.name ? 'border-red-300 bg-red-50' : 'border-gray-300'
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all ${
+                        errors.name ? 'border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
                       }`}
                       placeholder="John Doe"
                     />
@@ -295,7 +295,7 @@ export default function Contact() {
                     )}
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Your Email <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -304,8 +304,8 @@ export default function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${
-                        errors.email ? 'border-red-300 bg-red-50' : 'border-gray-300'
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all ${
+                        errors.email ? 'border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
                       }`}
                       placeholder="john@example.com"
                     />
@@ -319,7 +319,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Subject <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -328,8 +328,8 @@ export default function Contact() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${
-                      errors.subject ? 'border-red-300 bg-red-50' : 'border-gray-300'
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all ${
+                      errors.subject ? 'border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
                     }`}
                     placeholder="Project Inquiry"
                   />
@@ -342,9 +342,9 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Message <span className="text-red-500">*</span>
-                    <span className="text-gray-500 font-normal ml-2">(minimum 20 characters)</span>
+                    <span className="text-gray-500 dark:text-gray-400 font-normal ml-2">(minimum 20 characters)</span>
                   </label>
                   <textarea
                     id="message"
@@ -352,8 +352,8 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent resize-none transition-all ${
-                      errors.message ? 'border-red-300 bg-red-50' : 'border-gray-300'
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent resize-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all ${
+                      errors.message ? 'border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
                     }`}
                     placeholder="Tell me about your project, requirements, timeline, and budget..."
                   />

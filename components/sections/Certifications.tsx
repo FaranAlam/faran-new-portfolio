@@ -71,15 +71,15 @@ export default function Certifications() {
   ];
 
   return (
-    <section id="certifications" className="py-20 bg-white">
+    <section id="certifications" className="py-20 bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Certifications & Achievements</h2>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Certifications & Achievements</h2>
               <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Completed online courses and earned verified certificates to strengthen my skills
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function Certifications() {
           <StaggerContainer staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {certifications.map((cert, index) => (
               <StaggerItem key={index}>
-                <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group hover:scale-105 hover:border-blue-200 h-full">
+                <div className="bg-gray-50 dark:bg-gray-800/70 rounded-xl overflow-hidden shadow-sm hover:shadow-xl dark:hover:shadow-blue-900/40 transition-all duration-300 border border-gray-100 dark:border-gray-700 group hover:scale-105 hover:border-blue-200 dark:hover:border-blue-500 h-full">
 
                 {/* Certificate Image */}
                 <div className="aspect-video bg-gray-200 relative overflow-hidden group/image">
@@ -115,7 +115,7 @@ export default function Certifications() {
                 {/* Content */}
                 <div className="p-6">
                   {/* Title */}
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">
                     {cert.title}
                   </h3>
 
@@ -125,7 +125,7 @@ export default function Certifications() {
                   </div>
 
                   {/* Date */}
-                  <div className="flex items-center text-sm text-gray-500">
+                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                     <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                     </svg>
@@ -150,19 +150,19 @@ export default function Certifications() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">6+</div>
-              <div className="text-gray-600">Certifications</div>
+              <div className="text-gray-600 dark:text-gray-300">Certifications</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">5+</div>
-              <div className="text-gray-600">Internships</div>
+              <div className="text-gray-600 dark:text-gray-300">Internships</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">100%</div>
-              <div className="text-gray-600">Verified</div>
+              <div className="text-gray-600 dark:text-gray-300">Verified</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">2022</div>
-              <div className="text-gray-600">Started</div>
+              <div className="text-gray-600 dark:text-gray-300">Started</div>
             </div>
           </div>
         </FadeIn>
@@ -177,7 +177,7 @@ export default function Certifications() {
           {/* Close Button */}
           <button
             onClick={() => setSelectedCert(null)}
-            className="absolute top-4 right-4 bg-white text-black rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-200 transition-all z-60"
+            className="absolute top-4 right-4 bg-white dark:bg-gray-800 text-black dark:text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-all z-60"
             aria-label="Close"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

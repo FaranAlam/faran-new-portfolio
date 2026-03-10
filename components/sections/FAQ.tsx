@@ -56,14 +56,14 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-20 bg-white">
+    <section id="faq" className="py-20 bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Frequently Asked Questions</h2>
             <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Quick answers about my services and process
             </p>
           </div>
@@ -73,13 +73,13 @@ export default function FAQ() {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="bg-gray-50 rounded-xl overflow-hidden border border-gray-200 hover:border-blue-300 transition-colors"
+                className="bg-gray-50 dark:bg-gray-800/70 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-colors"
               >
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-100 transition-colors"
+                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 >
-                  <span className="font-semibold text-gray-900 pr-8">
+                  <span className="font-semibold text-gray-900 dark:text-white pr-8">
                     {faq.question}
                   </span>
                   <svg
@@ -95,7 +95,7 @@ export default function FAQ() {
                 </button>
                 
                 {openIndex === index && (
-                  <div className="px-6 pb-5 text-gray-600 animate-fadeIn">
+                  <div className="px-6 pb-5 text-gray-600 dark:text-gray-300 animate-fadeIn">
                     {faq.answer}
                   </div>
                 )}
@@ -104,11 +104,11 @@ export default function FAQ() {
           </div>
 
           {/* CTA */}
-          <div className="text-center mt-12 p-8 bg-blue-50 rounded-xl">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <div className="text-center mt-12 p-8 bg-blue-50 dark:bg-gray-800/70 rounded-xl">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
               Still have questions?
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
               Feel free to reach out, and I&apos;ll get back to you within 24 hours.
             </p>
             <a

@@ -194,7 +194,7 @@ function ProjectCard({ project, index }: CardProps) {
         >
           <div
             style={{ backfaceVisibility: 'hidden' }}
-            className="absolute w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl border border-gray-700 p-6 flex flex-col justify-between overflow-hidden group"
+            className="absolute w-full h-full bg-gradient-to-br from-white via-gray-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-black rounded-2xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col justify-between overflow-hidden group"
           >
             {/* Animated background gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -202,8 +202,8 @@ function ProjectCard({ project, index }: CardProps) {
             {/* Content */}
             <div className="relative z-10">
               <div className="mb-4"><project.icon /></div>
-              <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
-              <p className="text-gray-300 text-sm">{project.shortDesc}</p>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">{project.shortDesc}</p>
             </div>
 
             {/* Tags */}
@@ -211,12 +211,12 @@ function ProjectCard({ project, index }: CardProps) {
               {project.tags.slice(0, 2).map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 bg-blue-500/20 border border-blue-500/50 rounded-full text-xs text-blue-300"
+                  className="px-3 py-1 bg-blue-100 dark:bg-blue-500/20 border border-blue-300 dark:border-blue-500/50 rounded-full text-xs text-blue-700 dark:text-blue-300"
                 >
                   {tag}
                 </span>
               ))}
-              <span className="px-3 py-1 bg-gray-700/50 border border-gray-600 rounded-full text-xs text-gray-400">
+              <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-full text-xs text-gray-600 dark:text-gray-400">
                 +{project.tags.length - 2} more
               </span>
             </div>
@@ -235,27 +235,27 @@ function ProjectCard({ project, index }: CardProps) {
         >
           <div
             style={{ backfaceVisibility: 'hidden' }}
-            className="w-full h-full bg-gradient-to-br from-purple-900 via-blue-900 to-black rounded-2xl border border-purple-700 p-6 flex flex-col justify-between"
+            className="w-full h-full bg-gradient-to-br from-blue-50 via-white to-gray-50 dark:from-purple-900 dark:via-blue-900 dark:to-black rounded-2xl border border-blue-200 dark:border-purple-700 p-6 flex flex-col justify-between"
           >
             {/* Content */}
             <div>
-              <h4 className="text-xl font-bold text-white mb-3">Project Details</h4>
-              <p className="text-gray-200 text-sm mb-4">{project.description}</p>
+              <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Project Details</h4>
+              <p className="text-gray-700 dark:text-gray-200 text-sm mb-4">{project.description}</p>
 
               {/* Impact */}
-              <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3 mb-4">
-                <p className="text-xs text-green-300 font-semibold">Impact</p>
-                <p className="text-sm text-green-200">{project.impact}</p>
+              <div className="bg-green-100 dark:bg-green-500/10 border border-green-300 dark:border-green-500/30 rounded-lg p-3 mb-4">
+                <p className="text-xs text-green-700 dark:text-green-300 font-semibold">Impact</p>
+                <p className="text-sm text-green-800 dark:text-green-200">{project.impact}</p>
               </div>
 
               {/* Full tech stack */}
               <div className="mb-4">
-                <p className="text-xs text-gray-400 font-semibold mb-2">Tech Stack</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 font-semibold mb-2">Tech Stack</p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-1 bg-blue-500/20 border border-blue-500/50 rounded-full text-xs text-blue-300"
+                      className="px-2 py-1 bg-blue-100 dark:bg-blue-500/20 border border-blue-300 dark:border-blue-500/50 rounded-full text-xs text-blue-700 dark:text-blue-300"
                     >
                       {tag}
                     </span>
@@ -298,7 +298,7 @@ function ProjectCard({ project, index }: CardProps) {
 
 export default function ProjectCards3D() {
   return (
-    <section id="project-cards-3d" className="py-20 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
+    <section id="project-cards-3d" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
@@ -308,10 +308,10 @@ export default function ProjectCards3D() {
       <div className="max-w-7xl mx-auto relative z-10">
         <FadeIn>
           <div className="mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               Featured <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">3D Projects</span>
             </h2>
-            <p className="text-xl text-gray-400">
+            <p className="text-xl text-gray-600 dark:text-gray-400">
               Hover over cards to see project details and impact metrics
             </p>
           </div>
@@ -330,7 +330,7 @@ export default function ProjectCards3D() {
           whileInView={{ opacity: 1, y: 0 }}
           className="mt-16 text-center"
         >
-          <p className="text-gray-400 mb-6">
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
             Each project demonstrates expertise in different technologies and industries
           </p>
           <a

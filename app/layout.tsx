@@ -68,8 +68,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased transition-colors duration-300" suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <body className="antialiased transition-colors duration-300 bg-white dark:bg-slate-950 text-gray-900 dark:text-white" suppressHydrationWarning>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <SessionProviderWrapper>
             <ConditionalLayout>{children}</ConditionalLayout>
           </SessionProviderWrapper>

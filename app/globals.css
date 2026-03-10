@@ -59,6 +59,8 @@ html {
   --border: #e5e7eb;
   --input: #e5e7eb;
   --ring: #3b82f6;
+  --code-string: #059669;
+  --code-keyword: #7c3aed;
 }
 
 .dark {
@@ -77,6 +79,8 @@ html {
   --border: #374151;
   --input: #374151;
   --ring: #3b82f6;
+  --code-string: #4ade80;
+  --code-keyword: #a78bfa;
 }
 
 body {
@@ -120,4 +124,36 @@ body {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+}
+
+/* Force Dark Mode for specific sections */
+.dark-section {
+  background-color: rgb(15, 23, 42) !important;
+  color: rgb(255, 255, 255) !important;
+  color-scheme: dark;
+}
+
+.dark-section * {
+  color-scheme: dark;
+}
+
+.dark-section .bg-gray-900 {
+  background-color: rgb(17, 24, 39) !important;
+}
+
+.dark-section .bg-gradient-to-br {
+  background: linear-gradient(to bottom right, rgb(17, 24, 39), rgb(30, 58, 138)) !important;
+}
+
+.dark-section .text-white {
+  color: rgb(255, 255, 255) !important;
+}
+
+.dark-section .text-gray-300,
+.dark-section .text-gray-400 {
+  color: rgb(209, 213, 219) !important;
+}
+
+.dark-section .text-gray-200 {
+  color: rgb(229, 231, 235) !important;
 }

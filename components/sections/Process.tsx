@@ -80,15 +80,15 @@ export default function Process() {
   ];
 
   return (
-    <section id="process" className="py-20 bg-gray-50">
+    <section id="process" className="py-20 bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">My Work Process</h2>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">My Work Process</h2>
               <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 A streamlined approach to deliver exceptional results on time and within budget
               </p>
             </div>
@@ -116,11 +116,11 @@ export default function Process() {
                     </div>
 
                     {/* Content */}
-                    <div className="flex-1 bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-105">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    <div className="flex-1 bg-white dark:bg-gray-800/70 rounded-xl p-6 shadow-sm hover:shadow-xl dark:hover:shadow-blue-900/40 transition-all duration-300 hover:scale-105">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
                         {step.title}
                       </h3>
-                      <p className="text-gray-600 leading-relaxed">
+                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                         {step.description}
                       </p>
                     </div>
@@ -133,7 +133,7 @@ export default function Process() {
           {/* Bottom CTA */}
           <FadeIn delay={0.5}>
             <div className="text-center mt-16">
-              <p className="text-gray-600 mb-6 text-lg">
+              <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">
                 Ready to see this process in action?
               </p>
               <a

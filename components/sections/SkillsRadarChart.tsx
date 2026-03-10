@@ -100,6 +100,21 @@ export default function SkillsRadarChart() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeCategory, setActiveCategory] = useState<'frontend' | 'backend' | 'tools'>('frontend');
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Detect dark mode from document
+  useEffect(() => {
+    const isDark = document.documentElement.classList.contains('dark');
+    setIsDarkMode(isDark);
+
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setIsDarkMode(isDark);
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -122,7 +137,7 @@ export default function SkillsRadarChart() {
     const angleStep = (Math.PI * 2) / numSkills;
 
     // Draw concentric circles (grid)
-    ctx.strokeStyle = 'rgba(100, 116, 139, 0.3)';
+    ctx.strokeStyle = isDarkMode ? 'rgba(100, 116, 139, 0.3)' : 'rgba(100, 116, 139, 0.2)';
     ctx.lineWidth = 1;
     for (let i = 1; i <= 5; i++) {
       ctx.beginPath();
@@ -131,7 +146,7 @@ export default function SkillsRadarChart() {
     }
 
     // Draw grid lines from center
-    ctx.strokeStyle = 'rgba(100, 116, 139, 0.2)';
+    ctx.strokeStyle = isDarkMode ? 'rgba(100, 116, 139, 0.2)' : 'rgba(100, 116, 139, 0.15)';
     skills.forEach((_, index) => {
       const angle = angleStep * index - Math.PI / 2;
       const x = centerX + Math.cos(angle) * maxRadius;
@@ -191,20 +206,20 @@ export default function SkillsRadarChart() {
       const labelX = centerX + Math.cos(angle) * labelRadius;
       const labelY = centerY + Math.sin(angle) * labelRadius;
 
-      ctx.fillStyle = hoveredSkill === skill.name ? skill.color : 'white';
+      ctx.fillStyle = hoveredSkill === skill.name ? skill.color : (isDarkMode ? 'white' : '#1f2937');
       ctx.font = hoveredSkill === skill.name ? 'bold 15px sans-serif' : 'bold 13px sans-serif';
       ctx.fillText(skill.name, labelX, labelY);
 
       // Draw percentage
       ctx.font = '12px sans-serif';
-      ctx.fillStyle = 'rgba(156, 163, 175, 0.8)';
+      ctx.fillStyle = isDarkMode ? 'rgba(156, 163, 175, 0.8)' : 'rgba(107, 114, 128, 0.8)';
       ctx.fillText(`${skill.level}%`, labelX, labelY + 18);
     });
 
-  }, [activeCategory, hoveredSkill]);
+  }, [activeCategory, hoveredSkill, isDarkMode]);
 
   return (
-    <section id="skills-radar-chart" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
+    <section id="skills-radar-chart" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:via-blue-900 dark:to-gray-900 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -286,7 +301,7 @@ export default function SkillsRadarChart() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-700"
+              className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 rounded-2xl p-8 shadow-2xl border border-gray-200 dark:border-gray-700"
             >
               <canvas
                 ref={canvasRef}

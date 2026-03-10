@@ -220,7 +220,7 @@ export default function RateCalculator() {
   const currentTotal = pricingMode === 'packages' ? packageTotal : hourlyTotal;
 
   return (
-    <section id="rate-calculator" className="py-20 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
+    <section id="rate-calculator" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl" />
@@ -230,10 +230,10 @@ export default function RateCalculator() {
       <div className="max-w-7xl mx-auto relative z-10">
         <FadeIn>
           <div className="mb-16 text-center">
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              Project <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">Rate Calculator</span>
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              Project{" "}<span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">Rate Calculator</span>
             </h2>
-            <p className="text-xl text-gray-400 mb-8">
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
               Transparent pricing for your next project
             </p>
 
@@ -251,7 +251,7 @@ export default function RateCalculator() {
                   className={`px-6 py-2 rounded-lg font-semibold transition-all flex items-center gap-2 ${
                     pricingMode === mode
                       ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg'
-                      : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                      : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700'
                   }`}
                 >
                   {mode === 'packages' ? (
@@ -298,49 +298,49 @@ export default function RateCalculator() {
                     )}
 
                     <div
-                      className={`h-full bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl border-2 p-6 transition-all transform ${
+                      className={`h-full bg-gradient-to-br from-white via-gray-50 to-slate-100 dark:from-gray-900 dark:via-gray-800 dark:to-black rounded-2xl border-2 p-6 transition-all transform ${
                         selectedPackage === idx
                           ? 'border-yellow-500 shadow-lg shadow-yellow-500/50'
-                          : 'border-gray-700 hover:border-yellow-500/50'
+                          : 'border-gray-200 dark:border-gray-700 hover:border-yellow-500/50'
                       }`}
                     >
                       <div className="mb-4">
                         <pkg.icon />
                       </div>
 
-                      <h3 className="text-xl font-bold text-white mb-2">{pkg.name}</h3>
-                      <p className="text-sm text-gray-400 mb-4">{pkg.description}</p>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{pkg.name}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{pkg.description}</p>
 
                       {/* Price */}
                       <div className="mb-4 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
                         <div className="text-3xl font-bold text-yellow-400">
                           ₹{pkg.basePrice.toLocaleString()}
                         </div>
-                        <p className="text-xs text-gray-400">Starting price</p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400">Starting price</p>
                       </div>
 
                       {/* Details */}
                       <div className="mb-6 space-y-2">
                         <div className="flex items-center gap-1 text-xs">
                           <ClockIcon />
-                          <span className="font-semibold text-white">{pkg.deliveryTime}</span>
+                          <span className="font-semibold text-gray-900 dark:text-white">{pkg.deliveryTime}</span>
                         </div>
                         <div className="flex items-center gap-1 text-xs">
                           <UsersIcon />
-                          <span className="font-semibold text-white">{pkg.bestFor}</span>
+                          <span className="font-semibold text-gray-900 dark:text-white">{pkg.bestFor}</span>
                         </div>
                       </div>
 
                       {/* Features */}
-                      <div className="space-y-2 mb-6 pb-6 border-b border-gray-700">
+                      <div className="space-y-2 mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
                         {pkg.features.map((feature, fidx) => (
                           <div key={fidx} className="flex items-center gap-2">
                             {feature.included ? (
                               <Check size={16} className="text-green-400" />
                             ) : (
-                              <X size={16} className="text-gray-600" />
+                              <X size={16} className="text-gray-400 dark:text-gray-600" />
                             )}
-                            <span className={`text-sm ${feature.included ? 'text-gray-300' : 'text-gray-600'}`}>
+                            <span className={`text-sm ${feature.included ? 'text-gray-700 dark:text-gray-300' : 'text-gray-400 dark:text-gray-600'}`}>
                               {feature.name}
                             </span>
                           </div>
@@ -366,9 +366,9 @@ export default function RateCalculator() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl border border-gray-700 p-8 mb-8"
+                className="bg-gradient-to-br from-white via-gray-50 to-slate-100 dark:from-gray-900 dark:via-gray-800 dark:to-black rounded-2xl border border-gray-200 dark:border-gray-700 p-8 mb-8"
               >
-                <h3 className="text-2xl font-bold text-white mb-6">Add-ons</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Add-ons</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {addOns.map((addon, idx) => (
                     <motion.div
@@ -378,13 +378,13 @@ export default function RateCalculator() {
                       className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
                         selectedAddOns.includes(idx)
                           ? 'border-yellow-500 bg-yellow-500/10'
-                          : 'border-gray-700 hover:border-yellow-500/50 bg-gray-900/50'
+                          : 'border-gray-200 dark:border-gray-700 hover:border-yellow-500/50 bg-white/80 dark:bg-gray-900/50'
                       }`}
                     >
                       <div className="flex items-start justify-between">
                         <div>
-                          <p className="font-semibold text-white">{addon.name}</p>
-                          <p className="text-sm text-gray-400">{addon.description}</p>
+                          <p className="font-semibold text-gray-900 dark:text-white">{addon.name}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{addon.description}</p>
                         </div>
                         <div className="text-right">
                           <p className="font-bold text-yellow-400">+₹{addon.price.toLocaleString()}</p>
@@ -392,7 +392,7 @@ export default function RateCalculator() {
                             className={`w-5 h-5 rounded border mt-2 flex items-center justify-center ${
                               selectedAddOns.includes(idx)
                                 ? 'bg-yellow-500 border-yellow-500'
-                                : 'border-gray-600'
+                                : 'border-gray-400 dark:border-gray-600'
                             }`}
                           >
                             {selectedAddOns.includes(idx) && <Check size={16} className="text-white" />}
@@ -411,11 +411,11 @@ export default function RateCalculator() {
                 transition={{ delay: 0.5 }}
                 className="bg-gradient-to-r from-yellow-900/20 via-orange-900/20 to-red-900/20 border border-yellow-500/30 rounded-2xl p-8 text-center"
               >
-                <p className="text-gray-400 mb-2">Total Project Cost</p>
+                <p className="text-gray-700 dark:text-gray-400 mb-2">Total Project Cost</p>
                 <p className="text-5xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-4">
                   ₹{currentTotal.toLocaleString()}
                 </p>
-                <p className="text-gray-400 mb-6">
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
                   {selectedAddOns.length > 0 && `(Base: ₹${packages[selectedPackage].basePrice.toLocaleString()} + Add-ons: ₹${selectedAddOns.reduce((sum, idx) => sum + addOns[idx].price, 0).toLocaleString()})`}
                 </p>
                 <motion.a
@@ -431,9 +431,9 @@ export default function RateCalculator() {
           ) : (
             /* Hourly View */
             <motion.div key="hourly" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl border border-gray-700 p-8 max-w-2xl mx-auto">
+              <div className="bg-gradient-to-br from-white via-gray-50 to-slate-100 dark:from-gray-900 dark:via-gray-800 dark:to-black rounded-2xl border border-gray-200 dark:border-gray-700 p-8 max-w-2xl mx-auto">
                 <div className="mb-8">
-                  <label className="block text-white font-semibold mb-4">
+                  <label className="block text-gray-900 dark:text-white font-semibold mb-4">
                     Hours Required: <span className="text-yellow-400">{hourlyHours}h</span>
                   </label>
                   <input
@@ -442,9 +442,9 @@ export default function RateCalculator() {
                     max="200"
                     value={hourlyHours}
                     onChange={(e) => setHourlyHours(parseInt(e.target.value))}
-                    className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-yellow-500"
+                    className="w-full h-2 bg-gray-300 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-yellow-500"
                   />
-                  <div className="flex justify-between text-xs text-gray-400 mt-2">
+                  <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-2">
                     <span>1h</span>
                     <span>200h</span>
                   </div>
@@ -452,21 +452,21 @@ export default function RateCalculator() {
 
                 {/* Rate Details */}
                 <div className="grid grid-cols-2 gap-4 mb-8">
-                  <div className="bg-gray-900/50 rounded-lg p-4">
-                    <p className="text-gray-400 text-sm">Hourly Rate</p>
+                  <div className="bg-white/80 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">Hourly Rate</p>
                     <p className="text-2xl font-bold text-yellow-400">₹{hourlyRate.toLocaleString()}/hr</p>
                   </div>
                   <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
-                    <p className="text-gray-400 text-sm">Total Cost</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">Total Cost</p>
                     <p className="text-2xl font-bold text-yellow-400">₹{hourlyTotal.toLocaleString()}</p>
                   </div>
                 </div>
 
                 {/* Breakdown */}
-                <div className="mb-8 p-4 bg-gray-900/50 rounded-lg">
-                  <p className="text-white font-semibold mb-3">Cost Breakdown</p>
+                <div className="mb-8 p-4 bg-white/80 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-lg">
+                  <p className="text-gray-900 dark:text-white font-semibold mb-3">Cost Breakdown</p>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between text-gray-400">
+                    <div className="flex justify-between text-gray-600 dark:text-gray-400">
                       <span>{hourlyHours} hours × ₹{hourlyRate.toLocaleString()}</span>
                       <span className="text-yellow-400">₹{hourlyTotal.toLocaleString()}</span>
                     </div>
@@ -474,8 +474,8 @@ export default function RateCalculator() {
                 </div>
 
                 {/* Notes */}
-                <div className="mb-8 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                  <div className="flex items-start gap-2 text-sm text-blue-200">
+                <div className="mb-8 p-4 bg-blue-100 dark:bg-blue-500/10 border border-blue-300 dark:border-blue-500/30 rounded-lg">
+                  <div className="flex items-start gap-2 text-sm text-blue-700 dark:text-blue-200">
                     <LightbulbIcon />
                     <p>
                       <span className="font-semibold">Tip:</span> Package pricing offers better value than hourly. A medium project (75k) = ~30 hours of work.
@@ -501,11 +501,11 @@ export default function RateCalculator() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="mt-16 text-center text-gray-400"
+          className="mt-16 text-center text-gray-600 dark:text-gray-400"
         >
           <p className="flex items-center justify-center gap-2">
             <ChatIcon />
-            Not sure which package fits your needs? <a href="#contact" className="text-yellow-400 hover:text-yellow-300 font-semibold">Let&apos;s discuss your project</a>
+            Not sure which package fits your needs? <a href="#contact" className="text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300 font-semibold">Let&apos;s discuss your project</a>
           </p>
         </motion.div>
       </div>
