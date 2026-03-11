@@ -1,0 +1,1313 @@
+% ============================================================
+% FARAN ALAM - ALL FREE RESOURCES PDFs MASTER FILE
+% ============================================================
+% HOW TO USE:
+% 1. Go to https://overleaf.com
+% 2. New Project > Blank Project
+% 3. Copy ONE section at a time (between the === markers)
+% 4. Paste in Overleaf > Compile > Download PDF
+% 5. Upload PDF to your portfolio > Link in FreeResources section
+% ============================================================
+
+
+
+
+% ============================================================
+% PDF 1: FULL STACK WEB DEVELOPMENT ROADMAP 2025
+% ============================================================
+% Copy from here to the END marker for PDF 1
+
+
+\documentclass[12pt,a4paper]{article}
+
+% ---- PACKAGES ----
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{mdframed}
+\usepackage{fontawesome5}
+\usepackage{pifont}
+
+% ---- COLORS (Faran Brand Colors) ----
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranYellow}{HTML}{F59E0B}
+\definecolor{FaranPurple}{HTML}{7C3AED}
+\definecolor{SectionBg}{HTML}{F0F9FF}
+\definecolor{CardBg}{HTML}{FFFFFF}
+\definecolor{DarkText}{HTML}{111827}
+
+% ---- HYPERLINK SETUP ----
+\hypersetup{
+    colorlinks=true,
+    linkcolor=FaranBlue,
+    urlcolor=FaranBlue,
+    pdftitle={Full Stack Web Development Roadmap 2025 - Faran Alam},
+    pdfauthor={Faran Alam}
+}
+
+% ---- HEADER / FOOTER ----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | Full Stack Developer}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe~faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage~| Faran Alam Portfolio Resources}
+\fancyfoot[R]{\small\color{FaranGray}\faWhatsapp~+92 333 4051830}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranBlue}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranBlue}\leaders\hrule height \footrulewidth\hfill}}
+
+% ---- SECTION FORMATTING ----
+\titleformat{\section}
+  {\Large\bfseries\color{FaranDark}}
+  {\color{FaranBlue}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+
+\titleformat{\subsection}
+  {\large\bfseries\color{FaranBlue}}
+  {\thesubsection.}{0.5em}{}
+
+% ---- CUSTOM BOXES ----
+\tcbuselibrary{skins,breakable}
+
+\newtcolorbox{infobox}[1]{
+  colback=FaranLight,
+  colframe=FaranBlue,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  colbacktitle=FaranBlue,
+  title=#1,
+  rounded corners,
+  boxrule=1pt,
+  arc=4pt,
+  breakable
+}
+
+\newtcolorbox{tipbox}{
+  colback=green!5,
+  colframe=FaranAccent,
+  fonttitle=\bfseries,
+  title={\faLightbulb~Pro Tip},
+  rounded corners,
+  boxrule=1pt,
+  arc=4pt,
+  breakable
+}
+
+\newtcolorbox{warningbox}{
+  colback=yellow!5,
+  colframe=FaranYellow,
+  fonttitle=\bfseries,
+  title={\faExclamationTriangle~Important},
+  rounded corners,
+  boxrule=1pt,
+  arc=4pt,
+  breakable
+}
+
+\newtcolorbox{roadmapstep}[2]{
+  colback=SectionBg,
+  colframe=FaranBlue,
+  fonttitle=\bfseries\Large,
+  coltitle=FaranDark,
+  colbacktitle=FaranLight,
+  title={Phase #1: #2},
+  rounded corners,
+  boxrule=1.5pt,
+  arc=6pt,
+  breakable,
+  left=10pt,
+  right=10pt,
+  top=8pt,
+  bottom=8pt
+}
+
+% ============================================
+\begin{document}
+% ============================================
+
+% ---- TITLE PAGE ----
+\begin{titlepage}
+    \pagecolor{FaranDark}
+    \color{white}
+    \centering
+    \vspace*{2cm}
+
+    % Top accent line
+    {\color{FaranBlue}\rule{\textwidth}{3pt}}
+    \vspace{1cm}
+
+    % Badge
+    \begin{tcolorbox}[
+        colback=FaranBlue,
+        colframe=FaranBlue,
+        width=0.4\textwidth,
+        arc=20pt,
+        boxrule=0pt,
+        halign=center
+    ]
+        \centering\color{white}\textbf{\faCode~FREE RESOURCE}
+    \end{tcolorbox}
+
+    \vspace{1cm}
+
+    {\fontsize{36}{44}\selectfont\textbf{Full Stack Web}}\\[0.3cm]
+    {\fontsize{36}{44}\selectfont\textbf{Development}}\\[0.3cm]
+    {\fontsize{40}{48}\selectfont\color{FaranBlue}\textbf{Roadmap 2025}}
+
+    \vspace{1cm}
+    {\color{FaranGray}\rule{0.6\textwidth}{1pt}}
+    \vspace{0.5cm}
+
+    {\large A Complete Step-by-Step Guide from Beginner to}\\[0.2cm]
+    {\large Hired Full Stack Developer}
+
+    \vspace{2cm}
+
+    % Author Box
+    \begin{tcolorbox}[
+        colback=white!10,
+        colframe=FaranBlue,
+        width=0.65\textwidth,
+        arc=8pt,
+        boxrule=1.5pt,
+        halign=center,
+        valign=center
+    ]
+        \centering
+        {\large\textbf{\color{white}Faran Alam}}\\[0.2cm]
+        {\color{FaranLight}Full Stack Developer \& Computer Engineer}\\[0.3cm]
+        {\small\color{FaranLight}\faGlobe~faran-new-portfolio.vercel.app \quad \faWhatsapp~+92 333 4051830}\\
+        {\small\color{FaranLight}\faLinkedin~linkedin.com/in/faran-alam \quad \faGithub~github.com/FaranAlam}
+    \end{tcolorbox}
+
+    \vspace{1.5cm}
+
+    \begin{tcolorbox}[
+        colback=FaranAccent!80,
+        colframe=FaranAccent,
+        width=0.55\textwidth,
+        arc=20pt,
+        boxrule=0pt,
+        halign=center
+    ]
+        \centering\color{white}
+        \textbf{\faStar~Faran Alam Portfolio Resources}\\
+        {\small Free High-Quality Learning Resources}
+    \end{tcolorbox}
+
+    \vfill
+
+    {\color{FaranBlue}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}Version 2025 | For Educational Use | share it freely}
+
+\end{titlepage}
+\pagecolor{white}
+\color{DarkText}
+
+% ---- TABLE OF CONTENTS ----
+\tableofcontents
+\newpage
+
+% ============================================
+\section{Introduction \& Overview}
+% ============================================
+
+\begin{infobox}{What is Full Stack Development?}
+Full Stack Development means building \textbf{both the Frontend (what users see)} and the \textbf{Backend (server, database, APIs)} of a web application. A Full Stack Developer handles the complete product from start to finish -- from pixel-perfect UI to database design and server deployment.
+\end{infobox}
+
+\vspace{0.5cm}
+
+\subsection{What You Will Learn From This Roadmap}
+\begin{itemize}[leftmargin=1.5em, itemsep=6pt]
+    \item[\color{FaranAccent}\ding{52}] Complete technology stack to become job-ready
+    \item[\color{FaranAccent}\ding{52}] Month-by-month learning timeline
+    \item[\color{FaranAccent}\ding{52}] Best learning resources (free \& paid)
+    \item[\color{FaranAccent}\ding{52}] Real project ideas to build portfolio
+    \item[\color{FaranAccent}\ding{52}] Interview preparation strategy
+    \item[\color{FaranAccent}\ding{52}] Freelancing \& job market guidance
+\end{itemize}
+
+\begin{tipbox}
+This roadmap is based on my personal journey as a self-taught Full Stack Developer. I went from zero to building production-grade applications. Follow this step-by-step and you will get there too!
+\end{tipbox}
+
+\newpage
+
+% ============================================
+\section{The Complete Tech Stack}
+% ============================================
+
+\subsection{Technology Overview Table}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranBlue}}l|X|>{\color{FaranAccent}\centering\arraybackslash}p{2.5cm}|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Category} & \color{white}\textbf{Technologies} & \color{white}\textbf{Priority} \\
+\hline
+\rowcolor{FaranLight}
+HTML/CSS & HTML5, CSS3, Flexbox, Grid, Responsive Design & \textbf{MUST} \\
+\hline
+JavaScript & ES6+, DOM, Async/Await, Fetch API, Local Storage & \textbf{MUST} \\
+\hline
+\rowcolor{FaranLight}
+React.js & Components, Hooks, Context API, React Router & \textbf{MUST} \\
+\hline
+Next.js & App Router, SSR, SSG, API Routes, Middleware & \textbf{HIGH} \\
+\hline
+\rowcolor{FaranLight}
+TypeScript & Types, Interfaces, Generics, Type Guards & \textbf{HIGH} \\
+\hline
+Tailwind CSS & Utility classes, Responsive, Dark Mode, Animation & \textbf{HIGH} \\
+\hline
+\rowcolor{FaranLight}
+Node.js & Event Loop, Modules, npm, File System & \textbf{MUST} \\
+\hline
+Express.js & REST APIs, Middleware, Authentication, Error Handling & \textbf{MUST} \\
+\hline
+\rowcolor{FaranLight}
+MongoDB & CRUD, Mongoose, Aggregation, Indexing & \textbf{MUST} \\
+\hline
+PostgreSQL & SQL Queries, Joins, Prisma ORM, Migrations & \textbf{MEDIUM} \\
+\hline
+\rowcolor{FaranLight}
+Git \& GitHub & Version Control, Branching, Pull Requests, CI/CD & \textbf{MUST} \\
+\hline
+Deployment & Vercel, Railway, MongoDB Atlas, Cloudinary & \textbf{HIGH} \\
+\hline
+\rowcolor{FaranLight}
+Auth & NextAuth.js, JWT, bcrypt, OAuth (Google/GitHub) & \textbf{HIGH} \\
+\hline
+\end{tabularx}
+\end{center}
+
+\newpage
+
+% ============================================
+\section{Phase-by-Phase Learning Roadmap}
+% ============================================
+
+\begin{roadmapstep}{1}{Foundation (Months 1-2)}
+
+\textbf{Goal:} Build a solid HTML/CSS/JavaScript foundation before touching any framework.
+
+\vspace{0.3cm}
+\textbf{\color{FaranBlue}Month 1 -- HTML \& CSS}
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{62}] HTML5 semantic elements (header, nav, main, section, footer, article)
+    \item[\ding{62}] CSS Box Model, Flexbox, CSS Grid
+    \item[\ding{62}] Responsive Design with Media Queries
+    \item[\ding{62}] CSS Variables, Animations, Transitions
+    \item[\ding{62}] \textbf{Project:} Build 3 static websites (Portfolio, Restaurant, Product Page)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{\color{FaranBlue}Month 2 -- JavaScript Fundamentals}
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{62}] Variables, Data Types, Functions, Scope, Closures
+    \item[\ding{62}] Arrays, Objects, ES6+ (Arrow Functions, Spread, Destructuring)
+    \item[\ding{62}] DOM Manipulation, Events, Forms
+    \item[\ding{62}] Promises, Async/Await, Fetch API
+    \item[\ding{62}] \textbf{Project:} Todo App, Weather App, Calculator
+\end{itemize}
+
+\vspace{0.3cm}
+\begin{tcolorbox}[colback=FaranAccent!10, colframe=FaranAccent, boxrule=0.8pt]
+\textbf{\color{FaranAccent}Resources:}
+\begin{itemize}[leftmargin=1.2em, noitemsep]
+    \item The Odin Project (free) -- theodinproject.com
+    \item freeCodeCamp.org (free)
+    \item JavaScript.info (best JS reference, free)
+    \item Traversy Media -- YouTube (free)
+\end{itemize}
+\end{tcolorbox}
+
+\end{roadmapstep}
+
+\vspace{0.5cm}
+
+\begin{roadmapstep}{2}{React \& Frontend Ecosystem (Months 3-4)}
+
+\textbf{Goal:} Learn React deeply and build dynamic single-page applications.
+
+\vspace{0.3cm}
+\textbf{\color{FaranBlue}Month 3 -- React.js Core}
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{62}] JSX, Components (Functional), Props, State
+    \item[\ding{62}] useEffect, useState, useContext, useRef, useMemo
+    \item[\ding{62}] React Router v6 -- SPA navigation
+    \item[\ding{62}] Lifting State, Component Composition patterns
+    \item[\ding{62}] \textbf{Project:} Blog App, E-commerce Product Listing, Weather Dashboard
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{\color{FaranBlue}Month 4 -- Advanced Frontend}
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{62}] TypeScript with React (interfaces, types, generics)
+    \item[\ding{62}] Tailwind CSS utility-first styling
+    \item[\ding{62}] State management: Zustand or Redux Toolkit
+    \item[\ding{62}] API integration, loading/error states
+    \item[\ding{62}] Framer Motion for animations
+    \item[\ding{62}] \textbf{Project:} Full Portfolio Website (deploy it!)
+\end{itemize}
+
+\end{roadmapstep}
+
+\vspace{0.5cm}
+
+\begin{roadmapstep}{3}{Backend Development (Months 5-6)}
+
+\textbf{Goal:} Build your own REST APIs and connect them to databases.
+
+\vspace{0.3cm}
+\textbf{\color{FaranBlue}Month 5 -- Node.js \& Express}
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{62}] Node.js runtime, modules (CommonJS vs ES Modules), npm
+    \item[\ding{62}] Express.js -- routing, middleware, error handling
+    \item[\ding{62}] REST API design principles (GET, POST, PUT, DELETE)
+    \item[\ding{62}] Environment variables with dotenv
+    \item[\ding{62}] \textbf{Project:} Build a Notes API with full CRUD
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{\color{FaranBlue}Month 6 -- Databases \& Auth}
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{62}] MongoDB \& Mongoose (schemas, models, validation)
+    \item[\ding{62}] JWT Authentication (login, register, protected routes)
+    \item[\ding{62}] Password hashing with bcrypt
+    \item[\ding{62}] File uploads with Multer + Cloudinary
+    \item[\ding{62}] \textbf{Project:} Full Auth System (Register/Login/Profile)
+\end{itemize}
+
+\end{roadmapstep}
+
+\vspace{0.5cm}
+
+\begin{roadmapstep}{4}{Next.js \& Full Stack (Months 7-8)}
+
+\textbf{Goal:} Combine frontend + backend into production-ready full stack apps.
+
+\vspace{0.3cm}
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{62}] Next.js App Router (layouts, pages, loading, error)
+    \item[\ding{62}] Server Components vs Client Components
+    \item[\ding{62}] API Routes in Next.js (serverless functions)
+    \item[\ding{62}] NextAuth.js for authentication
+    \item[\ding{62}] Database integration (MongoDB Atlas / PlanetScale)
+    \item[\ding{62}] Deployment on Vercel + Railway
+    \item[\ding{62}] SEO, metadata, Open Graph
+    \item[\ding{62}] \textbf{Project:} Full Stack SaaS App (with auth, database, payments)
+\end{itemize}
+
+\end{roadmapstep}
+
+\vspace{0.5cm}
+
+\begin{roadmapstep}{5}{Portfolio, Freelancing \& Jobs (Month 9-10)}
+
+\textbf{Goal:} Land your first client or job.
+
+\vspace{0.3cm}
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{62}] Build 3-5 full stack projects for GitHub portfolio
+    \item[\ding{62}] Optimize GitHub profile (README, pinned repos, contributions)
+    \item[\ding{62}] Create LinkedIn profile with tech keywords
+    \item[\ding{62}] Start on Fiverr / Upwork with small projects
+    \item[\ding{62}] Practice LeetCode Easy/Medium problems (DSA basics)
+    \item[\ding{62}] Prepare resume: 1 page, ATS-friendly, quantified results
+    \item[\ding{62}] Mock interviews and behavioral prep (STAR method)
+\end{itemize}
+
+\begin{warningbox}
+Do NOT apply for jobs without at least 3 full-stack projects on GitHub. Quality beats quantity. Each project should have a proper README with screenshots and live demo link.
+\end{warningbox}
+
+\end{roadmapstep}
+
+\newpage
+
+% ============================================
+\section{Portfolio Projects (Build These)}
+% ============================================
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries}c|>{\bfseries\color{FaranBlue}}l|X|>{\centering\arraybackslash}p{2.5cm}|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{\#} & \color{white}\textbf{Project} & \color{white}\textbf{Tech Stack} & \color{white}\textbf{Difficulty} \\
+\hline
+1 & Portfolio Website & Next.js, Tailwind, Framer Motion & Beginner \\
+\hline
+\rowcolor{FaranLight}
+2 & Blog Platform & Next.js, MongoDB, Auth, Markdown & Intermediate \\
+\hline
+3 & E-Commerce Store & Next.js, Stripe, MongoDB, Cloudinary & Intermediate \\
+\hline
+\rowcolor{FaranLight}
+4 & Real-time Chat App & Next.js, Socket.io, MongoDB & Advanced \\
+\hline
+5 & SaaS Dashboard & Next.js, Prisma, PostgreSQL, Charts & Advanced \\
+\hline
+\rowcolor{FaranLight}
+6 & Job Board App & React, Node, Express, MongoDB & Intermediate \\
+\hline
+\end{tabularx}
+\end{center}
+
+\newpage
+
+% ============================================
+\section{Free Learning Resources}
+% ============================================
+
+\begin{multicols}{2}
+
+\textbf{\color{FaranBlue}\large Frontend}
+\begin{itemize}[leftmargin=1.2em, itemsep=3pt]
+    \item[\faYoutube] Traversy Media (YouTube)
+    \item[\faYoutube] Fireship (YouTube)
+    \item[\faYoutube] Kevin Powell -- CSS
+    \item[\faBook] javascript.info
+    \item[\faBook] react.dev (official docs)
+    \item[\faBook] theodinproject.com
+\end{itemize}
+
+\columnbreak
+
+\textbf{\color{FaranBlue}\large Backend}
+\begin{itemize}[leftmargin=1.2em, itemsep=3pt]
+    \item[\faYoutube] Traversy Media
+    \item[\faYoutube] Akshay Saini (JS Concepts)
+    \item[\faBook] expressjs.com (official)
+    \item[\faBook] mongoosejs.com
+    \item[\faBook] nextjs.org/docs
+    \item[\faBook] prisma.io/docs
+\end{itemize}
+
+\end{multicols}
+
+\vspace{0.5cm}
+
+\begin{infobox}{Connect with Faran Alam}
+\begin{tabularx}{\textwidth}{lX}
+\faGlobe & \href{https://faran-new-portfolio.vercel.app/}{faran-new-portfolio.vercel.app} \\
+\faWhatsapp & +92 333 4051830 \\
+\faLinkedin & \href{https://linkedin.com/in/faran-alam}{linkedin.com/in/faran-alam} \\
+\faGithub & \href{https://github.com/FaranAlam}{github.com/FaranAlam} \\
+\faEnvelope & faran.bsce40@iiu.edu.pk \\
+\end{tabularx}
+\vspace{0.3cm}
+\textit{For 1-on-1 mentoring, project collaboration, or freelance work, feel free to reach out!}
+\end{infobox}
+
+% ---- LAST PAGE ----
+\newpage
+\pagecolor{FaranDark}
+\color{white}
+\centering
+\vspace*{4cm}
+
+{\color{FaranBlue}\rule{\textwidth}{3pt}}
+\vspace{1cm}
+
+{\fontsize{28}{36}\selectfont\textbf{Want to Learn More?}}\\[0.5cm]
+{\large Visit \textcolor{FaranBlue}{faran-new-portfolio.vercel.app} for more free resources}\\[0.3cm]
+{\large Join \textbf{Faran Alam Portfolio Resources} for structured learning}
+
+\vspace{2cm}
+
+\begin{tcolorbox}[
+    colback=FaranBlue,
+    colframe=FaranBlue,
+    width=0.7\textwidth,
+    arc=10pt,
+    boxrule=0pt,
+    halign=center
+]
+\centering\color{white}
+{\large\textbf{Follow for more free content:}}\\[0.4cm]
+\faGithub~github.com/FaranAlam \quad\quad
+\faLinkedin~faran-alam \\[0.3cm]
+\faWhatsapp~+92 333 4051830
+\end{tcolorbox}
+
+\vspace{2cm}
+{\color{FaranBlue}\rule{\textwidth}{3pt}}
+{\small\color{FaranGray}Portfolio Resource Series | Faran Alam | 2025}
+
+\end{document}
+
+% ============================================================
+% END OF PDF 1: FULL STACK ROADMAP
+% ============================================================
+
+
+
+
+% ============================================================
+% PDF 2: UI/UX DESIGN SYSTEM GUIDE
+% ============================================================
+% Copy from \documentclass below to the next END marker
+
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{pifont}
+\usepackage{array}
+
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranPurple}{HTML}{7C3AED}
+\definecolor{FaranPink}{HTML}{EC4899}
+\definecolor{DarkText}{HTML}{111827}
+
+\hypersetup{colorlinks=true, linkcolor=FaranBlue, urlcolor=FaranBlue,
+    pdftitle={UI/UX Design System Guide - Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | UI/UX Design Guide}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe~faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage~| Faran Alam Portfolio Resources}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranPurple}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranPurple}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranPurple}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranPurple}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}[1]{colback=FaranLight, colframe=FaranPurple, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranPurple, title=#1, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{tipbox}{colback=green!5, colframe=FaranAccent, fonttitle=\bfseries,
+  title={\faLightbulb~Design Tip}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+
+\begin{document}
+
+% ---- TITLE PAGE ----
+\begin{titlepage}
+    \pagecolor{FaranDark}
+    \color{white}
+    \centering
+    \vspace*{2cm}
+    {\color{FaranPurple}\rule{\textwidth}{3pt}}
+    \vspace{1cm}
+
+    \begin{tcolorbox}[colback=FaranPurple, colframe=FaranPurple, width=0.45\textwidth, arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faPalette~FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{1cm}
+
+    {\fontsize{36}{44}\selectfont\textbf{UI/UX Design System}}\\[0.3cm]
+    {\fontsize{40}{48}\selectfont\color{FaranPurple}\textbf{Complete Guide}}
+
+    \vspace{1cm}
+    {\large From Wireframes to Production-Ready Design Systems}
+
+    \vspace{2cm}
+    \begin{tcolorbox}[colback=white!10, colframe=FaranPurple, width=0.65\textwidth, arc=8pt, boxrule=1.5pt, halign=center]
+        \centering
+        {\large\textbf{\color{white}Faran Alam}}\\[0.2cm]
+        {\color{FaranLight}Full Stack Developer \& UI/UX Enthusiast}\\[0.3cm]
+        {\small\color{FaranLight}\faGlobe~faran-new-portfolio.vercel.app \quad \faWhatsapp~+92 333 4051830}
+    \end{tcolorbox}
+    \vfill
+    {\color{FaranPurple}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2025 Edition | Faran Alam Portfolio Resources}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+
+\tableofcontents
+\newpage
+
+\section{UI/UX Fundamentals}
+
+\begin{infobox}{What is UI vs UX?}
+\textbf{UI (User Interface)} = The visual layer -- colors, fonts, buttons, spacing, icons. What users \textit{see}.\\[0.3cm]
+\textbf{UX (User Experience)} = The feel -- how easy is it to use? How logical is the flow? What users \textit{feel}.\\[0.3cm]
+A great product needs \textbf{both}. Beautiful UI with confusing UX = frustrated users. Great UX with ugly UI = users leave.
+\end{infobox}
+
+\subsection{The 10 UI/UX Design Principles}
+\begin{enumerate}[leftmargin=2em, itemsep=8pt]
+    \item \textbf{\color{FaranPurple}Visual Hierarchy} -- Guide user's eye using size, color, weight, and spacing
+    \item \textbf{\color{FaranPurple}Consistency} -- Same button styles, fonts, colors throughout. No surprises
+    \item \textbf{\color{FaranPurple}Contrast} -- Text must be readable. Minimum 4.5:1 contrast ratio (WCAG AA)
+    \item \textbf{\color{FaranPurple}White Space} -- Never fear empty space. It creates focus and breathability
+    \item \textbf{\color{FaranPurple}Alignment} -- Every element aligned to a grid. Nothing floating randomly
+    \item \textbf{\color{FaranPurple}Proximity} -- Related items grouped together. Unrelated items separated
+    \item \textbf{\color{FaranPurple}Feedback} -- Every interaction should have a response (hover, click, loading)
+    \item \textbf{\color{FaranPurple}Accessibility} -- Design for everyone including disabled users
+    \item \textbf{\color{FaranPurple}Mobile First} -- Design for smallest screen first, then scale up
+    \item \textbf{\color{FaranPurple}Less is More} -- Remove everything not absolutely necessary
+\end{enumerate}
+
+\newpage
+
+\section{Design System Components}
+
+\subsection{Color System}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|l|l|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Role} & \color{white}\textbf{HEX Code} & \color{white}\textbf{Usage} & \color{white}\textbf{Example} \\
+\hline
+Primary & \#2563EB & Buttons, Links, CTAs & Hero buttons, Nav links \\
+\hline
+\rowcolor{FaranLight}
+Secondary & \#7C3AED & Accents, Badges & Tags, highlights \\
+\hline
+Success & \#10B981 & Success states & Form success, badges \\
+\hline
+\rowcolor{FaranLight}
+Warning & \#F59E0B & Alerts, warnings & Toast messages \\
+\hline
+Error & \#EF4444 & Errors, destructive & Delete button, form errors \\
+\hline
+\rowcolor{FaranLight}
+Text Dark & \#111827 & Primary text & Headings, body text \\
+\hline
+Text Light & \#6B7280 & Secondary text & Captions, placeholders \\
+\hline
+\rowcolor{FaranLight}
+Background & \#F9FAFB & Page background & Section backgrounds \\
+\hline
+\end{tabularx}
+\end{center}
+
+\begin{tipbox}
+Always use a \textbf{60-30-10 color rule}: 60\% neutral/background, 30\% secondary color, 10\% primary/accent. This creates visual harmony automatically.
+\end{tipbox}
+
+\subsection{Typography Scale}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|l|l|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Element} & \color{white}\textbf{Size} & \color{white}\textbf{Weight} & \color{white}\textbf{Usage} \\
+\hline
+Display & 48-64px & 800 & Hero headings \\
+\hline
+\rowcolor{FaranLight}
+H1 & 36-40px & 700 & Page titles \\
+\hline
+H2 & 28-32px & 700 & Section titles \\
+\hline
+\rowcolor{FaranLight}
+H3 & 22-24px & 600 & Card titles, subsections \\
+\hline
+H4 & 18-20px & 600 & Minor headings \\
+\hline
+\rowcolor{FaranLight}
+Body Large & 18px & 400 & Important paragraphs \\
+\hline
+Body & 16px & 400 & Default text \\
+\hline
+\rowcolor{FaranLight}
+Small & 14px & 400 & Captions, metadata \\
+\hline
+XSmall & 12px & 500 & Badges, labels \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Spacing System (8px Grid)}
+
+All spacing should be multiples of 8px:
+
+\begin{multicols}{4}
+\textbf{4px} -- xs gaps\\
+\textbf{8px} -- sm spacing\\
+\textbf{16px} -- base unit\\
+\textbf{24px} -- md spacing\\
+\textbf{32px} -- lg spacing\\
+\textbf{48px} -- xl spacing\\
+\textbf{64px} -- 2xl sections\\
+\textbf{96px} -- 3xl padding
+\end{multicols}
+
+\newpage
+
+\section{The Design Process (From Idea to UI)}
+
+\begin{enumerate}[leftmargin=2em, itemsep=10pt]
+
+\item \textbf{\color{FaranPurple}Research \& Discovery}\\
+    User interviews, competitor analysis, define target audience, user persona creation
+
+\item \textbf{\color{FaranPurple}Information Architecture}\\
+    Sitemap, user flows, content hierarchy, navigation structure
+
+\item \textbf{\color{FaranPurple}Low-Fidelity Wireframes}\\
+    Rough sketches on paper or Figma -- boxes, lines, no color. Just structure.
+
+\item \textbf{\color{FaranPurple}High-Fidelity Mockups}\\
+    Full color, typography, real content, detailed UI components
+
+\item \textbf{\color{FaranPurple}Prototype \& User Testing}\\
+    Clickable Figma prototype, test with 5 real users, note confusion points
+
+\item \textbf{\color{FaranPurple}Handoff to Developer}\\
+    Export assets, document specs, create component library in Figma
+
+\item \textbf{\color{FaranPurple}Implement \& Iterate}\\
+    Build in code, A/B test, analyze metrics, continuously improve
+
+\end{enumerate}
+
+\section{Figma Essentials for Developers}
+
+\subsection{Must-Know Figma Skills}
+\begin{itemize}[leftmargin=1.5em, itemsep=6pt]
+    \item[\ding{52}] \textbf{Auto Layout} -- creates responsive components (like Flexbox in CSS)
+    \item[\ding{52}] \textbf{Components \& Variants} -- reusable UI elements with different states
+    \item[\ding{52}] \textbf{Styles} -- shared colors, text styles, effects
+    \item[\ding{52}] \textbf{Dev Mode} -- inspect CSS values, spacing, colors directly
+    \item[\ding{52}] \textbf{Prototype links} -- connect screens for interactive demo
+    \item[\ding{52}] \textbf{Export assets} -- PNG, SVG, PDF for developers
+\end{itemize}
+
+\begin{infobox}{Faran's Recommended Figma Plugins}
+\begin{itemize}[leftmargin=1.2em, noitemsep]
+    \item \textbf{Unsplash} -- real photos directly in Figma
+    \item \textbf{Iconify} -- 100,000+ icons
+    \item \textbf{Contrast} -- check accessibility ratios
+    \item \textbf{Lorem Ipsum} -- placeholder text
+    \item \textbf{Figma to HTML} -- basic code generation
+    \item \textbf{Tailwind CSS} -- Tailwind color palettes
+\end{itemize}
+\end{infobox}
+
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{4cm}
+{\color{FaranPurple}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{Keep Designing. Keep Improving.}}\\[0.5cm]
+{\large More resources at \textcolor{FaranPurple}{faran-new-portfolio.vercel.app}}
+\vspace{2cm}
+\begin{tcolorbox}[colback=FaranPurple, colframe=FaranPurple, width=0.7\textwidth, arc=10pt, boxrule=0pt, halign=center]
+\centering\color{white}{\large\textbf{Faran Alam | faran-new-portfolio.vercel.app}}\\[0.2cm]
+\faWhatsapp~+92 333 4051830
+\end{tcolorbox}
+\vspace{2cm}
+{\color{FaranPurple}\rule{\textwidth}{3pt}}
+
+\end{document}
+
+% ============================================================
+% END OF PDF 2: UI/UX DESIGN SYSTEM GUIDE
+% ============================================================
+
+
+
+
+% ============================================================
+% PDF 3: REACT + NEXT.JS MASTERGUIDE
+% ============================================================
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{array}
+
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranOrange}{HTML}{F97316}
+\definecolor{CodeBg}{HTML}{1E1E2E}
+\definecolor{CodeFg}{HTML}{CDD6F4}
+\definecolor{DarkText}{HTML}{111827}
+
+\hypersetup{colorlinks=true, linkcolor=FaranBlue, urlcolor=FaranBlue,
+    pdftitle={React + Next.js Masterguide - Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | React \& Next.js Guide}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe~faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage~| Faran Alam Portfolio Resources}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranOrange}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranOrange}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranOrange}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranOrange}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}[1]{colback=FaranLight, colframe=FaranOrange, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranOrange, title=#1, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{codebox}[1]{colback=CodeBg, colframe=FaranOrange, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranOrange!80, title={\faCode~#1}, rounded corners, boxrule=1pt, arc=4pt,
+  breakable, left=6pt, right=6pt}
+\newtcolorbox{tipbox}{colback=green!5, colframe=FaranAccent, fonttitle=\bfseries,
+  title={\faLightbulb~Best Practice}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+
+\lstset{
+  basicstyle=\ttfamily\small\color{CodeFg},
+  backgroundcolor=\color{CodeBg},
+  keywordstyle=\color{FaranBlue}\bfseries,
+  stringstyle=\color{FaranAccent},
+  commentstyle=\color{FaranGray}\itshape,
+  breaklines=true,
+  frame=none,
+  showstringspaces=false
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \pagecolor{FaranDark}\color{white}\centering\vspace*{2cm}
+    {\color{FaranOrange}\rule{\textwidth}{3pt}}\vspace{1cm}
+    \begin{tcolorbox}[colback=FaranOrange, colframe=FaranOrange, width=0.45\textwidth, arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faReact~FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{1cm}
+    {\fontsize{36}{44}\selectfont\textbf{React \& Next.js}}\\[0.3cm]
+    {\fontsize{40}{48}\selectfont\color{FaranOrange}\textbf{Masterguide}}\\[0.5cm]
+    {\large Hooks, Patterns, App Router, Full Stack Techniques}
+    \vspace{2cm}
+    \begin{tcolorbox}[colback=white!10, colframe=FaranOrange, width=0.65\textwidth, arc=8pt, boxrule=1.5pt, halign=center]
+        \centering{\large\textbf{\color{white}Faran Alam}}\\[0.2cm]
+        {\color{FaranLight}Full Stack Developer | React \& Next.js Expert}\\[0.3cm]
+        {\small\color{FaranLight}\faGlobe~faran-new-portfolio.vercel.app \quad \faWhatsapp~+92 333 4051830}
+    \end{tcolorbox}
+    \vfill
+    {\color{FaranOrange}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2025 Edition | Faran Alam Portfolio Resources}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+\tableofcontents\newpage
+
+\section{React Core Concepts}
+
+\subsection{All React Hooks Explained}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranOrange}}l|X|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Hook} & \color{white}\textbf{Purpose} & \color{white}\textbf{When to Use} \\
+\hline
+useState & Store and update local state & Any changing piece of UI data \\
+\hline
+\rowcolor{FaranLight}
+useEffect & Side effects \& lifecycle & API calls, subscriptions, timers \\
+\hline
+useContext & Access global context data & Theme, auth, language settings \\
+\hline
+\rowcolor{FaranLight}
+useRef & Reference DOM or persist value & Focus input, previous value, timers \\
+\hline
+useMemo & Memoize expensive computation & Heavy calculations, filtered lists \\
+\hline
+\rowcolor{FaranLight}
+useCallback & Memoize functions & Prevent child re-renders \\
+\hline
+useReducer & Complex state logic & Form state, multi-step flows \\
+\hline
+\rowcolor{FaranLight}
+useLayoutEffect & DOM measurements & Before paint DOM reads \\
+\hline
+Custom Hooks & Extract reusable logic & useFetch, useAuth, useLocalStorage \\
+\hline
+\end{tabularx}
+\end{center}
+
+\begin{codebox}{useState Example}
+\begin{lstlisting}
+// Counter with useState
+const [count, setCount] = useState(0);
+
+// Functional update (correct for async)
+setCount(prev => prev + 1);
+
+// Object state - always spread!
+const [user, setUser] = useState({ name: '', email: '' });
+setUser(prev => ({ ...prev, name: 'Faran' }));
+\end{lstlisting}
+\end{codebox}
+
+\begin{codebox}{useEffect - Common Patterns}
+\begin{lstlisting}
+// Run once on mount
+useEffect(() => {
+  fetchData();
+}, []);
+
+// Run when dependency changes
+useEffect(() => {
+  document.title = `Count: ${count}`;
+}, [count]);
+
+// Cleanup (subscriptions, timers)
+useEffect(() => {
+  const timer = setInterval(() => {}, 1000);
+  return () => clearInterval(timer); // cleanup
+}, []);
+\end{lstlisting}
+\end{codebox}
+
+\begin{tipbox}
+Never put async functions directly in useEffect. Create an inner async function:
+\texttt{useEffect(() => \{ const fn = async () => \{...\}; fn(); \}, [])}
+\end{tipbox}
+
+\newpage
+
+\section{Next.js App Router (2024/2025)}
+
+\subsection{App Router File Conventions}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\ttfamily\bfseries\color{FaranOrange}}l|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{File} & \color{white}\textbf{Purpose} \\
+\hline
+page.tsx & Route page -- renders at /route \\
+\hline
+\rowcolor{FaranLight}
+layout.tsx & Shared layout wrapping children \\
+\hline
+loading.tsx & Auto loading skeleton/spinner \\
+\hline
+\rowcolor{FaranLight}
+error.tsx & Error boundary for segment \\
+\hline
+not-found.tsx & 404 page for segment \\
+\hline
+\rowcolor{FaranLight}
+route.ts & API endpoint (GET, POST etc.) \\
+\hline
+middleware.ts & Run code before request \\
+\hline
+\rowcolor{FaranLight}
+template.tsx & Fresh instance on nav (vs layout) \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Server vs Client Components}
+
+\begin{multicols}{2}
+\textbf{\color{FaranBlue}Server Component (default)}\\
+\begin{itemize}[leftmargin=1em, noitemsep]
+    \item Runs on server only
+    \item Can fetch data directly
+    \item No useState / useEffect
+    \item Better performance, smaller bundle
+    \item Access server secrets
+\end{itemize}
+\columnbreak
+\textbf{\color{FaranOrange}Client Component ('use client')}\\
+\begin{itemize}[leftmargin=1em, noitemsep]
+    \item Runs in browser
+    \item Can use hooks (state, effects)
+    \item Handles user interactions
+    \item Access browser APIs
+    \item Required for event handlers
+\end{itemize}
+\end{multicols}
+
+\begin{infobox}{Golden Rule}
+Keep components Server by default. Only add \texttt{'use client'} when you \textit{need} browser interactivity. This gives you better performance and SEO automatically.
+\end{infobox}
+
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{4cm}
+{\color{FaranOrange}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{Build. Break. Learn. Repeat.}}\\[0.5cm]
+{\large More at \textcolor{FaranOrange}{faran-new-portfolio.vercel.app}}
+\vspace{2cm}
+\begin{tcolorbox}[colback=FaranOrange, colframe=FaranOrange, width=0.7\textwidth, arc=10pt, boxrule=0pt, halign=center]
+\centering\color{white}{\large\textbf{Faran Alam | faran-new-portfolio.vercel.app}}\\\faWhatsapp~+92 333 4051830
+\end{tcolorbox}
+{\color{FaranOrange}\rule{\textwidth}{3pt}}
+
+\end{document}
+
+% ============================================================
+% END OF PDF 3: REACT + NEXT.JS MASTERGUIDE
+% ============================================================
+
+
+
+
+% ============================================================
+% PDF 4: BACKEND API DESIGN GUIDE
+% ============================================================
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{array}
+
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranGreen}{HTML}{059669}
+\definecolor{CodeBg}{HTML}{1E1E2E}
+\definecolor{CodeFg}{HTML}{CDD6F4}
+\definecolor{DarkText}{HTML}{111827}
+
+\hypersetup{colorlinks=true, linkcolor=FaranGreen, urlcolor=FaranGreen,
+    pdftitle={Backend API Design Guide - Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | Backend API Design}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe~faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage~| Faran Alam Portfolio Resources}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranGreen}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranGreen}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranGreen}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranGreen}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}[1]{colback=green!5, colframe=FaranGreen, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranGreen, title=#1, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{codebox}[1]{colback=CodeBg, colframe=FaranGreen, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranGreen!80, title={\faCode~#1}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{tipbox}{colback=blue!5, colframe=FaranBlue, fonttitle=\bfseries,
+  title={\faLightbulb~Best Practice}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+
+\lstset{basicstyle=\ttfamily\small\color{CodeFg}, backgroundcolor=\color{CodeBg},
+  keywordstyle=\color{FaranBlue}\bfseries, stringstyle=\color{FaranAccent},
+  commentstyle=\color{FaranGray}\itshape, breaklines=true, frame=none, showstringspaces=false}
+
+\begin{document}
+
+\begin{titlepage}
+    \pagecolor{FaranDark}\color{white}\centering\vspace*{2cm}
+    {\color{FaranGreen}\rule{\textwidth}{3pt}}\vspace{1cm}
+    \begin{tcolorbox}[colback=FaranGreen, colframe=FaranGreen, width=0.45\textwidth, arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faServer~FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{1cm}
+    {\fontsize{36}{44}\selectfont\textbf{Backend API Design}}\\[0.3cm]
+    {\fontsize{38}{46}\selectfont\color{FaranGreen}\textbf{Professional Guide}}\\[0.5cm]
+    {\large Node.js, Express.js, MongoDB, Authentication \& Security}
+    \vspace{2cm}
+    \begin{tcolorbox}[colback=white!10, colframe=FaranGreen, width=0.65\textwidth, arc=8pt, boxrule=1.5pt, halign=center]
+        \centering{\large\textbf{\color{white}Faran Alam}}\\[0.2cm]
+        {\color{FaranLight}Full Stack Developer | Backend Engineer}\\[0.3cm]
+        {\small\color{FaranLight}\faGlobe~faran-new-portfolio.vercel.app \quad \faWhatsapp~+92 333 4051830}
+    \end{tcolorbox}
+    \vfill
+    {\color{FaranGreen}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2025 Edition | Faran Alam Portfolio Resources}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+\tableofcontents\newpage
+
+\section{REST API Design Principles}
+
+\subsection{HTTP Methods \& Status Codes}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranGreen}}l|l|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Method} & \color{white}\textbf{Status} & \color{white}\textbf{Usage} \\
+\hline
+GET & 200 OK & Retrieve resource(s) \\
+\hline
+\rowcolor{green!5}
+POST & 201 Created & Create new resource \\
+\hline
+PUT & 200 OK & Replace entire resource \\
+\hline
+\rowcolor{green!5}
+PATCH & 200 OK & Update partial resource \\
+\hline
+DELETE & 204 No Content & Delete resource \\
+\hline
+\rowcolor{green!5}
+-- & 400 Bad Request & Invalid input \\
+\hline
+-- & 401 Unauthorized & Not authenticated \\
+\hline
+\rowcolor{green!5}
+-- & 403 Forbidden & Not authorized \\
+\hline
+-- & 404 Not Found & Resource missing \\
+\hline
+\rowcolor{green!5}
+-- & 500 Server Error & Internal server error \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection{URL Naming Conventions}
+
+\begin{codebox}{Good vs Bad API URLs}
+\begin{lstlisting}
+// BAD (verbs in URLs - wrong!)
+GET /getUsers
+POST /createNewPost
+DELETE /deleteUserById/5
+
+// GOOD (nouns, plural, clean)
+GET    /api/users           // get all users
+GET    /api/users/:id       // get one user
+POST   /api/users           // create user
+PUT    /api/users/:id       // update user
+DELETE /api/users/:id       // delete user
+
+// Nested resources
+GET /api/users/:id/posts    // user's posts
+POST /api/posts/:id/comments // add comment
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+
+\section{Express.js API Structure}
+
+\begin{codebox}{Professional Folder Structure}
+\begin{lstlisting}
+my-api/
+  src/
+    controllers/   # Business logic
+    routes/        # Route definitions
+    models/        # Mongoose models
+    middleware/    # Auth, validation, errors
+    utils/         # Helper functions
+    config/        # DB, env, constants
+  app.js           # Express app setup
+  server.js        # Server entry point
+  .env             # Environment variables
+\end{lstlisting}
+\end{codebox}
+
+\begin{codebox}{JWT Authentication Middleware}
+\begin{lstlisting}
+const jwt = require('jsonwebtoken');
+
+const protect = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization
+      ?.split(' ')[1]; // Bearer TOKEN
+
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'Not authenticated'
+      });
+    }
+
+    const decoded = jwt.verify(
+      token, process.env.JWT_SECRET
+    );
+    req.user = decoded;
+    next();
+  } catch (err) {
+    res.status(401).json({ message: 'Invalid token' });
+  }
+};
+\end{lstlisting}
+\end{codebox}
+
+\begin{infobox}{API Security Checklist}
+\begin{itemize}[leftmargin=1.2em, noitemsep]
+    \item[\ding{52}] Always validate and sanitize user input
+    \item[\ding{52}] Use HTTPS in production (never plain HTTP)
+    \item[\ding{52}] Hash passwords with bcrypt (never store plain text)
+    \item[\ding{52}] Implement rate limiting (express-rate-limit)
+    \item[\ding{52}] Use helmet.js for security headers
+    \item[\ding{52}] CORS properly configured (not wildcard in production)
+    \item[\ding{52}] Rotate JWT secrets and use short expiry
+    \item[\ding{52}] Never expose stack traces in production responses
+    \item[\ding{52}] Use environment variables for all secrets
+    \item[\ding{52}] Log errors (winston or pino)
+\end{itemize}
+\end{infobox}
+
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{4cm}
+{\color{FaranGreen}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{Secure APIs. Clean Code.}}\\[0.5cm]
+{\large More at \textcolor{FaranGreen}{faran-new-portfolio.vercel.app}}
+\vspace{2cm}
+\begin{tcolorbox}[colback=FaranGreen, colframe=FaranGreen, width=0.7\textwidth, arc=10pt, boxrule=0pt, halign=center]
+\centering\color{white}{\large\textbf{Faran Alam | faran-new-portfolio.vercel.app}}\\\faWhatsapp~+92 333 4051830
+\end{tcolorbox}
+{\color{FaranGreen}\rule{\textwidth}{3pt}}
+
+\end{document}
+
+% ============================================================
+% END OF PDF 4: BACKEND API DESIGN GUIDE
+% ============================================================

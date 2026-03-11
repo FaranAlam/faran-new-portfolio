@@ -1,0 +1,418 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{array}
+
+% ---- COLORS ----
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranTeal}{HTML}{0F766E}
+\definecolor{CodeBg}{HTML}{1E1E2E}
+\definecolor{CodeFg}{HTML}{CDD6F4}
+\definecolor{DarkText}{HTML}{111827}
+\definecolor{SectionBg}{HTML}{F0FDFA}
+
+\hypersetup{colorlinks=true, linkcolor=FaranTeal, urlcolor=FaranTeal,
+    pdftitle={Database Design Best Practices - Faran Alam}, pdfauthor={Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | Database Design Best Practices}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe\ faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage\ | Faran Alam Portfolio Resources}
+\fancyfoot[R]{\small\color{FaranGray}\faWhatsapp\ +92 333 4051830}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranTeal}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranTeal}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranTeal}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranTeal}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newcommand{\circleimage}[3]{%
+  \begin{tikzpicture}[baseline=(img.base)]
+    \clip (0,0) circle (#1);
+    \node[inner sep=0pt] (img) at (0,0) {\includegraphics[width=#2,height=#2]{#3}};
+    \draw[line width=0.9pt, color=FaranAccent!85!black] (0,0) circle (#1);
+  \end{tikzpicture}%
+}
+\newtcolorbox{infobox}[1]{colback=SectionBg, colframe=FaranTeal, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranTeal, title=#1, rounded corners, boxrule=1pt, arc=5pt, breakable}
+\newtcolorbox{codebox}[1]{colback=CodeBg, colframe=FaranTeal, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranTeal!80, title={\faDatabase\ #1}, rounded corners, boxrule=1pt, arc=5pt,
+  breakable, left=6pt, right=6pt, top=6pt, bottom=6pt}
+\newtcolorbox{tipbox}{colback=green!5, colframe=FaranAccent, fonttitle=\bfseries,
+  title={\faLightbulb\ Best Practice}, rounded corners, boxrule=1pt, arc=5pt, breakable}
+\newtcolorbox{warningbox}{colback=red!5, colframe=red!70, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=red!70, title={\faExclamationTriangle\ Anti-Pattern -- Avoid!},
+  rounded corners, boxrule=1pt, arc=5pt, breakable}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize\color{CodeFg},
+  backgroundcolor=\color{CodeBg},
+  keywordstyle=\color{cyan}\bfseries,
+  stringstyle=\color{FaranAccent},
+  commentstyle=\color{FaranGray}\itshape,
+  breaklines=true, breakatwhitespace=false, columns=fullflexible, keepspaces=true, frame=none, showstringspaces=false
+}
+
+\begin{document}
+
+% ==================== TITLE PAGE ====================
+\begin{titlepage}
+    \pagecolor{FaranDark}\color{white}\centering\vspace*{0.3cm}
+    \circleimage{0.8cm}{1.6cm}{logo.jpg}\qquad\circleimage{0.8cm}{1.6cm}{academy-logo.png}\\[0.3cm]
+    {\color{FaranTeal}\rule{\textwidth}{3pt}}\vspace{0.8cm}
+
+    \begin{tcolorbox}[colback=FaranTeal, colframe=FaranTeal, width=0.42\textwidth,
+        arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faDatabase\ FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{0.8cm}
+
+    {\fontsize{38}{46}\selectfont\textbf{Database Design}}\\[0.3cm]
+    {\fontsize{42}{50}\selectfont\color{FaranTeal}\textbf{Best Practices}}\\[0.6cm]
+    {\large\color{FaranLight}Schema Design, Normalization, Indexing,}\\[0.2cm]
+    {\large\color{FaranLight}Query Optimization -- MongoDB \& PostgreSQL}
+
+    \vspace{1.5cm}
+    \begin{tcolorbox}[colback=white, colframe=FaranTeal, width=0.68\textwidth,
+        arc=8pt, boxrule=1.5pt, halign=center]
+        \centering
+        \circleimage{1cm}{2cm}{profile.jpg}\\[0.15cm]
+        {\large\textbf{\color{FaranDark}Faran Alam}}\\[0.1cm]
+        {\color{FaranGray}Full Stack Developer | Database Engineer}\\[0.3cm]
+        {\small\color{FaranDark}
+            \faGlobe\ faran-new-portfolio.vercel.app \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.1cm]
+            \faGithub\ github.com/FaranAlam \quad \faWhatsapp\ +92 333 4051830\\[0.1cm]
+            \faFacebook\ facebook.com/faran.alam.5243 \quad \faLinkedin\ linkedin.com/in/faran-alam-14203abc\\[0.1cm]
+            \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+        }
+    \end{tcolorbox}
+    \vfill
+    {\color{FaranTeal}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2026 Edition | Portfolio Resource Series | Faran Alam}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+\tableofcontents
+\newpage
+
+% ==================== SECTION 1 ====================
+\section{Choose the Right Database}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|X|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\large\textbf{PostgreSQL (Relational)} & \color{white}\large\textbf{MongoDB (Document)} \\
+\hline
+Tables, rows, columns (strict schema) & Collections, documents, JSON-like (flexible) \\
+\hline
+\rowcolor{SectionBg}
+ACID transactions (guaranteed consistency) & Eventual/configurable consistency \\
+\hline
+Complex JOINs across tables & Embed related data OR use references \\
+\hline
+\rowcolor{SectionBg}
+Best for: finance, ERP, e-commerce & Best for: CMS, real-time, rapid MVPs \\
+\hline
+Tools: Prisma ORM, Drizzle ORM & Tools: Mongoose, MongoDB driver \\
+\hline
+\rowcolor{SectionBg}
+Hosted: Supabase, Neon, PlanetScale & Hosted: MongoDB Atlas (free 512MB) \\
+\hline
+\end{tabularx}
+\end{center}
+
+\begin{infobox}{Decision Rule}
+\textbf{Use PostgreSQL when:} Data has clear relationships, you need complex reporting, or financial accuracy is critical (payments, inventory).\\[0.2cm]
+\textbf{Use MongoDB when:} Building fast with flexible data, working in JavaScript ecosystem, storing user-generated content, or needing horizontal scaling.\\[0.2cm]
+\textbf{Use Both:} Many production apps use MongoDB for content + PostgreSQL for transactions (payments, auth).
+\end{infobox}
+
+\newpage
+
+% ==================== SECTION 2 ====================
+\section{PostgreSQL Schema Design}
+
+\subsection{Normalization Rules}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranTeal}}l|X|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Normal Form} & \color{white}\textbf{Requirement} & \color{white}\textbf{Problem it Solves} \\
+\hline
+1NF & Each column has atomic values, no repeating groups & Removes duplicate columns \\
+\hline
+\rowcolor{SectionBg}
+2NF & 1NF + all non-key columns depend on whole primary key & Removes partial dependencies \\
+\hline
+3NF & 2NF + no transitive dependencies & Removes indirect dependencies \\
+\hline
+\rowcolor{SectionBg}
+BCNF & 3NF + every determinant is a candidate key & Handles edge cases \\
+\hline
+\end{tabularx}
+\end{center}
+
+\begin{tipbox}
+\textbf{Practical rule:} Aim for 3NF in most cases. Over-normalizing creates too many JOINs and hurts performance. Some denormalization (adding redundant columns you query often) is perfectly fine in large-scale apps.
+\end{tipbox}
+
+\subsection{Prisma Schema Best Practices}
+
+\begin{codebox}{Well-designed Prisma Schema}
+\begin{lstlisting}
+model User {
+  id        String    @id @default(cuid())  // cuid > autoincrement for distributed
+  email     String    @unique
+  name      String
+  role      Role      @default(USER)        // use enums for fixed values
+  posts     Post[]
+  profile   Profile?  // optional 1-to-1
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt            // auto-updated timestamp
+
+  @@index([email])                          // index on frequently queried field
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique              // for URL-friendly lookups
+  content     String
+  published   Boolean  @default(false)
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id],
+                         onDelete: Cascade)  // cascade deletes!
+  tags        Tag[]    @relation("PostTags")
+  createdAt   DateTime @default(now())
+
+  @@index([authorId])                       // index foreign keys!
+  @@index([published, createdAt(sort: Desc)]) // compound index
+}
+
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
+}
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+
+% ==================== SECTION 3 ====================
+\section{MongoDB Schema Design}
+
+\subsection{Embedding vs Referencing}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|X|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Embed (denormalize)} & \color{white}\textbf{Reference (normalize)} \\
+\hline
+Related data inside parent document & Separate collections with ObjectId refs \\
+\hline
+\rowcolor{SectionBg}
+Single query fetches everything fast & Requires populate() / multiple queries \\
+\hline
+Great for: comments, addresses, tags & Great for: users, posts, large sub-docs \\
+\hline
+\rowcolor{SectionBg}
+Risk: document grows unbounded & Clean separation, easier to update \\
+\hline
+\end{tabularx}
+\end{center}
+
+\begin{codebox}{Mongoose: When to Embed vs Reference}
+\begin{lstlisting}
+// EMBED: Small, fixed data that belongs to parent
+const blogPostSchema = new Schema({
+  title: String,
+  // Comments EMBEDDED (small, always shown with post)
+  comments: [{
+    text: String,
+    author: String,   // just name, not full user
+    createdAt: { type: Date, default: Date.now }
+  }],
+  // Tags EMBEDDED (simple strings)
+  tags: [String],
+});
+
+// REFERENCE: Large, independent entities
+const blogPostSchema = new Schema({
+  title: String,
+  // Author REFERENCED (full user object, can be queried alone)
+  author: { type: mongoose.Types.ObjectId, ref: 'User', required: true },
+  // Category REFERENCED (shared across posts)
+  category: { type: mongoose.Types.ObjectId, ref: 'Category' },
+});
+
+// Populate references
+const post = await Post
+  .findById(id)
+  .populate('author', 'name email avatar')  // only get needed fields
+  .lean();  // returns plain JS object (faster, no mongoose overhead)
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+
+% ==================== SECTION 4 ====================
+\section{Indexing Strategy}
+
+\begin{infobox}{Why Indexing is Critical}
+Without indexes, MongoDB/PostgreSQL scans \textbf{every document/row} to find matching data -- a \textbf{collection scan}. With an index, it jumps directly to results in O(log n) time. On a million-record collection, the difference is \textbf{2ms vs 4000ms}.
+\end{infobox}
+
+\subsection{MongoDB Indexing}
+\begin{codebox}{Essential Index Patterns}
+\begin{lstlisting}
+// Single field index - most common
+userSchema.index({ email: 1 });           // 1=ascending -1=descending
+postSchema.index({ createdAt: -1 });      // most recent first
+
+// Compound index (order matters!)
+postSchema.index({ author: 1, createdAt: -1 });
+// Good for: find posts BY author, sorted by date
+
+// Text index for search
+productSchema.index({ name: 'text', description: 'text' });
+// Usage: Product.find({ $text: { $search: 'laptop gaming' } })
+
+// Unique index
+userSchema.index({ email: 1 }, { unique: true });
+
+// Analyze query performance
+await Post.find({ author: id }).explain('executionStats');
+// Check: totalDocsExamined should equal nReturned (not full collection)
+\end{lstlisting}
+\end{codebox}
+
+\subsection{Common Anti-Patterns to Avoid}
+
+\begin{warningbox}
+\begin{itemize}[leftmargin=1.5em, itemsep=5pt]
+    \item[\ding{55}] \textbf{No indexes on foreign keys} -- every JOIN/populate does full scan
+    \item[\ding{55}] \textbf{Storing passwords in plain text} -- always hash with bcrypt (cost 12)
+    \item[\ding{55}] \textbf{N+1 query problem} -- fetching 100 posts then 100 separate author queries
+    \item[\ding{55}] \textbf{Unbounded arrays in MongoDB} -- arrays growing to 10,000+ elements destroy performance
+    \item[\ding{55}] \textbf{SELECT *} -- always select only needed columns/fields
+    \item[\ding{55}] \textbf{No pagination} -- returning 50,000 records in one response
+    \item[\ding{55}] \textbf{No connection pooling} -- creating new DB connection per request
+\end{itemize}
+\end{warningbox}
+
+\vspace{0.5cm}
+\begin{infobox}{Connect with Faran Alam}
+Need a database review or architecture consultation?\\[0.2cm]
+\faGlobe\ \href{https://faran-new-portfolio.vercel.app/}{faran-new-portfolio.vercel.app} \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.1cm]
+\faWhatsapp\ +92 333 4051830 \quad \faGithub\ github.com/FaranAlam \quad \faFacebook\ facebook.com/faran.alam.5243\\[0.1cm]
+\faLinkedin\ linkedin.com/in/faran-alam-14203abc \quad \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+\end{infobox}
+
+
+% ==================== ADVANCED BEGINNER + PROFESSIONAL UPGRADE ====================
+\section{Beginner-to-Professional Execution Blueprint}
+
+\begin{infobox}{How to Study This Resource the Right Way}
+Do not just read this PDF. Convert each major topic into one practical output:
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{52}] Learn the concept for 30--45 minutes
+    \item[\ding{52}] Implement one mini feature immediately
+    \item[\ding{52}] Write 3--5 bullet notes in your own words
+    \item[\ding{52}] Push your progress to GitHub with clear commits
+\end{itemize}
+This simple loop helps beginners become consistent and interview-ready.
+\end{infobox}
+
+\subsection{Weekly Professional Growth Plan}
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranDark}}l|X|>{\centering\arraybackslash}p{2.6cm}|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Day} & \color{white}\textbf{Focus} & \color{white}\textbf{Output} \\
+\hline
+Mon--Tue & Concepts + guided implementation & Notes + code snippets \\
+\hline
+\rowcolor{SectionBg}
+Wed--Thu & Build practical feature/project block & Working module \\
+\hline
+Fri & Refactor + improve naming/structure & Cleaner codebase \\
+\hline
+\rowcolor{SectionBg}
+Sat & Deploy + test on real device/browser & Live URL + bug list \\
+\hline
+Sun & Review week + LinkedIn learning post & Public proof of progress \\
+\hline
+\end{tabularx}
+\end{center}
+
+\section{Professional Quality Standards}
+
+\begin{infobox}{Client-Ready Checklist}
+Before you call any project complete, verify these essentials:
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{116}] Mobile-first responsive layout
+    \item[\ding{116}] Loading, empty, and error states
+    \item[\ding{116}] Clean file structure and reusable components
+    \item[\ding{116}] Clear README with setup and feature summary
+    \item[\ding{116}] Deployed live demo with working links
+\end{itemize}
+\end{infobox}
+
+\begin{tipbox}
+\textbf{Career Shortcut:} Employers do not hire by course certificates. They hire by proof of execution. Ship projects, document your process, and show measurable improvement every month.
+\end{tipbox}
+
+\section{30-Day Improvement Sprint}
+\begin{itemize}[leftmargin=1.5em, itemsep=5pt]
+    \item[\ding{52}] Week 1: Strengthen fundamentals and fix weak concepts
+    \item[\ding{52}] Week 2: Build one focused project from scratch
+    \item[\ding{52}] Week 3: Add professional polish (SEO, performance, accessibility)
+    \item[\ding{52}] Week 4: Deploy, write case study, and publish portfolio update
+\end{itemize}
+% ==================== LAST PAGE ====================
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{3cm}
+{\color{FaranTeal}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{Good Schemas Save Months.}}\\[0.5cm]
+{\large Explore more resources at \textcolor{FaranTeal}{faran-new-portfolio.vercel.app}}
+\vspace{0.4cm}
+\circleimage{1.25cm}{2.5cm}{academy-logo.png}\\[0.4cm]
+\begin{tcolorbox}[colback=FaranTeal, colframe=FaranTeal, width=0.72\textwidth,
+    arc=10pt, boxrule=0pt, halign=center]
+    \centering\color{white}
+    {\large\textbf{Faran Alam}}\\[0.3cm]
+    \faGlobe\ faran-new-portfolio.vercel.app \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.2cm]
+    \faWhatsapp\ +92 333 4051830 \quad \faGithub\ github.com/FaranAlam\\[0.2cm]
+    \faFacebook\ facebook.com/faran.alam.5243 \quad \faLinkedin\ linkedin.com/in/faran-alam-14203abc\\[0.2cm]
+    \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+\end{tcolorbox}
+\vspace{1.5cm}
+{\color{FaranTeal}\rule{\textwidth}{3pt}}
+{\small\color{FaranGray}Portfolio Resource Series | Faran Alam | 2026}
+
+\end{document}

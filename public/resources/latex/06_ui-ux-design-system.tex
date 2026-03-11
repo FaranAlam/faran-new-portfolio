@@ -1,0 +1,400 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+\usepackage{pifont}
+\usepackage{array}
+\usepackage{tikz}
+
+% ---- COLORS ----
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranViolet}{HTML}{7C3AED}
+\definecolor{FaranPink}{HTML}{DB2777}
+\definecolor{DarkText}{HTML}{111827}
+\definecolor{SectionBg}{HTML}{FAF5FF}
+\definecolor{TokenBg}{HTML}{F3F4F6}
+
+\hypersetup{colorlinks=true, linkcolor=FaranViolet, urlcolor=FaranViolet,
+    pdftitle={UI/UX Design System - Faran Alam}, pdfauthor={Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | UI/UX Design System}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe\ faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage\ | Faran Alam Portfolio Resources}
+\fancyfoot[R]{\small\color{FaranGray}\faWhatsapp\ +92 333 4051830}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranViolet}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranViolet}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranViolet}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranViolet}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newcommand{\circleimage}[3]{%
+  \begin{tikzpicture}[baseline=(img.base)]
+    \clip (0,0) circle (#1);
+    \node[inner sep=0pt] (img) at (0,0) {\includegraphics[width=#2,height=#2]{#3}};
+    \draw[line width=0.9pt, color=FaranAccent!85!black] (0,0) circle (#1);
+  \end{tikzpicture}%
+}
+\newtcolorbox{infobox}[1]{colback=SectionBg, colframe=FaranViolet, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranViolet, title=#1, rounded corners, boxrule=1pt, arc=5pt, breakable}
+\newtcolorbox{tipbox}{colback=green!5, colframe=FaranAccent, fonttitle=\bfseries,
+  title={\faLightbulb\ Design Principle}, rounded corners, boxrule=1pt, arc=5pt, breakable}
+\newtcolorbox{tokenbox}[1]{colback=TokenBg, colframe=FaranViolet!50, fonttitle=\bfseries\color{FaranViolet},
+  title={#1}, rounded corners, boxrule=0.8pt, arc=5pt, breakable}
+
+\begin{document}
+
+% ==================== TITLE PAGE ====================
+\begin{titlepage}
+    \pagecolor{FaranDark}\color{white}\centering\vspace*{0.3cm}
+    \circleimage{0.8cm}{1.6cm}{logo.jpg}\qquad\circleimage{0.8cm}{1.6cm}{academy-logo.png}\\[0.3cm]
+    {\color{FaranViolet}\rule{\textwidth}{3pt}}\vspace{0.8cm}
+
+    \begin{tcolorbox}[colback=FaranViolet, colframe=FaranViolet, width=0.42\textwidth,
+        arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faPalette\ FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{0.8cm}
+
+    {\fontsize{38}{46}\selectfont\textbf{UI/UX Design}}\\[0.3cm]
+    {\fontsize{42}{50}\selectfont\color{FaranViolet}\textbf{System}}\\[0.6cm]
+    {\large\color{FaranLight}Design Tokens, Color Theory, Typography, Spacing,}\\[0.2cm]
+    {\large\color{FaranLight}Component States, Accessibility \& Dark Mode}
+
+    \vspace{1.5cm}
+    \begin{tcolorbox}[colback=white, colframe=FaranViolet, width=0.68\textwidth,
+        arc=8pt, boxrule=1.5pt, halign=center]
+        \centering
+        \circleimage{1cm}{2cm}{profile.jpg}\\[0.15cm]
+        {\large\textbf{\color{FaranDark}Faran Alam}}\\[0.1cm]
+        {\color{FaranGray}Full Stack Developer | UI/UX Designer}\\[0.3cm]
+        {\small\color{FaranDark}
+            \faGlobe\ faran-new-portfolio.vercel.app \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.1cm]
+            \faGithub\ github.com/FaranAlam \quad \faWhatsapp\ +92 333 4051830\\[0.1cm]
+            \faFacebook\ facebook.com/faran.alam.5243 \quad \faLinkedin\ linkedin.com/in/faran-alam-14203abc\\[0.1cm]
+            \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+        }
+    \end{tcolorbox}
+    \vfill
+    {\color{FaranViolet}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2026 Edition | Portfolio Resource Series | Faran Alam}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+\tableofcontents
+\newpage
+
+% ==================== SECTION 1 ====================
+\section{Design Tokens Foundation}
+
+\begin{infobox}{What are Design Tokens?}
+Design tokens are the \textbf{named variables} that store all visual decisions in your design system -- colors, font sizes, spacing, shadows, border radius. They create a \textbf{single source of truth} shared between design (Figma) and code (CSS/Tailwind). Change a token = change the whole system.
+\end{infobox}
+
+\subsection{Color Token System}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\ttfamily\small\bfseries}l|>{\centering\arraybackslash}p{2.2cm}|X|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Token Name} & \color{white}\textbf{Value} & \color{white}\textbf{CSS Variable} & \color{white}\textbf{Usage} \\
+\hline
+color-primary-500 & \#2563EB & \texttt{--color-primary} & Buttons, links, CTAs \\
+\hline
+\rowcolor{SectionBg}
+color-primary-700 & \#1D4ED8 & \texttt{--color-primary-dark} & Hover states \\
+\hline
+color-secondary-500 & \#7C3AED & \texttt{--color-secondary} & Accents, badges \\
+\hline
+\rowcolor{SectionBg}
+color-success-500 & \#10B981 & \texttt{--color-success} & Success states \\
+\hline
+color-warning-500 & \#F59E0B & \texttt{--color-warning} & Alerts, warnings \\
+\hline
+\rowcolor{SectionBg}
+color-error-500 & \#EF4444 & \texttt{--color-error} & Errors, destructive \\
+\hline
+color-neutral-900 & \#111827 & \texttt{--color-text-primary} & Main text \\
+\hline
+\rowcolor{SectionBg}
+color-neutral-500 & \#6B7280 & \texttt{--color-text-secondary} & Subtitles, captions \\
+\hline
+color-neutral-50 & \#F9FAFB & \texttt{--color-bg} & Page background \\
+\hline
+\end{tabularx}
+\end{center}
+
+\begin{tipbox}
+\textbf{60-30-10 Color Rule:} 60\% neutral/background, 30\% secondary color, 10\% primary/accent. This ratio creates balance automatically. Never use your primary color more than 10\% of the page area.
+\end{tipbox}
+
+\newpage
+
+\subsection{Typography Scale (Type System)}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranViolet}}l|l|l|l|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Token} & \color{white}\textbf{Size} & \color{white}\textbf{Line H.} & \color{white}\textbf{Weight} & \color{white}\textbf{Usage} \\
+\hline
+text-display & 64px & 1.1 & 800 & Hero headlines \\
+\hline
+\rowcolor{SectionBg}
+text-h1 & 48px & 1.2 & 700 & Page titles \\
+\hline
+text-h2 & 36px & 1.25 & 700 & Section headings \\
+\hline
+\rowcolor{SectionBg}
+text-h3 & 28px & 1.3 & 600 & Card titles \\
+\hline
+text-h4 & 22px & 1.4 & 600 & Subsections \\
+\hline
+\rowcolor{SectionBg}
+text-body-lg & 18px & 1.6 & 400 & Lead paragraphs \\
+\hline
+text-body & 16px & 1.6 & 400 & Default body \\
+\hline
+\rowcolor{SectionBg}
+text-sm & 14px & 1.5 & 400 & Secondary info \\
+\hline
+text-xs & 12px & 1.4 & 500 & Badges, labels \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Spacing Scale (8px Base Grid)}
+
+All spacing values are multiples of 4px or 8px. This creates visual consistency.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|l|l|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Token} & \color{white}\textbf{Value} & \color{white}\textbf{Tailwind} & \color{white}\textbf{Use For} \\
+\hline
+space-1 & 4px & p-1, m-1 & Fine gaps, icon padding \\
+\hline
+\rowcolor{SectionBg}
+space-2 & 8px & p-2, m-2 & Inline gap, small padding \\
+\hline
+space-4 & 16px & p-4, m-4 & Default component padding \\
+\hline
+\rowcolor{SectionBg}
+space-6 & 24px & p-6, m-6 & Card padding \\
+\hline
+space-8 & 32px & p-8, m-8 & Section inner padding \\
+\hline
+\rowcolor{SectionBg}
+space-12 & 48px & p-12 & Large gaps \\
+\hline
+space-16 & 64px & p-16 & Section vertical padding \\
+\hline
+\rowcolor{SectionBg}
+space-24 & 96px & py-24 & Hero/CTA padding \\
+\hline
+\end{tabularx}
+\end{center}
+
+\newpage
+
+% ==================== SECTION 2 ====================
+\section{Component States}
+
+Every interactive component needs \textbf{5 states} designed:
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranViolet}}l|X|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{State} & \color{white}\textbf{When} & \color{white}\textbf{Visual Change} \\
+\hline
+Default & Normal idle state & Base appearance \\
+\hline
+\rowcolor{SectionBg}
+Hover & Mouse over element & Slightly darker bg, shadow \\
+\hline
+Active/Pressed & Being clicked & Even darker, slight scale down \\
+\hline
+\rowcolor{SectionBg}
+Focus & Keyboard focused & Visible focus ring (accessibility!) \\
+\hline
+Disabled & Cannot be interacted with & 50\% opacity, no-drop cursor \\
+\hline
+\rowcolor{SectionBg}
+Loading & Action in progress & Spinner, skeleton, reduced opacity \\
+\hline
+Error & Invalid input & Red border, error message below \\
+\hline
+\rowcolor{SectionBg}
+Success & Valid / completed & Green indicator, checkmark \\
+\hline
+\end{tabularx}
+\end{center}
+
+\newpage
+
+% ==================== SECTION 3 ====================
+\section{Accessibility (A11y) Standards}
+
+\begin{infobox}{Why Accessibility is Non-Negotiable}
+In 2026, accessibility is legally required in many countries. Beyond legal compliance, accessible design means \textbf{better UX for all users} -- clear focus states help keyboard users, high contrast helps outdoor mobile users, semantic HTML helps screen readers AND SEO.
+\end{infobox}
+
+\subsection{WCAG 2.1 Quick Reference}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|>{\centering\arraybackslash}p{2cm}|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Guideline} & \color{white}\textbf{Requirement} & \color{white}\textbf{Level} \\
+\hline
+Color Contrast (Text) & Minimum 4.5:1 ratio (normal text) & AA \\
+\hline
+\rowcolor{SectionBg}
+Color Contrast (Large) & Minimum 3:1 ratio (18px+ bold) & AA \\
+\hline
+Focus Indicators & Visible focus ring on all interactive elements & AA \\
+\hline
+\rowcolor{SectionBg}
+Alt Text & All images have descriptive alt attribute & A \\
+\hline
+Keyboard Navigation & All functionality usable without mouse & AA \\
+\hline
+\rowcolor{SectionBg}
+Form Labels & Every input has associated label & A \\
+\hline
+Error Identification & Errors described in text (not color alone) & A \\
+\hline
+\rowcolor{SectionBg}
+Motion & Respect \texttt{prefers-reduced-motion} & AA \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Dark Mode Implementation}
+
+\begin{tokenbox}{Tailwind Dark Mode Setup (CSS Variables)}
+\textbf{tailwind.config.ts:} \texttt{darkMode: 'class'}\\[0.3cm]
+\textbf{Usage in components:}\\
+\texttt{className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"}\\[0.3cm]
+\textbf{Toggle dark mode in layout:}\\
+\texttt{document.documentElement.classList.toggle('dark')}\\[0.3cm]
+\textbf{Remember to also handle:} borders, shadows, input backgrounds, placeholder text, card backgrounds, scrollbar colors, and image brightness (\texttt{dark:brightness-90}).
+\end{tokenbox}
+
+\vspace{0.4cm}
+\begin{tipbox}
+Test your dark mode by setting \texttt{prefers-color-scheme: dark} in Chrome DevTools (Rendering tab). Also test with OS dark mode. Many developers ship broken dark modes because they only test with the toggle button.
+\end{tipbox}
+
+\vspace{0.5cm}
+\begin{infobox}{UI/UX Mentoring with Faran Alam}
+Want a full design review of your portfolio or app? I offer 1-on-1 sessions covering Figma design, Tailwind implementation, and design system setup.\\[0.2cm]
+\faGlobe\ \href{https://faran-new-portfolio.vercel.app/}{faran-new-portfolio.vercel.app} \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.1cm]
+\faWhatsapp\ +92 333 4051830 \quad \faGithub\ github.com/FaranAlam \quad \faFacebook\ facebook.com/faran.alam.5243\\[0.1cm]
+\faLinkedin\ linkedin.com/in/faran-alam-14203abc \quad \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+\end{infobox}
+
+
+% ==================== ADVANCED BEGINNER + PROFESSIONAL UPGRADE ====================
+\section{Beginner-to-Professional Execution Blueprint}
+
+\begin{infobox}{How to Study This Resource the Right Way}
+Do not just read this PDF. Convert each major topic into one practical output:
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{52}] Learn the concept for 30--45 minutes
+    \item[\ding{52}] Implement one mini feature immediately
+    \item[\ding{52}] Write 3--5 bullet notes in your own words
+    \item[\ding{52}] Push your progress to GitHub with clear commits
+\end{itemize}
+This simple loop helps beginners become consistent and interview-ready.
+\end{infobox}
+
+\subsection{Weekly Professional Growth Plan}
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranDark}}l|X|>{\centering\arraybackslash}p{2.6cm}|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Day} & \color{white}\textbf{Focus} & \color{white}\textbf{Output} \\
+\hline
+Mon--Tue & Concepts + guided implementation & Notes + code snippets \\
+\hline
+\rowcolor{SectionBg}
+Wed--Thu & Build practical feature/project block & Working module \\
+\hline
+Fri & Refactor + improve naming/structure & Cleaner codebase \\
+\hline
+\rowcolor{SectionBg}
+Sat & Deploy + test on real device/browser & Live URL + bug list \\
+\hline
+Sun & Review week + LinkedIn learning post & Public proof of progress \\
+\hline
+\end{tabularx}
+\end{center}
+
+\section{Professional Quality Standards}
+
+\begin{infobox}{Client-Ready Checklist}
+Before you call any project complete, verify these essentials:
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{116}] Mobile-first responsive layout
+    \item[\ding{116}] Loading, empty, and error states
+    \item[\ding{116}] Clean file structure and reusable components
+    \item[\ding{116}] Clear README with setup and feature summary
+    \item[\ding{116}] Deployed live demo with working links
+\end{itemize}
+\end{infobox}
+
+\begin{tipbox}
+\textbf{Career Shortcut:} Employers do not hire by course certificates. They hire by proof of execution. Ship projects, document your process, and show measurable improvement every month.
+\end{tipbox}
+
+\section{30-Day Improvement Sprint}
+\begin{itemize}[leftmargin=1.5em, itemsep=5pt]
+    \item[\ding{52}] Week 1: Strengthen fundamentals and fix weak concepts
+    \item[\ding{52}] Week 2: Build one focused project from scratch
+    \item[\ding{52}] Week 3: Add professional polish (SEO, performance, accessibility)
+    \item[\ding{52}] Week 4: Deploy, write case study, and publish portfolio update
+\end{itemize}
+% ==================== LAST PAGE ====================
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{3cm}
+{\color{FaranViolet}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{Design with Intent.}}\\[0.3cm]
+{\fontsize{28}{36}\selectfont\textbf{Build with Precision.}}\\[0.5cm]
+{\large Explore more resources at \textcolor{FaranViolet}{faran-new-portfolio.vercel.app}}
+\vspace{0.4cm}
+\circleimage{1.25cm}{2.5cm}{academy-logo.png}\\[0.4cm]
+\begin{tcolorbox}[colback=FaranViolet, colframe=FaranViolet, width=0.72\textwidth,
+    arc=10pt, boxrule=0pt, halign=center]
+    \centering\color{white}
+    {\large\textbf{Faran Alam}}\\[0.3cm]
+    \faGlobe\ faran-new-portfolio.vercel.app \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.2cm]
+    \faWhatsapp\ +92 333 4051830 \quad \faGithub\ github.com/FaranAlam\\[0.2cm]
+    \faFacebook\ facebook.com/faran.alam.5243 \quad \faLinkedin\ linkedin.com/in/faran-alam-14203abc\\[0.2cm]
+    \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+\end{tcolorbox}
+\vspace{1.5cm}
+{\color{FaranViolet}\rule{\textwidth}{3pt}}
+{\small\color{FaranGray}Portfolio Resource Series | Faran Alam | 2026}
+
+\end{document}

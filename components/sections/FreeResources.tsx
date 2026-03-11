@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
@@ -59,6 +59,12 @@ export default function FreeResources() {
   const [expandedResource, setExpandedResource] = useState<string | null>(null);
   const [resourceFiles, setResourceFiles] = useState<Record<string, string[]>>({});
   const [loadingResource, setLoadingResource] = useState<string | null>(null);
+  const statusRef = useRef<HTMLParagraphElement | null>(null);
+
+  useEffect(() => {
+    if (!downloadStatus || !statusRef.current) return;
+    statusRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [downloadStatus]);
 
   // Engineering Curriculum Data - 7 Semesters
   const engineeringData: EngineeringSemester[] = [
@@ -226,7 +232,8 @@ export default function FreeResources() {
       const params = new URLSearchParams({
         resourceId,
         courseSlug,
-        fileName
+        fileName,
+        email: verifiedEmail
       });
       
       const downloadUrl = `/api/approved-download?${params.toString()}`;
@@ -268,6 +275,7 @@ export default function FreeResources() {
       resourceId,
       courseSlug,
       fileName,
+      email: verifiedEmail,
       preview: 'true'
     });
     
@@ -390,7 +398,7 @@ export default function FreeResources() {
                 {downloadStatus && (
                   <p className={`mt-4 text-center font-semibold text-sm ${
                     downloadStatus.includes("✅") ? "text-green-600" : "text-red-600"
-                  }`}>
+                  }`} ref={statusRef}>
                     {downloadStatus}
                   </p>
                 )}

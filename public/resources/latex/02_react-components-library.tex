@@ -1,0 +1,564 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{array}
+
+% ---- COLORS ----
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranCyan}{HTML}{0891B2}
+\definecolor{CodeBg}{HTML}{1E1E2E}
+\definecolor{CodeFg}{HTML}{CDD6F4}
+\definecolor{DarkText}{HTML}{111827}
+\definecolor{SectionBg}{HTML}{F0F9FF}
+
+\hypersetup{colorlinks=true, linkcolor=FaranCyan, urlcolor=FaranCyan,
+    pdftitle={React Components Library - Faran Alam}, pdfauthor={Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | React Components Library}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe\ faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage\ | Faran Alam Portfolio Resources}
+\fancyfoot[R]{\small\color{FaranGray}\faWhatsapp\ +92 333 4051830}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranCyan}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranCyan}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranCyan}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranCyan}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newcommand{\circleimage}[3]{%
+  \begin{tikzpicture}[baseline=(img.base)]
+    \clip (0,0) circle (#1);
+    \node[inner sep=0pt] (img) at (0,0) {\includegraphics[width=#2,height=#2]{#3}};
+    \draw[line width=0.9pt, color=FaranAccent!85!black] (0,0) circle (#1);
+  \end{tikzpicture}%
+}
+\newtcolorbox{infobox}[1]{colback=SectionBg, colframe=FaranCyan, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranCyan, title=#1, rounded corners, boxrule=1pt, arc=5pt, breakable}
+\newtcolorbox{codebox}[1]{colback=CodeBg, colframe=FaranCyan, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranCyan!80, title={\faCode\ #1}, rounded corners, boxrule=1pt, arc=5pt,
+  breakable, left=6pt, right=6pt, top=6pt, bottom=6pt}
+\newtcolorbox{tipbox}{colback=green!5, colframe=FaranAccent, fonttitle=\bfseries,
+  title={\faLightbulb\ Best Practice}, rounded corners, boxrule=1pt, arc=5pt, breakable}
+\newtcolorbox{compbox}[1]{colback=SectionBg, colframe=FaranCyan, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranCyan, title={\faReact\ Component: #1}, rounded corners,
+  boxrule=1pt, arc=5pt, breakable}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize\color{CodeFg},
+  backgroundcolor=\color{CodeBg},
+  keywordstyle=\color{cyan}\bfseries,
+  stringstyle=\color{FaranAccent},
+  commentstyle=\color{FaranGray}\itshape,
+  breaklines=true, breakatwhitespace=false, columns=fullflexible, keepspaces=true, frame=none, showstringspaces=false
+}
+
+\begin{document}
+
+% ==================== TITLE PAGE ====================
+\begin{titlepage}
+    \pagecolor{FaranDark}\color{white}\centering\vspace*{0.3cm}
+    \circleimage{0.8cm}{1.6cm}{logo.jpg}\qquad\circleimage{0.8cm}{1.6cm}{academy-logo.png}\\[0.3cm]
+    {\color{FaranCyan}\rule{\textwidth}{3pt}}\vspace{0.8cm}
+
+    \begin{tcolorbox}[colback=FaranCyan, colframe=FaranCyan, width=0.42\textwidth,
+        arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faReact\ FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{0.8cm}
+
+    {\fontsize{38}{46}\selectfont\textbf{React Components}}\\[0.3cm]
+    {\fontsize{42}{50}\selectfont\color{FaranCyan}\textbf{Library}}\\[0.6cm]
+    {\large\color{FaranLight}Production-Ready, Reusable Component Patterns}\\[0.2cm]
+    {\large\color{FaranLight}with TypeScript, Tailwind CSS \& Best Practices}
+
+    \vspace{1.5cm}
+    \begin{tcolorbox}[colback=white, colframe=FaranCyan, width=0.68\textwidth,
+        arc=8pt, boxrule=1.5pt, halign=center]
+        \centering
+        \circleimage{1cm}{2cm}{profile.jpg}\\[0.15cm]
+        {\large\textbf{\color{FaranDark}Faran Alam}}\\[0.1cm]
+        {\color{FaranGray}Full Stack Developer | React Expert}\\[0.3cm]
+        {\small\color{FaranDark}
+            \faGlobe\ faran-new-portfolio.vercel.app \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.1cm]
+            \faGithub\ github.com/FaranAlam \quad \faWhatsapp\ +92 333 4051830\\[0.1cm]
+            \faFacebook\ facebook.com/faran.alam.5243 \quad \faLinkedin\ linkedin.com/in/faran-alam-14203abc\\[0.1cm]
+            \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+        }
+    \end{tcolorbox}
+
+    \vfill
+    {\color{FaranCyan}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2026 Edition | Portfolio Resource Series | Faran Alam}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+\tableofcontents
+\newpage
+
+% ==================== SECTION 1 ====================
+\section{Component Architecture Principles}
+
+\begin{infobox}{Atomic Design Methodology}
+Break your UI into 5 layers:\\[0.3cm]
+\textbf{1. Atoms} -- smallest units: Button, Input, Badge, Icon, Label\\
+\textbf{2. Molecules} -- atoms combined: SearchBar (Input + Button), FormField (Label + Input + Error)\\
+\textbf{3. Organisms} -- molecules combined: Navbar, HeroSection, ProductCard\\
+\textbf{4. Templates} -- page layouts with placeholder content\\
+\textbf{5. Pages} -- real content filled into templates
+\end{infobox}
+
+\subsection{Component Folder Structure}
+\begin{codebox}{Recommended Project Structure}
+\begin{lstlisting}
+components/
+  ui/                   # Atoms: base reusable units
+    Button.tsx
+    Input.tsx
+    Badge.tsx
+    Card.tsx
+    Modal.tsx
+    Spinner.tsx
+  forms/                # Form-specific components
+    FormField.tsx
+    SearchBar.tsx
+  layout/               # Page structure
+    Navbar.tsx
+    Footer.tsx
+    Sidebar.tsx
+  sections/             # Page sections
+    HeroSection.tsx
+    FeaturesSection.tsx
+  [feature]/            # Feature-specific components
+    ProductCard.tsx
+    ProductGrid.tsx
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+
+% ==================== SECTION 2 ====================
+\section{Core UI Components}
+
+\begin{compbox}{Button Component (TypeScript + Tailwind)}
+\begin{codebox}{Button.tsx}
+\begin{lstlisting}
+import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { cn } from '@/lib/utils';
+
+type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+type Size = 'sm' | 'md' | 'lg';
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: Variant;
+  size?: Size;
+  isLoading?: boolean;
+  leftIcon?: ReactNode;
+  children: ReactNode;
+}
+
+const variants: Record<Variant, string> = {
+  primary:   'bg-blue-600 text-white hover:bg-blue-700 shadow-sm',
+  secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200',
+  outline:   'border-2 border-blue-600 text-blue-600 hover:bg-blue-50',
+  ghost:     'text-gray-600 hover:bg-gray-100',
+  danger:    'bg-red-600 text-white hover:bg-red-700',
+};
+
+const sizes: Record<Size, string> = {
+  sm: 'px-3 py-1.5 text-sm',
+  md: 'px-4 py-2 text-base',
+  lg: 'px-6 py-3 text-lg',
+};
+
+export function Button({
+  variant = 'primary', size = 'md',
+  isLoading = false, leftIcon,
+  className, children, disabled, ...props
+}: ButtonProps) {
+  return (
+    <button
+      className={cn(
+        'inline-flex items-center gap-2 rounded-lg font-medium',
+        'transition-all duration-200 focus:outline-none',
+        'focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+        'disabled:opacity-50 disabled:cursor-not-allowed',
+        variants[variant], sizes[size], className
+      )}
+      disabled={disabled || isLoading}
+      {...props}
+    >
+      {isLoading ? <Spinner size="sm" /> : leftIcon}
+      {children}
+    </button>
+  );
+}
+\end{lstlisting}
+\end{codebox}
+\end{compbox}
+
+\vspace{0.5cm}
+
+\begin{compbox}{Input Component with Validation}
+\begin{codebox}{Input.tsx}
+\begin{lstlisting}
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  error?: string;
+  hint?: string;
+  leftIcon?: ReactNode;
+}
+
+export function Input({ label, error, hint, leftIcon, className, ...props }: InputProps) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      {label && (
+        <label className="text-sm font-medium text-gray-700">
+          {label}
+          {props.required && <span className="text-red-500 ml-1">*</span>}
+        </label>
+      )}
+      <div className="relative">
+        {leftIcon && (
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+            {leftIcon}
+          </div>
+        )}
+        <input
+          className={cn(
+            'w-full rounded-lg border border-gray-300 px-3 py-2',
+            'text-gray-900 placeholder:text-gray-400',
+            'focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20',
+            'transition-all duration-200',
+            leftIcon && 'pl-10',
+            error && 'border-red-500 focus:border-red-500',
+            className
+          )}
+          {...props}
+        />
+      </div>
+      {error && <p className="text-sm text-red-600">{error}</p>}
+      {hint && !error && <p className="text-sm text-gray-500">{hint}</p>}
+    </div>
+  );
+}
+\end{lstlisting}
+\end{codebox}
+\end{compbox}
+
+\newpage
+
+\begin{compbox}{Card Component}
+\begin{codebox}{Card.tsx}
+\begin{lstlisting}
+interface CardProps {
+  children: ReactNode;
+  className?: string;
+  hover?: boolean;  // adds hover shadow effect
+  onClick?: () => void;
+}
+
+export function Card({ children, className, hover = false, onClick }: CardProps) {
+  return (
+    <div
+      onClick={onClick}
+      className={cn(
+        'bg-white rounded-xl border border-gray-200 p-6 shadow-sm',
+        hover && 'hover:shadow-md hover:-translate-y-1 transition-all duration-200',
+        onClick && 'cursor-pointer',
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+// Usage:
+// <Card hover onClick={() => router.push('/project/1')}>
+//   <h3>Project Title</h3>
+//   <p>Description...</p>
+// </Card>
+\end{lstlisting}
+\end{codebox}
+\end{compbox}
+
+\vspace{0.5cm}
+
+\begin{compbox}{Modal / Dialog Component}
+\begin{codebox}{Modal.tsx}
+\begin{lstlisting}
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: ReactNode;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+}
+
+const modalSizes = {
+  sm: 'max-w-sm', md: 'max-w-md',
+  lg: 'max-w-lg', xl: 'max-w-2xl'
+};
+
+export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalProps) {
+  // Close on Escape key
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      {/* Modal */}
+      <div className={cn('relative bg-white rounded-2xl shadow-xl p-6 w-full mx-4', modalSizes[size])}>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+            X
+          </button>
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+}
+\end{lstlisting}
+\end{codebox}
+\end{compbox}
+
+\newpage
+
+% ==================== SECTION 3 ====================
+\section{Custom Hooks Library}
+
+\begin{compbox}{useFetch -- Data Fetching Hook}
+\begin{codebox}{hooks/useFetch.ts}
+\begin{lstlisting}
+interface UseFetchResult<T> {
+  data: T | null;
+  loading: boolean;
+  error: string | null;
+  refetch: () => void;
+}
+
+export function useFetch<T>(url: string): UseFetchResult<T> {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [trigger, setTrigger] = useState(0);
+
+  useEffect(() => {
+    if (!url) return;
+
+    const controller = new AbortController();
+    setLoading(true);
+    setError(null);
+
+    fetch(url, { signal: controller.signal })
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(setData)
+      .catch(err => {
+        if (err.name !== 'AbortError') setError(err.message);
+      })
+      .finally(() => setLoading(false));
+
+    return () => controller.abort();
+  }, [url, trigger]);
+
+  return { data, loading, error, refetch: () => setTrigger(t => t + 1) };
+}
+\end{lstlisting}
+\end{codebox}
+\end{compbox}
+
+\vspace{0.5cm}
+
+\begin{compbox}{useLocalStorage Hook}
+\begin{codebox}{hooks/useLocalStorage.ts}
+\begin{lstlisting}
+export function useLocalStorage<T>(key: string, initialValue: T) {
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch {
+      return initialValue;
+    }
+  });
+
+  const setValue = (value: T | ((val: T) => T)) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return [storedValue, setValue] as const;
+}
+
+// Usage:
+// const [theme, setTheme] = useLocalStorage('theme', 'light');
+\end{lstlisting}
+\end{codebox}
+\end{compbox}
+
+\newpage
+
+% ==================== SECTION 4 ====================
+\section{Component Patterns Reference}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranCyan}}l|X|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Pattern} & \color{white}\textbf{What it solves} & \color{white}\textbf{Example} \\
+\hline
+Compound Components & Flexible parent-child sharing & Tabs, Accordion, Select \\
+\hline
+\rowcolor{SectionBg}
+Render Props & Share logic via function prop & DataTable, Tooltip \\
+\hline
+HOC (Higher Order) & Wrap components with extra logic & withAuth, withLoading \\
+\hline
+\rowcolor{SectionBg}
+Custom Hooks & Extract \& reuse stateful logic & useFetch, useForm \\
+\hline
+Context + Reducer & Complex global state & Cart, Auth, Notifications \\
+\hline
+\rowcolor{SectionBg}
+Controlled Components & Form state managed by React & Input, Select, Checkbox \\
+\hline
+Composition & Compose via children prop & Layout, Card, Dialog \\
+\hline
+\end{tabularx}
+\end{center}
+
+\vspace{0.5cm}
+\begin{tipbox}
+The \texttt{cn()} utility (from \texttt{clsx + tailwind-merge}) is essential for all components. Install with: \texttt{npm install clsx tailwind-merge}. It merges Tailwind classes intelligently and removes duplicates/conflicts.
+\end{tipbox}
+
+\vspace{0.5cm}
+\begin{infobox}{Connect with Faran Alam}
+\faGlobe\ \href{https://faran-new-portfolio.vercel.app/}{faran-new-portfolio.vercel.app} \quad
+\faWhatsapp\ +92 333 4051830 \quad
+\faGithub\ github.com/FaranAlam\\[0.2cm]
+\textit{For full component library, UI kit source code, and live examples visit the website.}
+\end{infobox}
+
+
+% ==================== ADVANCED BEGINNER + PROFESSIONAL UPGRADE ====================
+\section{Beginner-to-Professional Execution Blueprint}
+
+\begin{infobox}{How to Study This Resource the Right Way}
+Do not just read this PDF. Convert each major topic into one practical output:
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{52}] Learn the concept for 30--45 minutes
+    \item[\ding{52}] Implement one mini feature immediately
+    \item[\ding{52}] Write 3--5 bullet notes in your own words
+    \item[\ding{52}] Push your progress to GitHub with clear commits
+\end{itemize}
+This simple loop helps beginners become consistent and interview-ready.
+\end{infobox}
+
+\subsection{Weekly Professional Growth Plan}
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranDark}}l|X|>{\centering\arraybackslash}p{2.6cm}|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Day} & \color{white}\textbf{Focus} & \color{white}\textbf{Output} \\
+\hline
+Mon--Tue & Concepts + guided implementation & Notes + code snippets \\
+\hline
+\rowcolor{SectionBg}
+Wed--Thu & Build practical feature/project block & Working module \\
+\hline
+Fri & Refactor + improve naming/structure & Cleaner codebase \\
+\hline
+\rowcolor{SectionBg}
+Sat & Deploy + test on real device/browser & Live URL + bug list \\
+\hline
+Sun & Review week + LinkedIn learning post & Public proof of progress \\
+\hline
+\end{tabularx}
+\end{center}
+
+\section{Professional Quality Standards}
+
+\begin{infobox}{Client-Ready Checklist}
+Before you call any project complete, verify these essentials:
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{116}] Mobile-first responsive layout
+    \item[\ding{116}] Loading, empty, and error states
+    \item[\ding{116}] Clean file structure and reusable components
+    \item[\ding{116}] Clear README with setup and feature summary
+    \item[\ding{116}] Deployed live demo with working links
+\end{itemize}
+\end{infobox}
+
+\begin{tipbox}
+\textbf{Career Shortcut:} Employers do not hire by course certificates. They hire by proof of execution. Ship projects, document your process, and show measurable improvement every month.
+\end{tipbox}
+
+\section{30-Day Improvement Sprint}
+\begin{itemize}[leftmargin=1.5em, itemsep=5pt]
+    \item[\ding{52}] Week 1: Strengthen fundamentals and fix weak concepts
+    \item[\ding{52}] Week 2: Build one focused project from scratch
+    \item[\ding{52}] Week 3: Add professional polish (SEO, performance, accessibility)
+    \item[\ding{52}] Week 4: Deploy, write case study, and publish portfolio update
+\end{itemize}
+% ==================== LAST PAGE ====================
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{3cm}
+{\color{FaranCyan}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{Build Reusable. Ship Faster.}}\\[0.5cm]
+{\large Explore more resources at \textcolor{FaranCyan}{faran-new-portfolio.vercel.app}}
+\vspace{0.4cm}
+\circleimage{1.25cm}{2.5cm}{academy-logo.png}\\[0.4cm]
+\begin{tcolorbox}[colback=FaranCyan, colframe=FaranCyan, width=0.72\textwidth,
+    arc=10pt, boxrule=0pt, halign=center]
+    \centering\color{white}
+    {\large\textbf{Faran Alam}}\\[0.3cm]
+    \faGlobe\ faran-new-portfolio.vercel.app \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.2cm]
+    \faWhatsapp\ +92 333 4051830 \quad \faGithub\ github.com/FaranAlam\\[0.2cm]
+    \faFacebook\ facebook.com/faran.alam.5243 \quad \faLinkedin\ linkedin.com/in/faran-alam-14203abc\\[0.2cm]
+    \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+\end{tcolorbox}
+\vspace{1.5cm}
+{\color{FaranCyan}\rule{\textwidth}{3pt}}
+{\small\color{FaranGray}Portfolio Resource Series | Faran Alam | 2026}
+
+\end{document}

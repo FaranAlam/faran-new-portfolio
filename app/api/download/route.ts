@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as fs from 'fs';
 import * as path from 'path';
+import { getDeveloperFileByCourseSlug } from '@/lib/developer-drive-links';
 
 // Mapping of resource IDs to actual file paths
 const fileMapping: Record<string, string> = {
@@ -126,6 +127,32 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         { success: false, message: 'Resource not found' },
         { status: 404 }
+      );
+    }
+
+    // Developer resource files are mapped to Google Drive links.
+    if (resourceId === 'developer') {
+      const mapped = getDeveloperFileByCourseSlug(courseSlug);
+      if (!mapped) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: 'Developer resource not found',
+            courseSlug
+          },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json(
+        {
+          success: true,
+          resourceId,
+          resourcePath: `${resourcePath}/${courseSlug}`,
+          availableFiles: [mapped.fileName],
+          message: 'Google Drive file ready to download'
+        },
+        { status: 200 }
       );
     }
 

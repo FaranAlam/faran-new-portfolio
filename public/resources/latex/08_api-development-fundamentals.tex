@@ -1,0 +1,472 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{array}
+
+% ---- COLORS ----
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{CodeBg}{HTML}{1E1E2E}
+\definecolor{CodeFg}{HTML}{CDD6F4}
+\definecolor{DarkText}{HTML}{111827}
+\definecolor{SectionBg}{HTML}{EFF6FF}
+
+\hypersetup{colorlinks=true, linkcolor=FaranBlue, urlcolor=FaranBlue,
+    pdftitle={API Development Fundamentals - Faran Alam}, pdfauthor={Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | API Development Fundamentals}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe\ faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage\ | Faran Alam Portfolio Resources}
+\fancyfoot[R]{\small\color{FaranGray}\faWhatsapp\ +92 333 4051830}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranBlue}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranBlue}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranBlue}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranBlue}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newcommand{\circleimage}[3]{%
+  \begin{tikzpicture}[baseline=(img.base)]
+    \clip (0,0) circle (#1);
+    \node[inner sep=0pt] (img) at (0,0) {\includegraphics[width=#2,height=#2]{#3}};
+    \draw[line width=0.9pt, color=FaranAccent!85!black] (0,0) circle (#1);
+  \end{tikzpicture}%
+}
+\newtcolorbox{infobox}[1]{colback=SectionBg, colframe=FaranBlue, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranBlue, title=#1, rounded corners, boxrule=1pt, arc=5pt, breakable}
+\newtcolorbox{codebox}[1]{colback=CodeBg, colframe=FaranBlue!80, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranBlue!90, title={\faCode\ #1}, rounded corners, boxrule=1pt, arc=5pt,
+  breakable, left=6pt, right=6pt, top=6pt, bottom=6pt}
+\newtcolorbox{tipbox}{colback=green!5, colframe=FaranAccent, fonttitle=\bfseries,
+  title={\faLightbulb\ Pro Tip}, rounded corners, boxrule=1pt, arc=5pt, breakable}
+\newtcolorbox{rulebox}[1]{colback=FaranLight, colframe=FaranBlue, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranBlue!80, title={\faShieldAlt\ #1},
+  rounded corners, boxrule=1pt, arc=5pt, breakable}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize\color{CodeFg},
+  backgroundcolor=\color{CodeBg},
+  keywordstyle=\color{cyan}\bfseries,
+  stringstyle=\color{FaranAccent},
+  commentstyle=\color{FaranGray}\itshape,
+  breaklines=true, breakatwhitespace=false, columns=fullflexible, keepspaces=true, frame=none, showstringspaces=false
+}
+
+\begin{document}
+
+% ==================== TITLE PAGE ====================
+\begin{titlepage}
+    \pagecolor{FaranDark}\color{white}\centering\vspace*{0.3cm}
+    \circleimage{0.8cm}{1.6cm}{logo.jpg}\qquad\circleimage{0.8cm}{1.6cm}{academy-logo.png}\\[0.3cm]
+    {\color{FaranBlue}\rule{\textwidth}{3pt}}\vspace{0.8cm}
+
+    \begin{tcolorbox}[colback=FaranBlue, colframe=FaranBlue, width=0.42\textwidth,
+        arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faServer\ FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{0.8cm}
+
+    {\fontsize{38}{46}\selectfont\textbf{API Development}}\\[0.3cm]
+    {\fontsize{42}{50}\selectfont\color{FaranBlue}\textbf{Fundamentals}}\\[0.6cm]
+    {\large\color{FaranLight}REST Design, Authentication, Rate Limiting,}\\[0.2cm]
+    {\large\color{FaranLight}Error Handling, Documentation \& Testing}
+
+    \vspace{1.5cm}
+    \begin{tcolorbox}[colback=white, colframe=FaranBlue, width=0.68\textwidth,
+        arc=8pt, boxrule=1.5pt, halign=center]
+        \centering
+        \circleimage{1cm}{2cm}{profile.jpg}\\[0.15cm]
+        {\large\textbf{\color{FaranDark}Faran Alam}}\\[0.1cm]
+        {\color{FaranGray}Full Stack Developer | API Engineer}\\[0.3cm]
+        {\small\color{FaranDark}
+            \faGlobe\ faran-new-portfolio.vercel.app \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.1cm]
+            \faGithub\ github.com/FaranAlam \quad \faWhatsapp\ +92 333 4051830\\[0.1cm]
+            \faFacebook\ facebook.com/faran.alam.5243 \quad \faLinkedin\ linkedin.com/in/faran-alam-14203abc\\[0.1cm]
+            \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+        }
+    \end{tcolorbox}
+    \vfill
+    {\color{FaranBlue}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2026 Edition | Portfolio Resource Series | Faran Alam}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+\tableofcontents
+\newpage
+
+% ==================== SECTION 1 ====================
+\section{REST API Design Principles}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranBlue}}p{3.5cm}|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{HTTP Method} & \color{white}\textbf{Usage + Status Codes} \\
+\hline
+GET & Read data. \textbf{200 OK}, 404 Not Found, 400 Bad Request \\
+\hline
+\rowcolor{SectionBg}
+POST & Create resource. \textbf{201 Created}, 400 Validation Error, 409 Conflict \\
+\hline
+PUT & Full replace. \textbf{200 OK}, 404 Not Found \\
+\hline
+\rowcolor{SectionBg}
+PATCH & Partial update. \textbf{200 OK}, 400 Bad Request \\
+\hline
+DELETE & Remove resource. \textbf{204 No Content}, 404 Not Found \\
+\hline
+\rowcolor{SectionBg}
+OPTIONS & CORS preflight. \textbf{200 OK} with allowed headers \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection{URL Naming Conventions}
+
+\begin{infobox}{Good vs Bad API Routes}
+\textbf{\color{FaranAccent}\ding{51} Correct REST URLs:}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+    \item \texttt{GET /api/users} -- list all users
+    \item \texttt{GET /api/users/:id} -- get single user
+    \item \texttt{POST /api/users} -- create user
+    \item \texttt{PATCH /api/users/:id} -- update user fields
+    \item \texttt{DELETE /api/users/:id} -- delete user
+    \item \texttt{GET /api/users/:id/posts} -- get user's posts (nested)
+\end{itemize}
+\vspace{0.3cm}
+\textbf{\color{red}\ding{55} Wrong REST URLs:}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+    \item \texttt{GET /getUser}, \texttt{POST /deleteUser} -- verbs in URLs are wrong
+    \item \texttt{GET /api/User} or \texttt{/api/Users} -- use lowercase, plural nouns
+    \item \texttt{GET /api/users/getAll} -- redundant "getAll" is not REST
+\end{itemize}
+\end{infobox}
+
+\newpage
+
+% ==================== SECTION 2 ====================
+\section{Standardized Response Format}
+
+\begin{codebox}{Consistent API Response Structure (Next.js Route Handler)}
+\begin{lstlisting}
+// lib/api-response.ts
+export function successResponse(data: unknown, message = 'Success', status = 200) {
+  return Response.json(
+    { success: true, message, data, timestamp: new Date().toISOString() },
+    { status }
+  );
+}
+
+export function errorResponse(message: string, status = 400, errors?: unknown) {
+  return Response.json(
+    { success: false, message, errors: errors || null, timestamp: new Date().toISOString() },
+    { status }
+  );
+}
+
+// Usage in route handler
+// app/api/users/route.ts
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const page = Number(searchParams.get('page') ?? 1);
+    const limit = Math.min(Number(searchParams.get('limit') ?? 10), 100); // cap at 100
+
+    const [users, total] = await Promise.all([
+      prisma.user.findMany({
+        skip: (page - 1) * limit,
+        take: limit,
+        select: { id: true, name: true, email: true, createdAt: true },
+        // NEVER return passwords or sensitive fields!
+      }),
+      prisma.user.count(),
+    ]);
+
+    return successResponse({ users, pagination: { page, limit, total,
+      totalPages: Math.ceil(total / limit) } });
+  } catch (error) {
+    console.error('[GET /api/users]', error);
+    return errorResponse('Failed to fetch users', 500);
+  }
+}
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+
+% ==================== SECTION 3 ====================
+\section{Authentication: JWT + Middleware}
+
+\begin{codebox}{JWT Auth Implementation (Next.js Middleware)}
+\begin{lstlisting}
+// lib/auth.ts - JWT utilities
+import { SignJWT, jwtVerify } from 'jose';
+
+const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+
+export async function signToken(payload: Record<string, unknown>) {
+  return await new SignJWT(payload)
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .setExpirationTime('7d')         // 7 day expiry
+    .sign(secret);
+}
+
+export async function verifyToken(token: string) {
+  const { payload } = await jwtVerify(token, secret);
+  return payload;
+}
+
+// middleware.ts - protect routes
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+const PROTECTED_ROUTES = ['/dashboard', '/admin', '/api/protected'];
+
+export async function middleware(request: NextRequest) {
+  const isProtected = PROTECTED_ROUTES.some(r => request.nextUrl.pathname.startsWith(r));
+  if (!isProtected) return NextResponse.next();
+
+  const token = request.cookies.get('token')?.value
+              ?? request.headers.get('Authorization')?.replace('Bearer ', '');
+
+  if (!token) {
+    return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    await verifyToken(token);
+    return NextResponse.next();
+  } catch {
+    return NextResponse.json({ success: false, message: 'Invalid or expired token' }, { status: 401 });
+  }
+}
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+
+% ==================== SECTION 4 ====================
+\section{Rate Limiting \& Security}
+
+\begin{codebox}{In-Memory Rate Limiter (No Redis Needed)}
+\begin{lstlisting}
+// lib/rate-limit.ts
+const requestMap = new Map<string, { count: number; resetTime: number }>();
+
+export function rateLimit(
+  ip: string,
+  maxRequests = 10,     // 10 requests
+  windowMs = 60_000     // per minute
+): { success: boolean; remaining: number } {
+  const now = Date.now();
+  const entry = requestMap.get(ip);
+
+  if (!entry || now > entry.resetTime) {
+    requestMap.set(ip, { count: 1, resetTime: now + windowMs });
+    return { success: true, remaining: maxRequests - 1 };
+  }
+
+  if (entry.count >= maxRequests) {
+    return { success: false, remaining: 0 };
+  }
+
+  entry.count++;
+  return { success: true, remaining: maxRequests - entry.count };
+}
+
+// app/api/contact/route.ts - apply rate limit
+export async function POST(request: Request) {
+  const ip = request.headers.get('x-forwarded-for') ?? '127.0.0.1';
+  const { success, remaining } = rateLimit(ip, 5, 60_000); // 5 per minute
+
+  if (!success) {
+    return Response.json(
+      { success: false, message: 'Too many requests. Please wait 1 minute.' },
+      { status: 429, headers: { 'Retry-After': '60' } }
+    );
+  }
+  // ... handle request
+}
+\end{lstlisting}
+\end{codebox}
+
+\subsection{API Security Checklist}
+
+\begin{rulebox}{Security Checklist -- Every API}
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{51}] \textbf{Validate all inputs} -- never trust user data (use Zod or Joi)
+    \item[\ding{51}] \textbf{Sanitize inputs} -- prevent XSS, NoSQL injection
+    \item[\ding{51}] \textbf{Rate limit all endpoints} -- especially auth/contact
+    \item[\ding{51}] \textbf{Use HTTPS only} -- no plaintext communication
+    \item[\ding{51}] \textbf{Set CORS correctly} -- whitelist specific origins
+    \item[\ding{51}] \textbf{Never expose stack traces} -- generic error messages
+    \item[\ding{51}] \textbf{Set security headers} -- CSP, X-Frame-Options, HSTS
+    \item[\ding{51}] \textbf{Hash passwords} -- bcrypt with cost factor 12
+    \item[\ding{51}] \textbf{Rotate JWT secrets} -- and invalidate old tokens
+    \item[\ding{51}] \textbf{Log all auth events} -- failed logins, signups
+\end{itemize}
+\end{rulebox}
+
+\newpage
+
+% ==================== SECTION 5 ====================
+\section{API Documentation with OpenAPI}
+
+\begin{codebox}{OpenAPI 3.0 Example (swagger.json)}
+\begin{lstlisting}
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Portfolio API",
+    "version": "1.0.0",
+    "description": "Faran Alam Portfolio Backend API"
+  },
+  "paths": {
+    "/api/contact": {
+      "post": {
+        "summary": "Send contact message",
+        "tags": ["Contact"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "message"],
+                "properties": {
+                  "name":    { "type": "string", "minLength": 2 },
+                  "email":   { "type": "string", "format": "email" },
+                  "message": { "type": "string", "minLength": 10, "maxLength": 1000 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Message sent successfully" },
+          "400": { "description": "Validation error" },
+          "429": { "description": "Rate limit exceeded" }
+        }
+      }
+    }
+  }
+}
+\end{lstlisting}
+\end{codebox}
+
+\begin{tipbox}
+\textbf{Use Scalar or Swagger UI:} Host your OpenAPI spec at \texttt{/api/docs} using \texttt{@scalar/nextjs-api-reference} (free). Clients and recruiters love interactive docs.
+\end{tipbox}
+
+\vspace{0.5cm}
+\begin{infobox}{Need an API Built? Contact Faran!}
+\faGlobe\ \href{https://faran-new-portfolio.vercel.app/}{faran-new-portfolio.vercel.app} \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.1cm]
+\faWhatsapp\ +92 333 4051830 \quad \faGithub\ github.com/FaranAlam \quad \faFacebook\ facebook.com/faran.alam.5243\\[0.1cm]
+\faLinkedin\ linkedin.com/in/faran-alam-14203abc \quad \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+\end{infobox}
+
+
+% ==================== ADVANCED BEGINNER + PROFESSIONAL UPGRADE ====================
+\section{Beginner-to-Professional Execution Blueprint}
+
+\begin{infobox}{How to Study This Resource the Right Way}
+Do not just read this PDF. Convert each major topic into one practical output:
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{52}] Learn the concept for 30--45 minutes
+    \item[\ding{52}] Implement one mini feature immediately
+    \item[\ding{52}] Write 3--5 bullet notes in your own words
+    \item[\ding{52}] Push your progress to GitHub with clear commits
+\end{itemize}
+This simple loop helps beginners become consistent and interview-ready.
+\end{infobox}
+
+\subsection{Weekly Professional Growth Plan}
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranDark}}l|X|>{\centering\arraybackslash}p{2.6cm}|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Day} & \color{white}\textbf{Focus} & \color{white}\textbf{Output} \\
+\hline
+Mon--Tue & Concepts + guided implementation & Notes + code snippets \\
+\hline
+\rowcolor{SectionBg}
+Wed--Thu & Build practical feature/project block & Working module \\
+\hline
+Fri & Refactor + improve naming/structure & Cleaner codebase \\
+\hline
+\rowcolor{SectionBg}
+Sat & Deploy + test on real device/browser & Live URL + bug list \\
+\hline
+Sun & Review week + LinkedIn learning post & Public proof of progress \\
+\hline
+\end{tabularx}
+\end{center}
+
+\section{Professional Quality Standards}
+
+\begin{infobox}{Client-Ready Checklist}
+Before you call any project complete, verify these essentials:
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{116}] Mobile-first responsive layout
+    \item[\ding{116}] Loading, empty, and error states
+    \item[\ding{116}] Clean file structure and reusable components
+    \item[\ding{116}] Clear README with setup and feature summary
+    \item[\ding{116}] Deployed live demo with working links
+\end{itemize}
+\end{infobox}
+
+\begin{tipbox}
+\textbf{Career Shortcut:} Employers do not hire by course certificates. They hire by proof of execution. Ship projects, document your process, and show measurable improvement every month.
+\end{tipbox}
+
+\section{30-Day Improvement Sprint}
+\begin{itemize}[leftmargin=1.5em, itemsep=5pt]
+    \item[\ding{52}] Week 1: Strengthen fundamentals and fix weak concepts
+    \item[\ding{52}] Week 2: Build one focused project from scratch
+    \item[\ding{52}] Week 3: Add professional polish (SEO, performance, accessibility)
+    \item[\ding{52}] Week 4: Deploy, write case study, and publish portfolio update
+\end{itemize}
+% ==================== LAST PAGE ====================
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{3cm}
+{\color{FaranBlue}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{Build APIs That Scale.}}\\[0.5cm]
+{\large Explore more resources at \textcolor{FaranBlue}{faran-new-portfolio.vercel.app}}
+\vspace{0.4cm}
+\circleimage{1.25cm}{2.5cm}{academy-logo.png}\\[0.4cm]
+\begin{tcolorbox}[colback=FaranBlue, colframe=FaranBlue, width=0.72\textwidth,
+    arc=10pt, boxrule=0pt, halign=center]
+    \centering\color{white}
+    {\large\textbf{Faran Alam}}\\[0.3cm]
+    \faGlobe\ faran-new-portfolio.vercel.app \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.2cm]
+    \faWhatsapp\ +92 333 4051830 \quad \faGithub\ github.com/FaranAlam\\[0.2cm]
+    \faFacebook\ facebook.com/faran.alam.5243 \quad \faLinkedin\ linkedin.com/in/faran-alam-14203abc\\[0.2cm]
+    \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+\end{tcolorbox}
+\vspace{1.5cm}
+{\color{FaranBlue}\rule{\textwidth}{3pt}}
+{\small\color{FaranGray}Portfolio Resource Series | Faran Alam | 2026}
+
+\end{document}

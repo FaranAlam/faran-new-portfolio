@@ -1,0 +1,819 @@
+% ============================================================
+% PDF 5: GIT & DEVOPS ESSENTIALS
+% ============================================================
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{array}
+
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranRed}{HTML}{EF4444}
+\definecolor{FaranOrange}{HTML}{F97316}
+\definecolor{CodeBg}{HTML}{1E1E2E}
+\definecolor{CodeFg}{HTML}{CDD6F4}
+\definecolor{DarkText}{HTML}{111827}
+
+\hypersetup{colorlinks=true, linkcolor=FaranRed, urlcolor=FaranRed,
+    pdftitle={Git and DevOps Essentials - Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | Git \& DevOps Guide}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe~faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage~| Faran Alam Portfolio Resources}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranRed}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranRed}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranRed}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranRed}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}[1]{colback=red!5, colframe=FaranRed, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranRed, title=#1, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{codebox}[1]{colback=CodeBg, colframe=FaranRed, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranRed!80, title={\faCode~#1}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{tipbox}{colback=green!5, colframe=FaranAccent, fonttitle=\bfseries,
+  title={\faLightbulb~Pro Tip}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{warningbox}{colback=yellow!5, colframe=FaranOrange, fonttitle=\bfseries,
+  title={\faExclamationTriangle~Warning}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+
+\lstset{basicstyle=\ttfamily\small\color{CodeFg}, backgroundcolor=\color{CodeBg},
+  keywordstyle=\color{FaranBlue}\bfseries, stringstyle=\color{FaranAccent},
+  commentstyle=\color{FaranGray}\itshape, breaklines=true, frame=none, showstringspaces=false}
+
+\begin{document}
+
+% ---- TITLE PAGE ----
+\begin{titlepage}
+    \pagecolor{FaranDark}\color{white}\centering\vspace*{2cm}
+    {\color{FaranRed}\rule{\textwidth}{3pt}}\vspace{1cm}
+    \begin{tcolorbox}[colback=FaranRed, colframe=FaranRed, width=0.45\textwidth, arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faGitAlt~FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{1cm}
+    {\fontsize{36}{44}\selectfont\textbf{Git \& DevOps}}\\[0.3cm]
+    {\fontsize{40}{48}\selectfont\color{FaranRed}\textbf{Essentials}}\\[0.5cm]
+    {\large Version Control, CI/CD Pipelines, Cloud Deployment}
+    \vspace{2cm}
+    \begin{tcolorbox}[colback=white!10, colframe=FaranRed, width=0.65\textwidth, arc=8pt, boxrule=1.5pt, halign=center]
+        \centering{\large\textbf{\color{white}Faran Alam}}\\[0.2cm]
+        {\color{FaranLight}Full Stack Developer | Cloud \& Deployment Expert}\\[0.3cm]
+        {\small\color{FaranLight}\faGlobe~faran-new-portfolio.vercel.app \quad \faWhatsapp~+92 333 4051830}
+    \end{tcolorbox}
+    \vfill
+    {\color{FaranRed}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2025 Edition | Faran Alam Portfolio Resources}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+\tableofcontents\newpage
+
+% ============================================
+\section{Git Fundamentals}
+% ============================================
+
+\begin{infobox}{Why Git is Non-Negotiable}
+Git is the most important tool a developer must master. It tracks every change, enables team collaboration, allows you to undo mistakes, and is required by every company. No Git = no job. Simple.
+\end{infobox}
+
+\subsection{Git Architecture}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranRed}}l|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Area} & \color{white}\textbf{Description} \\
+\hline
+Working Directory & Your actual files where you write code \\
+\hline
+\rowcolor{red!5}
+Staging Area & Files added with \texttt{git add} -- ready to commit \\
+\hline
+Local Repository & Committed snapshots on your machine \\
+\hline
+\rowcolor{red!5}
+Remote Repository & GitHub/GitLab -- shared cloud copy \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Essential Git Commands}
+
+\begin{codebox}{Daily Git Workflow}
+\begin{lstlisting}
+# Setup (one time)
+git config --global user.name "Faran Alam"
+git config --global user.email "faran.bsce40@iiu.edu.pk"
+
+# Start project
+git init                          # new repo
+git clone <url>                   # clone existing
+
+# Daily workflow
+git status                        # what changed?
+git add .                         # stage all changes
+git add filename.js               # stage one file
+git commit -m "feat: add login"   # save snapshot
+git push origin main              # push to GitHub
+git pull origin main              # get latest changes
+\end{lstlisting}
+\end{codebox}
+
+\begin{codebox}{Branching \& Merging}
+\begin{lstlisting}
+# Branches
+git branch                        # list branches
+git branch feature/login          # create branch
+git checkout feature/login        # switch branch
+git checkout -b feature/dashboard # create + switch
+
+# Merging
+git checkout main
+git merge feature/login           # merge into main
+git branch -d feature/login       # delete merged branch
+
+# Pull Requests (GitHub flow)
+# 1. Create feature branch
+# 2. Push to GitHub
+# 3. Open Pull Request
+# 4. Review + merge
+\end{lstlisting}
+\end{codebox}
+
+\begin{codebox}{Undoing Mistakes}
+\begin{lstlisting}
+# Undo last commit (keep changes)
+git reset --soft HEAD~1
+
+# Undo last commit (discard changes)  
+git reset --hard HEAD~1
+
+# Undo changes to a file
+git checkout -- filename.js
+
+# See commit history
+git log --oneline
+
+# Go back to specific commit
+git checkout abc1234
+
+# Revert a commit (safe for public repos)
+git revert abc1234
+\end{lstlisting}
+\end{codebox}
+
+\begin{warningbox}
+\textbf{NEVER} force push to main/master on a shared repository. \texttt{git push --force} overwrites history and can permanently destroy teammates' work. Only use it on your personal feature branches when absolutely necessary.
+\end{warningbox}
+
+\newpage
+
+\subsection{Git Commit Message Convention}
+
+\begin{infobox}{Conventional Commits Format}
+Format: \texttt{type(scope): description}\\[0.5cm]
+\begin{tabularx}{\textwidth}{|>{\ttfamily\bfseries\color{FaranRed}}l|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Type} & \color{white}\textbf{When to Use} \\
+\hline
+feat & New feature added \\
+\hline
+\rowcolor{red!5}
+fix & Bug fix \\
+\hline
+docs & Documentation changes \\
+\hline
+\rowcolor{red!5}
+style & Formatting, no logic change \\
+\hline
+refactor & Code restructure, no feature/fix \\
+\hline
+\rowcolor{red!5}
+test & Adding/fixing tests \\
+\hline
+chore & Build, config, dependency updates \\
+\hline
+\rowcolor{red!5}
+perf & Performance improvements \\
+\hline
+\end{tabularx}
+\vspace{0.3cm}
+\textbf{Examples:}\\
+\texttt{feat(auth): add Google OAuth login}\\
+\texttt{fix(api): handle null user in /profile route}\\
+\texttt{docs: update README with setup steps}
+\end{infobox}
+
+\newpage
+
+% ============================================
+\section{CI/CD Pipelines}
+% ============================================
+
+\begin{infobox}{What is CI/CD?}
+\textbf{CI (Continuous Integration)} = Automatically run tests every time you push code.\\[0.2cm]
+\textbf{CD (Continuous Deployment)} = Automatically deploy to production if tests pass.\\[0.2cm]
+Result: No more manual deployments. Push code → Tests run → Auto deploy. Zero human error.
+\end{infobox}
+
+\subsection{GitHub Actions (Free CI/CD)}
+
+\begin{codebox}{.github/workflows/main.yml}
+\begin{lstlisting}
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Get the code
+      - uses: actions/checkout@v3
+
+      # 2. Setup Node.js
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      # 3. Install dependencies
+      - run: npm ci
+
+      # 4. Run tests
+      - run: npm test
+
+      # 5. Build project
+      - run: npm run build
+
+      # 6. Deploy (Vercel / Railway auto-detects pushes)
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+
+% ============================================
+\section{Deployment Guide}
+% ============================================
+
+\subsection{Deployment Platforms Comparison}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|l|X|l|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Platform} & \color{white}\textbf{Best For} & \color{white}\textbf{Features} & \color{white}\textbf{Price} \\
+\hline
+Vercel & Next.js / React & Auto SSL, CDN, Preview URLs, Edge & \color{FaranAccent}Free \\
+\hline
+\rowcolor{red!5}
+Railway & Node / Express & Databases, auto-scaling, Docker & \$5/mo \\
+\hline
+Render & Full stack & Docker support, cron jobs & \color{FaranAccent}Free \\
+\hline
+\rowcolor{red!5}
+Netlify & Static sites & Forms, identity, split testing & \color{FaranAccent}Free \\
+\hline
+AWS / GCP & Enterprise & Maximum control, complex & \$\$\$ \\
+\hline
+\rowcolor{red!5}
+VPS (DigitalOcean) & Custom setups & Full control, Nginx, PM2 & \$4/mo \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Production Deployment Checklist}
+
+\begin{itemize}[leftmargin=1.5em, itemsep=6pt]
+    \item[\ding{52}] Environment variables set in platform dashboard (never in code)
+    \item[\ding{52}] Database connection string is production DB, not local
+    \item[\ding{52}] \texttt{NODE\_ENV=production} is set
+    \item[\ding{52}] Error logging enabled (Sentry, LogRocket)
+    \item[\ding{52}] HTTPS enforced (no HTTP traffic)
+    \item[\ding{52}] CORS configured for production domain only
+    \item[\ding{52}] Rate limiting enabled
+    \item[\ding{52}] API keys rotated from development values
+    \item[\ding{52}] Build passes locally: \texttt{npm run build}
+    \item[\ding{52}] Custom domain connected with SSL certificate
+\end{itemize}
+
+\begin{tipbox}
+For Next.js projects, Vercel is the simplest choice -- it's built by the same team. Connect your GitHub repo, add environment variables, done. Every push to main auto-deploys in under 60 seconds.
+\end{tipbox}
+
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{4cm}
+{\color{FaranRed}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{Version Control Everything.}}\\[0.5cm]
+{\large More at \textcolor{FaranRed}{faran-new-portfolio.vercel.app}}
+\vspace{2cm}
+\begin{tcolorbox}[colback=FaranRed, colframe=FaranRed, width=0.7\textwidth, arc=10pt, boxrule=0pt, halign=center]
+\centering\color{white}{\large\textbf{Faran Alam | faran-new-portfolio.vercel.app}}\\\faWhatsapp~+92 333 4051830
+\end{tcolorbox}
+{\color{FaranRed}\rule{\textwidth}{3pt}}
+
+\end{document}
+
+% ============================================================
+% END OF PDF 5: GIT & DEVOPS ESSENTIALS
+% ============================================================
+
+
+
+
+% ============================================================
+% PDF 6: DATABASE DESIGN HANDBOOK
+% ============================================================
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{array}
+
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranTeal}{HTML}{0D9488}
+\definecolor{CodeBg}{HTML}{1E1E2E}
+\definecolor{CodeFg}{HTML}{CDD6F4}
+\definecolor{DarkText}{HTML}{111827}
+
+\hypersetup{colorlinks=true, linkcolor=FaranTeal, urlcolor=FaranTeal,
+    pdftitle={Database Design Handbook - Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | Database Design Handbook}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe~faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage~| Faran Alam Portfolio Resources}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranTeal}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranTeal}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranTeal}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranTeal}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}[1]{colback=teal!5, colframe=FaranTeal, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranTeal, title=#1, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{codebox}[1]{colback=CodeBg, colframe=FaranTeal, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranTeal!80, title={\faDatabase~#1}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{tipbox}{colback=green!5, colframe=FaranAccent, fonttitle=\bfseries,
+  title={\faLightbulb~Best Practice}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+
+\lstset{basicstyle=\ttfamily\small\color{CodeFg}, backgroundcolor=\color{CodeBg},
+  keywordstyle=\color{cyan}\bfseries, stringstyle=\color{FaranAccent},
+  commentstyle=\color{FaranGray}\itshape, breaklines=true, frame=none, showstringspaces=false}
+
+\begin{document}
+
+\begin{titlepage}
+    \pagecolor{FaranDark}\color{white}\centering\vspace*{2cm}
+    {\color{FaranTeal}\rule{\textwidth}{3pt}}\vspace{1cm}
+    \begin{tcolorbox}[colback=FaranTeal, colframe=FaranTeal, width=0.45\textwidth, arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faDatabase~FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{1cm}
+    {\fontsize{36}{44}\selectfont\textbf{Database Design}}\\[0.3cm]
+    {\fontsize{40}{48}\selectfont\color{FaranTeal}\textbf{Handbook}}\\[0.5cm]
+    {\large SQL, MongoDB, Schema Design, Optimization}
+    \vspace{2cm}
+    \begin{tcolorbox}[colback=white!10, colframe=FaranTeal, width=0.65\textwidth, arc=8pt, boxrule=1.5pt, halign=center]
+        \centering{\large\textbf{\color{white}Faran Alam}}\\[0.2cm]
+        {\color{FaranLight}Full Stack Developer | Database Engineer}\\[0.3cm]
+        {\small\color{FaranLight}\faGlobe~faran-new-portfolio.vercel.app \quad \faWhatsapp~+92 333 4051830}
+    \end{tcolorbox}
+    \vfill
+    {\color{FaranTeal}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2025 Edition | Faran Alam Portfolio Resources}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+\tableofcontents\newpage
+
+\section{SQL vs NoSQL: The Real Difference}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|X|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\large\textbf{SQL (Relational)} & \color{white}\large\textbf{NoSQL (Document)} \\
+\hline
+Tables with rows \& columns & Collections with documents (JSON) \\
+\hline
+\rowcolor{teal!5}
+Strict schema (defined upfront) & Flexible schema (schema-less) \\
+\hline
+JOINS between tables & Embedded documents or references \\
+\hline
+\rowcolor{teal!5}
+ACID transactions guaranteed & Eventual consistency (configurable) \\
+\hline
+Great for: finance, e-commerce & Great for: content, real-time, flexible \\
+\hline
+\rowcolor{teal!5}
+PostgreSQL, MySQL, SQLite & MongoDB, Firebase, DynamoDB \\
+\hline
+\end{tabularx}
+\end{center}
+
+\begin{infobox}{When to Use Which?}
+\textbf{Use SQL when:} Data is highly relational (users-orders-products), you need complex reporting, financial accuracy is critical.\\[0.2cm]
+\textbf{Use MongoDB when:} Building fast MVPs, data structure varies, you want to store documents/JSON naturally, or working with Next.js/Node.js.
+\end{infobox}
+
+\subsection{MongoDB Mongoose Example}
+
+\begin{codebox}{User Schema with Mongoose}
+\begin{lstlisting}
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Name is required'],
+    trim: true,
+    maxlength: [50, 'Name too long']
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    match: [/\S+@\S+\.\S+/, 'Invalid email']
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 8,
+    select: false  // never return in queries
+  },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  },
+  createdAt: { type: Date, default: Date.now }
+});
+
+// Hash password before saving
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 12);
+});
+
+module.exports = mongoose.model('User', userSchema);
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+
+\subsection{PostgreSQL with Prisma ORM}
+
+\begin{codebox}{schema.prisma}
+\begin{lstlisting}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  posts     Post[]
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId])
+  authorId  Int
+  createdAt DateTime @default(now())
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Database Performance Tips}
+
+\subsection{MongoDB Indexing}
+\begin{itemize}[leftmargin=1.5em, itemsep=6pt]
+    \item[\ding{52}] Index fields you query frequently: \texttt{userSchema.index(\{ email: 1 \})}
+    \item[\ding{52}] Compound index for multi-field queries
+    \item[\ding{52}] Use \texttt{.explain('executionStats')} to analyze query performance
+    \item[\ding{52}] Avoid \texttt{\$or} on non-indexed fields -- very slow
+    \item[\ding{52}] Use \texttt{.select('-password')} to exclude heavy fields
+    \item[\ding{52}] Paginate large results: \texttt{.skip(page * limit).limit(limit)}
+\end{itemize}
+
+\begin{tipbox}
+MongoDB Atlas (free tier: 512MB) is perfect for learning and small production apps. It includes a visual query profiler, backups, and global clusters. Use it instead of local MongoDB for all deployed projects.
+\end{tipbox}
+
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{4cm}
+{\color{FaranTeal}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{Data is Everything.}}\\[0.5cm]
+{\large More at \textcolor{FaranTeal}{faran-new-portfolio.vercel.app}}
+\vspace{2cm}
+\begin{tcolorbox}[colback=FaranTeal, colframe=FaranTeal, width=0.7\textwidth, arc=10pt, boxrule=0pt, halign=center]
+\centering\color{white}{\large\textbf{Faran Alam | faran-new-portfolio.vercel.app}}\\\faWhatsapp~+92 333 4051830
+\end{tcolorbox}
+{\color{FaranTeal}\rule{\textwidth}{3pt}}
+
+\end{document}
+
+% ============================================================
+% END OF PDF 6: DATABASE DESIGN HANDBOOK
+% ============================================================
+
+
+
+
+% ============================================================
+% PDF 7: DEVELOPER INTERVIEW PREP KIT
+% ============================================================
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{pifont}
+\usepackage{array}
+
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranGold}{HTML}{D97706}
+\definecolor{DarkText}{HTML}{111827}
+
+\hypersetup{colorlinks=true, linkcolor=FaranGold, urlcolor=FaranGold,
+    pdftitle={Developer Interview Prep Kit - Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | Interview Prep Kit}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe~faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage~| Faran Alam Portfolio Resources}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranGold}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranGold}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranGold}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranGold}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}[1]{colback=yellow!5, colframe=FaranGold, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranGold, title=#1, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{qbox}[1]{colback=FaranLight, colframe=FaranBlue, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranBlue, title={\faQuestionCircle~#1}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+\newtcolorbox{tipbox}{colback=green!5, colframe=FaranAccent, fonttitle=\bfseries,
+  title={\faLightbulb~Insider Tip}, rounded corners, boxrule=1pt, arc=4pt, breakable}
+
+\begin{document}
+
+\begin{titlepage}
+    \pagecolor{FaranDark}\color{white}\centering\vspace*{2cm}
+    {\color{FaranGold}\rule{\textwidth}{3pt}}\vspace{1cm}
+    \begin{tcolorbox}[colback=FaranGold, colframe=FaranGold, width=0.45\textwidth, arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faBriefcase~FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{1cm}
+    {\fontsize{36}{44}\selectfont\textbf{Developer Interview}}\\[0.3cm]
+    {\fontsize{40}{48}\selectfont\color{FaranGold}\textbf{Prep Kit}}\\[0.5cm]
+    {\large Technical + Behavioral + Portfolio + Salary Negotiation}
+    \vspace{2cm}
+    \begin{tcolorbox}[colback=white!10, colframe=FaranGold, width=0.65\textwidth, arc=8pt, boxrule=1.5pt, halign=center]
+        \centering{\large\textbf{\color{white}Faran Alam}}\\[0.2cm]
+        {\color{FaranLight}Full Stack Developer | Career Mentor}\\[0.3cm]
+        {\small\color{FaranLight}\faGlobe~faran-new-portfolio.vercel.app \quad \faWhatsapp~+92 333 4051830}
+    \end{tcolorbox}
+    \vfill
+    {\color{FaranGold}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2025 Edition | Faran Alam Portfolio Resources}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+\tableofcontents\newpage
+
+\section{Technical Interview Preparation}
+
+\subsection{JavaScript \& React - Must Know Questions}
+
+\begin{qbox}{What is the difference between var, let, and const?}
+\begin{itemize}[leftmargin=1.2em, noitemsep]
+    \item \textbf{var}: function-scoped, hoisted, old -- \textit{avoid using}
+    \item \textbf{let}: block-scoped, reassignable, modern standard
+    \item \textbf{const}: block-scoped, cannot be reassigned (but objects/arrays can be mutated)
+\end{itemize}
+\end{qbox}
+
+\begin{qbox}{What is closure in JavaScript?}
+A closure is when an inner function has access to the variables from its outer function's scope, even after the outer function has returned.\\[0.2cm]
+\texttt{function counter() \{ let count = 0; return () => ++count; \}}\\
+\texttt{const inc = counter(); inc(); // 1, inc(); // 2}
+\end{qbox}
+
+\begin{qbox}{Explain Event Loop in JavaScript}
+JavaScript is single-threaded. The Event Loop allows async operations:\\
+1. \textbf{Call Stack} -- executes synchronous code\\
+2. \textbf{Web APIs} -- browser handles async (setTimeout, fetch)\\
+3. \textbf{Callback Queue} -- completed async callbacks wait here\\
+4. \textbf{Microtask Queue} -- Promises (higher priority than callbacks)\\
+5. Event Loop moves tasks from queues to stack when stack is empty
+\end{qbox}
+
+\begin{qbox}{What is React reconciliation?}
+When state/props change, React creates a new Virtual DOM tree and compares it with the previous one (diffing algorithm). Only the minimal number of real DOM updates are applied. This is why React is fast -- real DOM operations are expensive.
+\end{qbox}
+
+\begin{qbox}{Explain useEffect cleanup}
+Cleanup prevents memory leaks. Return a function from useEffect to run when component unmounts or before next effect:\\[0.2cm]
+\texttt{useEffect(() => \{ const sub = subscribe(); return () => sub.unsubscribe(); \}, [])}
+\end{qbox}
+
+\newpage
+
+\subsection{Common Coding Challenges}
+
+\begin{infobox}{Easy-Level Must Practice}
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=1.2em, noitemsep]
+    \item Reverse a string
+    \item Find duplicates in array
+    \item FizzBuzz
+    \item Palindrome check
+    \item Sum of array
+    \item Find max/min in array
+    \item Count vowels
+    \item Fibonacci sequence
+\end{itemize}
+\end{multicols}
+\end{infobox}
+
+\begin{infobox}{Medium-Level (Focus Here)}
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=1.2em, noitemsep]
+    \item Two Sum problem
+    \item Valid parentheses
+    \item Merge sorted arrays
+    \item Binary search
+    \item Group anagrams
+    \item Linked list reversal
+    \item Flatten nested array
+    \item Deep clone object
+\end{itemize}
+\end{multicols}
+\end{infobox}
+
+\newpage
+
+\section{Behavioral Interview (HR Round)}
+
+\begin{infobox}{STAR Method}
+\textbf{S}ituation -- Set the context\\
+\textbf{T}ask -- What was your responsibility\\
+\textbf{A}ction -- What you did specifically\\
+\textbf{R}esult -- Measurable outcome
+\end{infobox}
+
+\subsection{Top Behavioral Questions \& Answers}
+
+\begin{qbox}{Tell me about yourself}
+\textit{Template:} I am [name], a Full Stack Developer with [X] years of experience building web applications. I specialize in [React/Next.js/Node.js]. I have worked on [type of projects] and recently [biggest achievement]. I am passionate about [your interest] and looking for [goal].
+\end{qbox}
+
+\begin{qbox}{Your biggest weakness}
+\textbf{Wrong:} "I work too hard" -- everyone sees through this.\\
+\textbf{Right:} Choose a real but improvable weakness. Example: "I used to spend too much time perfecting code instead of shipping. I now use time-boxing -- I set a timer and ship when it's good enough, then improve based on feedback."
+\end{qbox}
+
+\begin{qbox}{Why should we hire you?}
+Focus on 3 things: Skills match, attitude, proven results.\\
+\textit{"I have [specific skill] that directly matches your requirement. I have built [similar project] and achieved [result]. I learn fast and am genuinely excited about [company mission]."
+}
+\end{qbox}
+
+\newpage
+
+\section{Portfolio \& Resume Tips}
+
+\subsection{Resume Checklist}
+
+\begin{itemize}[leftmargin=1.5em, itemsep=8pt]
+    \item[\ding{52}] \textbf{One page only} -- recruiters spend 6 seconds per resume
+    \item[\ding{52}] ATS-friendly: use standard section names (Experience, Skills, Education)
+    \item[\ding{52}] No tables, columns, or graphics -- ATS bots can't read them
+    \item[\ding{52}] Quantify achievements: \textit{"Reduced load time by 40\%"} not \textit{"improved performance"}
+    \item[\ding{52}] Include GitHub profile link and live project URLs
+    \item[\ding{52}] List tech stack prominently (React, Node.js, MongoDB, TypeScript)
+    \item[\ding{52}] Use action verbs: Built, Designed, Reduced, Improved, Implemented, Led
+    \item[\ding{52}] Tailor keywords to each job description
+\end{itemize}
+
+\subsection{Portfolio Website Must-Haves}
+
+\begin{itemize}[leftmargin=1.5em, itemsep=6pt]
+    \item[\ding{52}] Clean hero with clear value proposition
+    \item[\ding{52}] 3-5 projects with live demo + GitHub links
+    \item[\ding{52}] Skills section with technologies
+    \item[\ding{52}] About section with your story
+    \item[\ding{52}] Contact form that actually works
+    \item[\ding{52}] Mobile responsive
+    \item[\ding{52}] Fast loading (90+ Lighthouse score)
+\end{itemize}
+
+\begin{tipbox}
+Your portfolio URL should be your name: \textbf{faran-new-portfolio.vercel.app}. Custom domain costs only \$12/year and makes you look 10x more professional vs username.github.io. Register it today.
+\end{tipbox}
+
+\section{Salary Negotiation}
+
+\begin{infobox}{Negotiation Strategy}
+\begin{enumerate}[leftmargin=1.5em, noitemsep]
+    \item \textbf{Never give first number} -- respond with "What's the budgeted range for this role?"
+    \item \textbf{Research market rate} -- glassdoor.com, levels.fyi, LinkedIn Salary
+    \item \textbf{Anchor high} -- ask 20\% above your target. They'll negotiate down
+    \item \textbf{Negotiate total package} -- salary + equity + remote work + learning budget
+    \item \textbf{Get it in writing} -- verbal offers don't count
+    \item \textbf{Don't apologize for asking} -- it's expected, it's professional
+\end{enumerate}
+\end{infobox}
+
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{4cm}
+{\color{FaranGold}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{You've Got This. Get That Job.}}\\[0.5cm]
+{\large Need mock interview practice? Contact me at \textcolor{FaranGold}{faran-new-portfolio.vercel.app}}
+\vspace{2cm}
+\begin{tcolorbox}[colback=FaranGold, colframe=FaranGold, width=0.7\textwidth, arc=10pt, boxrule=0pt, halign=center]
+\centering\color{FaranDark}{\large\textbf{Faran Alam | faran-new-portfolio.vercel.app}}\\
+\faWhatsapp~+92 333 4051830 \quad \faLinkedin~faran-alam
+\end{tcolorbox}
+\vspace{1cm}
+{\color{FaranGold}\rule{\textwidth}{3pt}}
+{\small\color{FaranGray}Faran Alam Portfolio Resources | 2025}
+
+\end{document}
+
+% ============================================================
+% END OF PDF 7: DEVELOPER INTERVIEW PREP KIT
+% ============================================================

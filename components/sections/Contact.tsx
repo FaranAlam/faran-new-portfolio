@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import FadeIn from "../animations/FadeIn";
 import StaggerContainer from "../animations/StaggerContainer";
 import StaggerItem from "../animations/StaggerItem";
@@ -32,6 +32,12 @@ export default function Contact() {
   const [errors, setErrors] = useState<{[key: string]: string}>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const statusRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToStatus = () => {
+    if (!statusRef.current) return;
+    statusRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {};
@@ -62,6 +68,19 @@ export default function Contact() {
     }
 
     setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      const firstErrorField = Object.keys(newErrors)[0];
+      const fieldElement = document.getElementById(firstErrorField);
+      if (fieldElement) {
+        fieldElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        // Optional focus improves accessibility and clearly indicates where to fix.
+        (fieldElement as HTMLInputElement | HTMLTextAreaElement).focus();
+      } else {
+        scrollToStatus();
+      }
+    }
+
     return Object.keys(newErrors).length === 0;
   };
 
@@ -103,9 +122,11 @@ export default function Contact() {
       if (response.ok && result.success) {
         setSubmitStatus('success');
         setFormData({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => scrollToStatus(), 0);
         console.log("Message sent successfully:", result);
       } else {
         setSubmitStatus('error');
+        setTimeout(() => scrollToStatus(), 0);
         console.error("Failed to send message:", result.error);
       }
       
@@ -114,6 +135,7 @@ export default function Contact() {
     } catch (error) {
       console.error("Error submitting form:", error);
       setSubmitStatus('error');
+      setTimeout(() => scrollToStatus(), 0);
       setTimeout(() => setSubmitStatus('idle'), 5000);
     } finally {
       setIsSubmitting(false);
@@ -248,6 +270,7 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="lg:col-span-2">
               {/* Status Messages */}
+              <div ref={statusRef} />
               {submitStatus === 'success' && (
                 <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
                   <svg className="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

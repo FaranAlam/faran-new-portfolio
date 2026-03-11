@@ -1,0 +1,472 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{array}
+
+% ---- COLORS ----
+\definecolor{FaranBlue}{HTML}{2563EB}
+\definecolor{FaranDark}{HTML}{1E3A5F}
+\definecolor{FaranLight}{HTML}{EFF6FF}
+\definecolor{FaranGray}{HTML}{6B7280}
+\definecolor{FaranAccent}{HTML}{10B981}
+\definecolor{FaranYellow}{HTML}{B45309}
+\definecolor{CodeBg}{HTML}{1E1E2E}
+\definecolor{CodeFg}{HTML}{CDD6F4}
+\definecolor{DarkText}{HTML}{111827}
+\definecolor{SectionBg}{HTML}{FFFBEB}
+
+\hypersetup{colorlinks=true, linkcolor=FaranYellow, urlcolor=FaranYellow,
+    pdftitle={JavaScript Interview Prep - Faran Alam}, pdfauthor={Faran Alam}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{FaranGray}\textbf{Faran Alam} | JavaScript Interview Prep}
+\fancyhead[R]{\small\color{FaranGray}\faGlobe\ faran-new-portfolio.vercel.app}
+\fancyfoot[C]{\small\color{FaranGray}Page \thepage\ | Faran Alam Portfolio Resources}
+\fancyfoot[R]{\small\color{FaranGray}\faWhatsapp\ +92 333 4051830}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{FaranYellow}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{FaranYellow}\leaders\hrule height \footrulewidth\hfill}}
+
+\titleformat{\section}{\Large\bfseries\color{FaranDark}}{\color{FaranYellow}\thesection.}{0.5em}{}
+  [\vspace{-4pt}\rule{\textwidth}{1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\large\bfseries\color{FaranYellow}}{\thesubsection.}{0.5em}{}
+
+\tcbuselibrary{skins,breakable}
+\newcommand{\circleimage}[3]{%
+  \begin{tikzpicture}[baseline=(img.base)]
+    \clip (0,0) circle (#1);
+    \node[inner sep=0pt] (img) at (0,0) {\includegraphics[width=#2,height=#2]{#3}};
+    \draw[line width=0.9pt, color=FaranAccent!85!black] (0,0) circle (#1);
+  \end{tikzpicture}%
+}
+\newtcolorbox{infobox}[1]{colback=SectionBg, colframe=FaranYellow, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranYellow, title=#1, rounded corners, boxrule=1pt, arc=5pt, breakable}
+\newtcolorbox{qbox}[1]{colback=FaranLight, colframe=FaranYellow, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranYellow, title={\faQuestionCircle\ Q: #1},
+  rounded corners, boxrule=1pt, arc=5pt, breakable}
+\newtcolorbox{codebox}[1]{colback=CodeBg, colframe=FaranYellow, fonttitle=\bfseries\color{white},
+  coltitle=white, colbacktitle=FaranYellow!80, title={\faCode\ #1}, rounded corners, boxrule=1pt, arc=5pt,
+  breakable, left=6pt, right=6pt, top=6pt, bottom=6pt}
+\newtcolorbox{tipbox}{colback=green!5, colframe=FaranAccent, fonttitle=\bfseries,
+  title={\faLightbulb\ Interview Tip}, rounded corners, boxrule=1pt, arc=5pt, breakable}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize\color{CodeFg},
+  backgroundcolor=\color{CodeBg},
+  keywordstyle=\color{cyan}\bfseries,
+  stringstyle=\color{FaranAccent},
+  commentstyle=\color{FaranGray}\itshape,
+  breaklines=true, breakatwhitespace=false, columns=fullflexible, keepspaces=true, frame=none, showstringspaces=false
+}
+
+\begin{document}
+
+% ==================== TITLE PAGE ====================
+\begin{titlepage}
+    \pagecolor{FaranDark}\color{white}\centering\vspace*{0.3cm}
+    \circleimage{0.8cm}{1.6cm}{logo.jpg}\qquad\circleimage{0.8cm}{1.6cm}{academy-logo.png}\\[0.3cm]
+    {\color{FaranYellow}\rule{\textwidth}{3pt}}\vspace{0.8cm}
+
+    \begin{tcolorbox}[colback=FaranYellow, colframe=FaranYellow, width=0.42\textwidth,
+        arc=20pt, boxrule=0pt, halign=center]
+        \centering\color{white}\textbf{\faBolt\ FREE RESOURCE}
+    \end{tcolorbox}
+    \vspace{0.8cm}
+
+    {\fontsize{38}{46}\selectfont\textbf{JavaScript}}\\[0.3cm]
+    {\fontsize{42}{50}\selectfont\color{FaranYellow}\textbf{Interview Prep}}\\[0.6cm]
+    {\large\color{FaranLight}50+ Real Interview Questions with Detailed Answers}\\[0.2cm]
+    {\large\color{FaranLight}Core Concepts, Tricky Outputs, \& Coding Challenges}
+
+    \vspace{1.5cm}
+    \begin{tcolorbox}[colback=white, colframe=FaranYellow, width=0.68\textwidth,
+        arc=8pt, boxrule=1.5pt, halign=center]
+        \centering
+        \circleimage{1cm}{2cm}{profile.jpg}\\[0.15cm]
+        {\large\textbf{\color{FaranDark}Faran Alam}}\\[0.1cm]
+        {\color{FaranGray}Full Stack Developer | JavaScript Expert}\\[0.3cm]
+        {\small\color{FaranDark}
+            \faGlobe\ faran-new-portfolio.vercel.app \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.1cm]
+            \faGithub\ github.com/FaranAlam \quad \faWhatsapp\ +92 333 4051830\\[0.1cm]
+            \faFacebook\ facebook.com/faran.alam.5243 \quad \faLinkedin\ linkedin.com/in/faran-alam-14203abc\\[0.1cm]
+            \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+        }
+    \end{tcolorbox}
+    \vfill
+    {\color{FaranYellow}\rule{\textwidth}{3pt}}
+    {\small\color{FaranGray}2026 Edition | Portfolio Resource Series | Faran Alam}
+\end{titlepage}
+\pagecolor{white}\color{DarkText}
+\tableofcontents
+\newpage
+
+% ==================== SECTION 1: CORE CONCEPTS ====================
+\section{Core JavaScript Concepts}
+
+\begin{qbox}{Explain var, let, and const differences}
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item \textbf{var}: function-scoped, hoisted to top with value \texttt{undefined}, can be re-declared. \textit{Avoid in modern JS.}
+    \item \textbf{let}: block-scoped \texttt{\{\}}, hoisted but NOT initialized (Temporal Dead Zone), re-assignable
+    \item \textbf{const}: block-scoped, must be initialized, cannot be re-assigned. Object/array contents can still mutate.
+\end{itemize}
+\end{qbox}
+
+\begin{qbox}{What is a closure?}
+A closure is when an inner function retains access to variables from its outer (enclosing) function's scope, even after the outer function has returned.\\[0.3cm]
+\textbf{Classic example -- counter:}
+\begin{codebox}{Closure Example}
+\begin{lstlisting}
+function createCounter() {
+  let count = 0;               // outer scope variable
+  return {
+    increment: () => ++count,  // inner fn remembers count
+    decrement: () => --count,
+    getCount:  () => count,
+  };
+}
+
+const counter = createCounter();
+counter.increment(); // 1
+counter.increment(); // 2
+counter.getCount();  // 2  -- count persists!
+\end{lstlisting}
+\end{codebox}
+\textbf{Real use cases:} Private variables, memoization, event handlers, module pattern
+\end{qbox}
+
+\begin{qbox}{What is the Event Loop? How does async JS work?}
+JavaScript is \textbf{single-threaded}. The Event Loop allows non-blocking operations:
+\begin{enumerate}[leftmargin=2em, noitemsep]
+    \item \textbf{Call Stack} -- executes synchronous code (top to bottom)
+    \item \textbf{Web APIs} -- browser handles async tasks (setTimeout, fetch, DOM events)
+    \item \textbf{Microtask Queue} -- resolved Promises (highest priority, runs before macrotasks)
+    \item \textbf{Macrotask Queue} -- setTimeout/setInterval callbacks
+    \item \textbf{Event Loop} -- moves tasks to stack when it is empty
+\end{enumerate}
+\begin{codebox}{Event Loop Output Quiz}
+\begin{lstlisting}
+console.log('1');           // sync - runs first
+setTimeout(() => console.log('2'), 0); // macrotask
+Promise.resolve().then(() => console.log('3')); // microtask
+console.log('4');           // sync
+
+// Output: 1, 4, 3, 2
+// Sync first, then microtasks, then macrotasks
+\end{lstlisting}
+\end{codebox}
+\end{qbox}
+
+\begin{qbox}{What is hoisting?}
+Hoisting moves declarations (not initializations) to the top of their scope during compile phase.
+\begin{codebox}{Hoisting Example}
+\begin{lstlisting}
+// What you write:
+console.log(x);    // undefined (not error!)
+var x = 5;
+
+// What JS sees (after hoisting):
+var x;             // declaration hoisted
+console.log(x);    // undefined
+x = 5;             // initialization stays
+
+// let/const: hoisted but NOT initialized
+console.log(y);    // ReferenceError: Cannot access 'y'
+let y = 10;
+\end{lstlisting}
+\end{codebox}
+\end{qbox}
+
+\newpage
+
+\begin{qbox}{Explain Promises and async/await}
+\begin{codebox}{Promises vs Async/Await}
+\begin{lstlisting}
+// Promise chain (old way)
+fetchUser(id)
+  .then(user => fetchPosts(user.id))
+  .then(posts => console.log(posts))
+  .catch(err => console.error(err));
+
+// Async/await (modern way - cleaner)
+async function loadUserPosts(id) {
+  try {
+    const user = await fetchUser(id);
+    const posts = await fetchPosts(user.id);
+    return posts;
+  } catch (err) {
+    console.error('Failed:', err.message);
+  }
+}
+
+// Parallel requests (faster - don't await separately)
+const [user, settings] = await Promise.all([
+  fetchUser(id),
+  fetchSettings(id)
+]);
+\end{lstlisting}
+\end{codebox}
+\end{qbox}
+
+\begin{qbox}{this keyword -- what does it refer to?}
+\texttt{this} depends on \textit{how} a function is called, not where it is defined.
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item \textbf{Global scope}: \texttt{window} (browser) / \texttt{undefined} in strict mode
+    \item \textbf{Object method}: the object before the dot: \texttt{obj.method()} → \texttt{this = obj}
+    \item \textbf{Arrow function}: NO own \texttt{this} -- inherits from enclosing scope
+    \item \textbf{Class}: the class instance
+    \item \textbf{call/apply/bind}: explicitly set \texttt{this}
+\end{itemize}
+\end{qbox}
+
+\newpage
+
+% ==================== SECTION 2: ES6+ ====================
+\section{ES6+ Features You Must Know}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranYellow}}l|X|X|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Feature} & \color{white}\textbf{What it does} & \color{white}\textbf{Quick Example} \\
+\hline
+Destructuring & Extract values from arrays/objects & \texttt{const \{name, age\} = user} \\
+\hline
+\rowcolor{SectionBg}
+Spread/Rest & Expand or collect values & \texttt{const copy = [...arr]} \\
+\hline
+Template Literals & String interpolation & \texttt{`Hello \$\{name\}`} \\
+\hline
+\rowcolor{SectionBg}
+Optional Chaining & Safe property access & \texttt{user?.address?.city} \\
+\hline
+Nullish Coalescing & Default for null/undefined & \texttt{name ?? 'Anonymous'} \\
+\hline
+\rowcolor{SectionBg}
+Arrow Functions & Short syntax + no \texttt{this} & \texttt{const add = (a,b) => a+b} \\
+\hline
+Modules & import/export system & \texttt{import \{ fn \} from './utils'} \\
+\hline
+\rowcolor{SectionBg}
+Map / Set & Key-value store / unique values & \texttt{new Map(), new Set()} \\
+\hline
+Array Methods & Functional array manipulation & \texttt{.map .filter .reduce .flat} \\
+\hline
+\end{tabularx}
+\end{center}
+
+% ==================== SECTION 3: TRICKY OUTPUTS ====================
+\section{Tricky Output Questions (Most Asked)}
+
+\begin{infobox}{Predict the Output -- Practice These}
+\begin{codebox}{Tricky Question 1: setTimeout in Loop}
+\begin{lstlisting}
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+// Output: 3, 3, 3   (var is function-scoped, loop finishes first)
+
+// FIX using let (block-scoped):
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+// Output: 0, 1, 2
+\end{lstlisting}
+\end{codebox}
+
+\begin{codebox}{Tricky Question 2: Object Reference}
+\begin{lstlisting}
+const a = { x: 1 };
+const b = a;           // reference copy, NOT value copy
+b.x = 99;
+console.log(a.x);      // 99 -- a was also changed!
+
+// To copy: use spread
+const c = { ...a };    // shallow copy
+c.x = 0;
+console.log(a.x);      // 99 -- a is unaffected now
+\end{lstlisting}
+\end{codebox}
+
+\begin{codebox}{Tricky Question 3: Type Coercion}
+\begin{lstlisting}
+console.log(1 + '2');    // '12'  (number + string = string)
+console.log('5' - 2);   // 3     (string - number = number)
+console.log(true + 1);  // 2     (true = 1)
+console.log([] + []);   // ''    (empty string)
+console.log([] == false); // true  (loose equality!)
+// Always use === to avoid coercion bugs
+\end{lstlisting}
+\end{codebox}
+\end{infobox}
+
+\newpage
+
+% ==================== SECTION 4: ARRAY CHALLENGES ====================
+\section{Coding Challenges (Write the Solution)}
+
+\begin{codebox}{Challenge 1 -- Reverse a String Without reverse()}
+\begin{lstlisting}
+function reverseString(str) {
+  return str.split('').reduce((acc, char) => char + acc, '');
+  // or: return [...str].reverse().join('');
+}
+reverseString('faran'); // 'naraf'
+\end{lstlisting}
+\end{codebox}
+
+\begin{codebox}{Challenge 2 -- Remove Duplicates from Array}
+\begin{lstlisting}
+// Method 1: Set (simplest)
+const unique = (arr) => [...new Set(arr)];
+
+// Method 2: filter + indexOf
+const unique2 = (arr) => arr.filter((item, idx) => arr.indexOf(item) === idx);
+
+unique([1, 2, 2, 3, 3, 4]); // [1, 2, 3, 4]
+\end{lstlisting}
+\end{codebox}
+
+\begin{codebox}{Challenge 3 -- Deep Clone an Object}
+\begin{lstlisting}
+// Simple (no functions/dates):
+const deepClone = (obj) => JSON.parse(JSON.stringify(obj));
+
+// With structuredClone (modern browser API):
+const clone = structuredClone(obj);
+
+// Recursive (handles edge cases):
+function deepCloneCustom(obj) {
+  if (obj === null || typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) return obj.map(deepCloneCustom);
+  return Object.fromEntries(
+    Object.entries(obj).map(([k, v]) => [k, deepCloneCustom(v)])
+  );
+}
+\end{lstlisting}
+\end{codebox}
+
+\begin{codebox}{Challenge 4 -- Group Array of Objects by Key}
+\begin{lstlisting}
+const groupBy = (arr, key) =>
+  arr.reduce((groups, item) => {
+    const group = item[key];
+    groups[group] = groups[group] ?? [];
+    groups[group].push(item);
+    return groups;
+  }, {});
+
+// Usage:
+const people = [
+  { name: 'Ali', dept: 'Engineering' },
+  { name: 'Sara', dept: 'Design' },
+  { name: 'Ahmed', dept: 'Engineering' },
+];
+groupBy(people, 'dept');
+// { Engineering: [{Ali...}, {Ahmed...}], Design: [{Sara...}] }
+\end{lstlisting}
+\end{codebox}
+
+\vspace{0.5cm}
+\begin{tipbox}
+In interviews, always \textbf{think out loud}. Explain your approach before coding. Interviewers care about \textit{how} you think, not just the answer. If you are stuck, ask: ``Can I clarify the requirements?'' -- this shows professional maturity.
+\end{tipbox}
+
+
+% ==================== ADVANCED BEGINNER + PROFESSIONAL UPGRADE ====================
+\section{Beginner-to-Professional Execution Blueprint}
+
+\begin{infobox}{How to Study This Resource the Right Way}
+Do not just read this PDF. Convert each major topic into one practical output:
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{52}] Learn the concept for 30--45 minutes
+    \item[\ding{52}] Implement one mini feature immediately
+    \item[\ding{52}] Write 3--5 bullet notes in your own words
+    \item[\ding{52}] Push your progress to GitHub with clear commits
+\end{itemize}
+This simple loop helps beginners become consistent and interview-ready.
+\end{infobox}
+
+\subsection{Weekly Professional Growth Plan}
+\begin{center}
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{FaranDark}}l|X|>{\centering\arraybackslash}p{2.6cm}|}
+\hline
+\rowcolor{FaranDark}
+\color{white}\textbf{Day} & \color{white}\textbf{Focus} & \color{white}\textbf{Output} \\
+\hline
+Mon--Tue & Concepts + guided implementation & Notes + code snippets \\
+\hline
+\rowcolor{SectionBg}
+Wed--Thu & Build practical feature/project block & Working module \\
+\hline
+Fri & Refactor + improve naming/structure & Cleaner codebase \\
+\hline
+\rowcolor{SectionBg}
+Sat & Deploy + test on real device/browser & Live URL + bug list \\
+\hline
+Sun & Review week + LinkedIn learning post & Public proof of progress \\
+\hline
+\end{tabularx}
+\end{center}
+
+\section{Professional Quality Standards}
+
+\begin{infobox}{Client-Ready Checklist}
+Before you call any project complete, verify these essentials:
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+    \item[\ding{116}] Mobile-first responsive layout
+    \item[\ding{116}] Loading, empty, and error states
+    \item[\ding{116}] Clean file structure and reusable components
+    \item[\ding{116}] Clear README with setup and feature summary
+    \item[\ding{116}] Deployed live demo with working links
+\end{itemize}
+\end{infobox}
+
+\begin{tipbox}
+\textbf{Career Shortcut:} Employers do not hire by course certificates. They hire by proof of execution. Ship projects, document your process, and show measurable improvement every month.
+\end{tipbox}
+
+\section{30-Day Improvement Sprint}
+\begin{itemize}[leftmargin=1.5em, itemsep=5pt]
+    \item[\ding{52}] Week 1: Strengthen fundamentals and fix weak concepts
+    \item[\ding{52}] Week 2: Build one focused project from scratch
+    \item[\ding{52}] Week 3: Add professional polish (SEO, performance, accessibility)
+    \item[\ding{52}] Week 4: Deploy, write case study, and publish portfolio update
+\end{itemize}
+% ==================== LAST PAGE ====================
+\newpage
+\pagecolor{FaranDark}\color{white}\centering\vspace*{3cm}
+{\color{FaranYellow}\rule{\textwidth}{3pt}}\vspace{1cm}
+{\fontsize{28}{36}\selectfont\textbf{Practice Daily. Get Hired.}}\\[0.5cm]
+{\large Explore more resources at \textcolor{FaranYellow}{faran-new-portfolio.vercel.app}}
+\vspace{0.4cm}
+\circleimage{1.25cm}{2.5cm}{academy-logo.png}\\[0.4cm]
+\begin{tcolorbox}[colback=FaranYellow, colframe=FaranYellow, width=0.72\textwidth,
+    arc=10pt, boxrule=0pt, halign=center]
+    \centering\color{white}
+    {\large\textbf{Faran Alam}}\\[0.3cm]
+    \faGlobe\ faran-new-portfolio.vercel.app \quad \faEnvelope\ faran.bsce40@iiu.edu.pk\\[0.2cm]
+    \faWhatsapp\ +92 333 4051830 \quad \faGithub\ github.com/FaranAlam\\[0.2cm]
+    \faFacebook\ facebook.com/faran.alam.5243 \quad \faLinkedin\ linkedin.com/in/faran-alam-14203abc\\[0.2cm]
+    \faMapMarkerAlt\ IIU Hostel~6, Islamabad
+\end{tcolorbox}
+\vspace{1.5cm}
+{\color{FaranYellow}\rule{\textwidth}{3pt}}
+{\small\color{FaranGray}Portfolio Resource Series | Faran Alam | 2026}
+
+\end{document}

@@ -3,6 +3,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { getCollection } from '@/lib/db';
 import type { DownloadRequest } from '@/lib/storage';
+import {
+  buildDriveDownloadUrl,
+  buildDrivePreviewUrl,
+  getDeveloperFileByCourseSlug,
+} from '@/lib/developer-drive-links';
 
 // Mapping of resource IDs to paths
 const fileMapping: Record<string, string> = {
@@ -23,6 +28,7 @@ export async function GET(request: NextRequest) {
     const resourceId = request.nextUrl.searchParams.get('resourceId');
     const courseSlug = request.nextUrl.searchParams.get('courseSlug');
     const fileNameParam = request.nextUrl.searchParams.get('fileName');
+    const emailParam = request.nextUrl.searchParams.get('email');
     const isPreview = request.nextUrl.searchParams.get('preview') === 'true';
 
     const hasDirectParams = !!(resourceId && courseSlug && fileNameParam);
@@ -34,6 +40,38 @@ export async function GET(request: NextRequest) {
     }
 
     if (hasDirectParams) {
+      // Enforce IIU domain check for direct parameter downloads as well.
+      if (!emailParam || !emailParam.toLowerCase().endsWith('@iiu.edu.pk')) {
+        return NextResponse.json(
+          { success: false, message: 'Only IIU student emails are allowed.' },
+          { status: 403 }
+        );
+      }
+
+      // Developer PDFs are served from Google Drive links.
+      if (resourceId === 'developer') {
+        const mapped = getDeveloperFileByCourseSlug(courseSlug!);
+        if (!mapped) {
+          return NextResponse.json(
+            { success: false, message: 'Developer resource not found.' },
+            { status: 404 }
+          );
+        }
+
+        if (mapped.fileName !== fileNameParam) {
+          return NextResponse.json(
+            { success: false, message: 'Invalid file name for this resource.' },
+            { status: 400 }
+          );
+        }
+
+        const redirectUrl = isPreview
+          ? buildDrivePreviewUrl(mapped.fileId)
+          : buildDriveDownloadUrl(mapped.fileId);
+
+        return NextResponse.redirect(redirectUrl, { status: 302 });
+      }
+
       const resourcePath = fileMapping[resourceId!];
       if (!resourcePath) {
         return NextResponse.json(
@@ -120,6 +158,20 @@ export async function GET(request: NextRequest) {
         { success: false, message: 'Download link has expired. Please request again.' },
         { status: 410 }
       );
+    }
+
+    // Get file path
+    if (req.resourceId === 'developer') {
+      const mapped = getDeveloperFileByCourseSlug(req.courseSlug);
+      if (!mapped || mapped.fileName !== req.fileName) {
+        return NextResponse.json(
+          { success: false, message: 'Developer resource link mapping not found.' },
+          { status: 404 }
+        );
+      }
+
+      const redirectUrl = buildDriveDownloadUrl(mapped.fileId);
+      return NextResponse.redirect(redirectUrl, { status: 302 });
     }
 
     // Get file path
