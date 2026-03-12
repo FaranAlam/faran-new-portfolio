@@ -23,6 +23,7 @@ interface ApiChatMessage {
 interface ApiResult {
   reply: string | null;
   code: string | null;
+  modelUsed?: string | null;
 }
 
 const quickReplies: QuickReply[] = [
@@ -51,6 +52,7 @@ function getErrorMessageFromCode(code: string | null): string {
 }
 
 export default function AIChat() {
+  const isDev = process.env.NODE_ENV !== 'production';
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -62,6 +64,7 @@ export default function AIChat() {
   ]);
   const [userInput, setUserInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [lastModelUsed, setLastModelUsed] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -107,7 +110,7 @@ export default function AIChat() {
         return { reply: null, code: 'INVALID_REPLY' };
       }
 
-      return { reply, code: null };
+      return { reply, code: null, modelUsed: data?.modelUsed || null };
     } catch {
       return { reply: null, code: 'NETWORK_ERROR' };
     }
@@ -129,6 +132,7 @@ export default function AIChat() {
     setIsTyping(true);
 
     const aiResult = await getAiResponse(userMessage);
+    setLastModelUsed(aiResult.modelUsed || null);
 
     let botText = aiResult.reply;
     if (!botText) {
@@ -170,6 +174,14 @@ export default function AIChat() {
                   <p className="text-xs text-blue-100">Always here to help</p>
                 </div>
               </div>
+              {isDev && (
+                <div className="text-right">
+                  <p className="text-[10px] uppercase tracking-wide text-blue-100/80">DEV</p>
+                  <p className="text-[11px] text-white/90 max-w-[120px] truncate" title={lastModelUsed || 'No model yet'}>
+                    {lastModelUsed || 'No model yet'}
+                  </p>
+                </div>
+              )}
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1 hover:bg-white/20 rounded-lg transition-all"
