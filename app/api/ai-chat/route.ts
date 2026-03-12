@@ -56,15 +56,24 @@ function getValidApiKey(): string | null {
   return hasValidKey ? apiKey : null;
 }
 
+function getModelOrder(): string[] {
+  const preferredModel = process.env.AI_MODEL?.trim() || FALLBACK_MODEL;
+  if (preferredModel === FALLBACK_MODEL) {
+    return [FALLBACK_MODEL];
+  }
+  return [preferredModel, FALLBACK_MODEL];
+}
+
 export async function GET() {
   const apiKey = getValidApiKey();
-  const model = process.env.AI_MODEL || FALLBACK_MODEL;
+  const models = getModelOrder();
 
   return NextResponse.json(
     {
       ok: true,
       configured: !!apiKey,
-      model,
+      model: models[0],
+      fallbackModel: models[1] || null,
     },
     { status: 200 }
   );
@@ -90,47 +99,68 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const model = process.env.AI_MODEL || FALLBACK_MODEL;
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+    const models = getModelOrder();
+    let lastProviderError = 'Unknown provider error';
 
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-        'HTTP-Referer': process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-        'X-Title': 'Faran Portfolio AI Assistant',
-      },
-      body: JSON.stringify({
-        model,
-        temperature: 0.6,
-        top_p: 0.9,
-        max_tokens: 600,
-        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages.filter((m) => m.role !== 'system')],
-      }),
-      signal: controller.signal,
-    });
+    for (const model of models) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
-    clearTimeout(timeout);
+      try {
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${apiKey}`,
+            'HTTP-Referer': process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+            'X-Title': 'Faran Portfolio AI Assistant',
+          },
+          body: JSON.stringify({
+            model,
+            temperature: 0.6,
+            top_p: 0.9,
+            max_tokens: 600,
+            messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages.filter((m) => m.role !== 'system')],
+          }),
+          signal: controller.signal,
+        });
 
-    if (!response.ok) {
-      const providerError = await response.text();
-      console.error('AI provider error:', providerError);
-      return NextResponse.json(
-        { error: 'Failed to get AI response', code: 'PROVIDER_ERROR' },
-        { status: 502 }
-      );
+        clearTimeout(timeout);
+
+        if (!response.ok) {
+          lastProviderError = await response.text();
+          console.error(`AI provider error for model ${model}:`, lastProviderError);
+          continue;
+        }
+
+        const data = await response.json();
+        const reply = data?.choices?.[0]?.message?.content;
+
+        if (!reply || typeof reply !== 'string') {
+          lastProviderError = 'Invalid AI response format';
+          continue;
+        }
+
+        return NextResponse.json({ success: true, reply: reply.trim(), modelUsed: model }, { status: 200 });
+      } catch (providerError) {
+        clearTimeout(timeout);
+        const isAbort = providerError instanceof Error && providerError.name === 'AbortError';
+        if (isAbort) {
+          lastProviderError = `Model ${model} timed out`;
+          continue;
+        }
+
+        lastProviderError = providerError instanceof Error ? providerError.message : 'Provider request failed';
+        console.error(`AI provider exception for model ${model}:`, providerError);
+        continue;
+      }
     }
 
-    const data = await response.json();
-    const reply = data?.choices?.[0]?.message?.content;
-
-    if (!reply || typeof reply !== 'string') {
-      return NextResponse.json({ error: 'Invalid AI response format', code: 'INVALID_REPLY' }, { status: 502 });
-    }
-
-    return NextResponse.json({ success: true, reply: reply.trim() }, { status: 200 });
+    console.error('All configured AI models failed. Last error:', lastProviderError);
+    return NextResponse.json(
+      { error: 'Failed to get AI response', code: 'PROVIDER_ERROR' },
+      { status: 502 }
+    );
   } catch (error) {
     const isAbort = error instanceof Error && error.name === 'AbortError';
 
