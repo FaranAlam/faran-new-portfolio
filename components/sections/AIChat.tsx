@@ -15,6 +15,11 @@ interface QuickReply {
   prompt: string;
 }
 
+interface SuggestedAction {
+  label: string;
+  prompt: string;
+}
+
 interface ApiChatMessage {
   role: 'user' | 'assistant';
   content: string;
@@ -33,6 +38,13 @@ const quickReplies: QuickReply[] = [
   { prompt: 'How soon can we start?' },
 ];
 
+const suggestedActions: SuggestedAction[] = [
+  { label: 'Pricing', prompt: 'Give me a rough pricing breakdown for a small business website.' },
+  { label: 'Timeline', prompt: 'What is the expected timeline for a full-stack project?' },
+  { label: 'Tech Stack', prompt: 'Recommend a modern tech stack for my startup MVP.' },
+  { label: 'Start Project', prompt: 'What details should I share to start a project with Faran?' },
+];
+
 const AI_FALLBACK_MESSAGE =
   "I couldn't reach the AI service right now. Please try again in a moment, or use the Contact section and Faran will reply directly.";
 
@@ -49,6 +61,11 @@ function getErrorMessageFromCode(code: string | null): string {
     default:
       return AI_FALLBACK_MESSAGE;
   }
+}
+
+function isShortAffirmation(text: string): boolean {
+  const normalized = text.trim().toLowerCase();
+  return ['yes', 'ok', 'okay', 'haan', 'han', 'ji', 'yup', 'sure', 'go ahead'].includes(normalized);
 }
 
 export default function AIChat() {
@@ -76,6 +93,14 @@ export default function AIChat() {
   }, [messages]);
 
   const buildConversationForApi = (nextUserMessage: Message): ApiChatMessage[] => {
+    const latestAssistantMessage = [...messages].reverse().find((message) => message.sender === 'bot');
+
+    let userContent = nextUserMessage.text;
+    if (isShortAffirmation(nextUserMessage.text) && latestAssistantMessage) {
+      const contextSnippet = latestAssistantMessage.text.slice(0, 280);
+      userContent = `The user replied with "${nextUserMessage.text}" to this assistant message: "${contextSnippet}". Continue contextually and ask the next useful question if needed.`;
+    }
+
     const history: ApiChatMessage[] = messages
       .slice(-10)
       .map((message) => ({
@@ -83,7 +108,7 @@ export default function AIChat() {
         content: message.text,
       }));
 
-    history.push({ role: 'user', content: nextUserMessage.text });
+    history.push({ role: 'user', content: userContent });
     return history;
   };
 
@@ -152,6 +177,10 @@ export default function AIChat() {
 
   const handleQuickReply = (reply: QuickReply) => {
     handleSendMessage(reply.prompt);
+  };
+
+  const handleSuggestedAction = (action: SuggestedAction) => {
+    handleSendMessage(action.prompt);
   };
 
   return (
@@ -251,6 +280,23 @@ export default function AIChat() {
             )}
 
             <div className="border-t border-gray-700 p-4 bg-gray-900/50">
+              {!isTyping && (
+                <div className="mb-3">
+                  <p className="text-[11px] text-gray-400 mb-2">Suggested actions</p>
+                  <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+                    {suggestedActions.map((action) => (
+                      <button
+                        key={action.label}
+                        onClick={() => handleSuggestedAction(action)}
+                        className="px-3 py-1.5 rounded-full border border-blue-500/40 text-blue-200 text-[11px] whitespace-nowrap hover:bg-blue-600/20 transition-colors"
+                      >
+                        {action.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="flex gap-2">
                 <input
                   type="text"
