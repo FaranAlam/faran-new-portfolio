@@ -115,34 +115,34 @@ interface ClientStat {
 export default function ClientBrands() {
   const clients: Client[] = [
     {
-      name: "NextGen Dev Hub",
-      category: "Tech Company",
-      logo: "",
-      isImage: false,
+      name: "NexGen Learner",
+      category: "Learning Platform",
+      logo: "/images/clients/NexGenLearner-internship-logo.png",
+      isImage: true,
       icon: LaptopIcon,
       color: "from-blue-500 to-cyan-500"
     },
     {
-      name: "DevelopersHub",
+      name: "DevelopersHub Corporation",
       category: "Training Institute",
-      logo: "",
-      isImage: false,
+      logo: "/images/clients/developershub_corporation_internship_logo.jpeg",
+      isImage: true,
       icon: LaptopIcon,
       color: "from-purple-500 to-pink-500"
     },
     {
-      name: "JayNex Technologies",
-      category: "Software House",
-      logo: "",
-      isImage: false,
+      name: "NHA",
+      category: "Public Sector",
+      logo: "/images/clients/NHA-internship-logo.jpg",
+      isImage: true,
       icon: BoltIcon,
       color: "from-green-500 to-teal-500"
     },
     {
-      name: "NAVTTC",
-      category: "Government Institute",
-      logo: "",
-      isImage: false,
+      name: "Volunteer Force Pakistan",
+      category: "Community Organization",
+      logo: "/images/clients/volenterforcePakistan-inernship-logo.png",
+      isImage: true,
       icon: GraduationCapIcon,
       color: "from-orange-500 to-red-500"
     },
@@ -236,13 +236,15 @@ export default function ClientBrands() {
                   {/* Content */}
                   <div className="relative z-10 text-center">
                     {client.isImage ? (
-                      <div className="relative w-16 h-16 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-                        <Image
-                          src={client.logo}
-                          alt={client.name}
-                          fill
-                          className="object-contain"
-                        />
+                      <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-white dark:bg-gray-900 ring-2 ring-blue-200 dark:ring-blue-500/40 shadow-lg overflow-hidden group-hover:scale-110 group-hover:ring-blue-400 dark:group-hover:ring-blue-400 transition-all duration-300 flex items-center justify-center">
+                        <div className="relative w-16 h-16 rounded-full overflow-hidden">
+                          <Image
+                            src={client.logo}
+                            alt={client.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
                       </div>
                     ) : (
                       <div className="mb-3 group-hover:scale-110 transition-transform duration-300 flex justify-center text-blue-600">
