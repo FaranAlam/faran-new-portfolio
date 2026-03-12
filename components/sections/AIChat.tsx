@@ -35,6 +35,21 @@ const quickReplies: QuickReply[] = [
 const AI_FALLBACK_MESSAGE =
   "I couldn't reach the AI service right now. Please try again in a moment, or use the Contact section and Faran will reply directly.";
 
+function getErrorMessageFromCode(code: string | null): string {
+  switch (code) {
+    case 'AI_NOT_CONFIGURED':
+      return 'AI chat is not configured yet. Add OPENROUTER_API_KEY in deployment environment variables to enable real AI responses.';
+    case 'TIMEOUT':
+      return 'AI response timed out. Please try a shorter message or send again in a few seconds.';
+    case 'PROVIDER_ERROR':
+      return 'AI provider returned an error. Check AI_MODEL, OpenRouter credits, and API key permissions.';
+    case 'INVALID_MESSAGES':
+      return 'Message format was invalid. Please try sending your question again.';
+    default:
+      return AI_FALLBACK_MESSAGE;
+  }
+}
+
 export default function AIChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -117,12 +132,7 @@ export default function AIChat() {
 
     let botText = aiResult.reply;
     if (!botText) {
-      if (aiResult.code === 'AI_NOT_CONFIGURED') {
-        botText =
-          'AI chat is not configured yet. Add OPENROUTER_API_KEY in deployment environment variables to enable real AI responses.';
-      } else {
-        botText = AI_FALLBACK_MESSAGE;
-      }
+      botText = getErrorMessageFromCode(aiResult.code);
     }
 
     const botResponse: Message = {
