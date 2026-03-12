@@ -90,6 +90,33 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Smooth visual transition between consecutive sections */
+section[id] {
+  position: relative;
+  isolation: isolate;
+}
+
+section[id] + section[id] {
+  margin-top: -1px;
+}
+
+section[id] + section[id]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 6%;
+  width: 88%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.28), transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.dark section[id] + section[id]::before {
+  background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.4), transparent);
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.18);
+}
+
 .dark body {
   background: linear-gradient(to bottom, #0a0a0a, #171717);
 }
