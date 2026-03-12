@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import SessionProviderWrapper from "@/components/providers/SessionProviderWrapper";
 import ConditionalLayout from "@/components/layout/ConditionalLayout";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -68,7 +75,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased transition-colors duration-300 bg-white dark:bg-slate-950 text-gray-900 dark:text-white" suppressHydrationWarning>
+      <body className={`${inter.variable} font-sans antialiased transition-colors duration-300 bg-white dark:bg-slate-950 text-gray-900 dark:text-white`} suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <SessionProviderWrapper>
             <ConditionalLayout>{children}</ConditionalLayout>

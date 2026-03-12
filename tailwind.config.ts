@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   darkMode: 'class',
@@ -15,6 +16,9 @@ export default {
       },
       perspective: {
         '1000': '1000px',
+            fontFamily: {
+              sans: ["var(--font-inter)", ...fontFamily.sans],
+            },
       },
     },
   },

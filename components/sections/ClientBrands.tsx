@@ -155,24 +155,24 @@ export default function ClientBrands() {
       color: "from-indigo-500 to-purple-500"
     },
     {
-      name: "Local Restaurants",
-      category: "Food Industry",
+      name: "Al-Noor Dine",
+      category: "Food & Restaurant",
       logo: "",
       isImage: false,
       icon: RestaurantIcon,
       color: "from-yellow-500 to-orange-500"
     },
     {
-      name: "E-commerce Stores",
-      category: "Online Business",
+      name: "PakMart Online",
+      category: "E-commerce",
       logo: "",
       isImage: false,
       icon: CartIcon,
       color: "from-pink-500 to-red-500"
     },
     {
-      name: "Educational Platforms",
-      category: "EdTech",
+      name: "SkillBridge Academy",
+      category: "EdTech Platform",
       logo: "",
       isImage: false,
       icon: BooksIcon,

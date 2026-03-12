@@ -59,6 +59,16 @@ export default function Hero() {
                   className="px-8 py-3 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 border-2 border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition-all duration-300 font-medium hover:scale-105 hover:shadow-lg"
                 >
                   Get In Touch
+                                <a
+                                  href="/resume.pdf"
+                                  download="Faran_Alam_CV.pdf"
+                                  className="px-8 py-3 bg-green-600 dark:bg-green-500 text-white rounded-lg hover:bg-green-700 dark:hover:bg-green-600 transition-all duration-300 font-medium hover:scale-105 hover:shadow-lg flex items-center gap-2"
+                                >
+                                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                  </svg>
+                                  Download CV
+                                </a>
                 </a>
               </div>
             </FadeIn>
