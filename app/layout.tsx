@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "Faran Alam Portfolio",
     images: [
       {
-        url: "/images/hero/story2.jpg",
+        url: "/images/hero/story.jpg",
         width: 1200,
         height: 630,
         alt: "Faran Alam - Full Stack Developer",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Faran Alam - Full Stack Developer & Computer Engineer",
     description: "Computer Engineering student at IIUI and certified Full Stack Developer. Building innovative digital solutions.",
-    images: ["/images/hero/story2.jpg"],
+    images: ["/images/hero/story.jpg"],
     creator: "@faranalam",
   },
   robots: {

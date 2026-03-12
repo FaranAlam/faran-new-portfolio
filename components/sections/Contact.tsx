@@ -123,17 +123,17 @@ export default function Contact() {
         setSubmitStatus('success');
         setFormData({ name: "", email: "", subject: "", message: "" });
         setTimeout(() => scrollToStatus(), 0);
-        console.log("Message sent successfully:", result);
+        // Message sent successfully
       } else {
         setSubmitStatus('error');
         setTimeout(() => scrollToStatus(), 0);
-        console.error("Failed to send message:", result.error);
+        // Message sending failed
       }
       
       // Reset status message after 5 seconds
       setTimeout(() => setSubmitStatus('idle'), 5000);
     } catch (error) {
-      console.error("Error submitting form:", error);
+      // Network or unexpected error
       setSubmitStatus('error');
       setTimeout(() => scrollToStatus(), 0);
       setTimeout(() => setSubmitStatus('idle'), 5000);

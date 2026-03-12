@@ -31,6 +31,7 @@ import BlogPreview from "@/components/sections/BlogPreview";
 import Newsletter from "@/components/sections/Newsletter";
 import CTA from "@/components/sections/CTA";
 import Contact from "@/components/sections/Contact";
+import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 import StructuredData from "@/components/seo/StructuredData";
 
 export default function Home() {
@@ -70,6 +71,7 @@ export default function Home() {
       <CTA />
       <Contact />
       <AIChat />
+      <FloatingWhatsApp />
     </>
   );
 }

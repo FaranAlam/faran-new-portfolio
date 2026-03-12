@@ -114,7 +114,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/95 backdrop-blur-sm shadow-sm dark:shadow-gray-900/50 dark:border-b dark:border-gray-800">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -127,7 +127,7 @@ export default function Header() {
                 className="object-cover"
               />
             </div>
-            <span className="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+            <span className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
               Faran<span className="text-blue-600">.</span>
             </span>
           </Link>
@@ -139,8 +139,8 @@ export default function Header() {
               href="#hero"
               className={`text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 ${
                 activeSection === "hero"
-                  ? "text-blue-600 bg-blue-50 font-semibold"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "text-blue-600 bg-blue-50 dark:bg-blue-900/30 font-semibold"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
             >
               Home
@@ -150,7 +150,7 @@ export default function Header() {
             {sectionsMenu.map((menu, idx) => (
               <div key={idx} className="relative group">
                 <button
-                  className="text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-1.5 text-gray-700 hover:bg-gray-100"
+                  className="text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   {menu.category.split(" ").slice(1).join(" ")}
                   <svg className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,7 +160,7 @@ export default function Header() {
 
                 {/* Dropdown */}
                 <div 
-                  className="absolute left-0 mt-0 w-56 bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-[9999]"
+                  className="absolute left-0 mt-0 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-[9999]"
                 >
                   <div className="py-2">
                     {menu.items.map((item, itemIdx) => {
@@ -172,8 +172,8 @@ export default function Header() {
                           href={item.href}
                           className={`block px-4 py-2.5 text-sm transition-all duration-200 ${
                             isActive
-                              ? "bg-blue-100 text-blue-600 font-semibold border-l-4 border-blue-600"
-                              : "text-gray-700 hover:bg-gray-50 border-l-4 border-transparent"
+                              ? "bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-semibold border-l-4 border-blue-600"
+                              : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border-l-4 border-transparent"
                           }`}
                         >
                           {item.name}
@@ -190,8 +190,8 @@ export default function Header() {
               href="#contact"
               className={`text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 ${
                 activeSection === "contact"
-                  ? "text-blue-600 bg-blue-50 font-semibold"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "text-blue-600 bg-blue-50 dark:bg-blue-900/30 font-semibold"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
             >
               Contact
@@ -200,7 +200,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-gray-700"
+            className="lg:hidden text-gray-700 dark:text-gray-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -236,8 +236,8 @@ export default function Header() {
               href="#hero"
               className={`block py-2 px-3 rounded-lg transition-all duration-300 ${
                 activeSection === "hero"
-                  ? "bg-blue-100 text-blue-600 font-semibold"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 font-semibold"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -246,10 +246,10 @@ export default function Header() {
 
             {/* Category Dropdowns */}
             {sectionsMenu.map((menu, idx) => (
-              <div key={idx} className="border-t border-gray-200 pt-2">
+              <div key={idx} className="border-t border-gray-200 dark:border-gray-700 pt-2">
                 <button
                   onClick={() => setIsSectionsDropdownOpen(isSectionsDropdownOpen === idx ? -1 : idx)}
-                  className="w-full text-left py-2 px-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium flex items-center justify-between"
+                  className="w-full text-left py-2 px-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium flex items-center justify-between"
                 >
                   {menu.category.split(" ").slice(1).join(" ")}
                   <svg 
@@ -265,7 +265,7 @@ export default function Header() {
 
                 {isSectionsDropdownOpen === idx && (
                   <motion.div 
-                    className="mt-2 space-y-1 bg-gray-50 rounded-lg p-2"
+                    className="mt-2 space-y-1 bg-gray-50 dark:bg-gray-800/80 rounded-lg p-2"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
@@ -284,8 +284,8 @@ export default function Header() {
                           }}
                           className={`block px-3 py-2 text-sm rounded-lg transition-all duration-200 border-l-4 ${
                             isActive
-                              ? "bg-blue-100 text-blue-600 font-semibold border-blue-600"
-                              : "text-gray-700 hover:bg-white border-transparent"
+                              ? "bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-semibold border-blue-600"
+                              : "text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 border-transparent"
                           }`}
                         >
                           {item.name}
@@ -298,13 +298,13 @@ export default function Header() {
             ))}
 
             {/* Contact */}
-            <div className="border-t border-gray-200 pt-2">
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-2">
               <a
                 href="#contact"
                 className={`block py-2 px-3 rounded-lg transition-all duration-300 ${
                   activeSection === "contact"
-                    ? "bg-blue-100 text-blue-600 font-semibold"
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 font-semibold"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >

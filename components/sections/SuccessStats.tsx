@@ -131,7 +131,7 @@ export default function SuccessStats() {
   const stats: StatItem[] = [
     {
       icon: RocketIcon,
-      value: 28,
+      value: 13,
       suffix: "+",
       label: "Projects Completed",
       color: "from-blue-500 to-cyan-500",
@@ -139,7 +139,7 @@ export default function SuccessStats() {
     },
     {
       icon: UsersIcon,
-      value: 45,
+      value: 8,
       suffix: "+",
       label: "Happy Clients",
       color: "from-purple-500 to-pink-500",
@@ -147,7 +147,7 @@ export default function SuccessStats() {
     },
     {
       icon: ClockIcon,
-      value: 12000,
+      value: 3500,
       suffix: "+",
       label: "Hours Coded",
       color: "from-green-500 to-teal-500",
@@ -163,15 +163,15 @@ export default function SuccessStats() {
     },
     {
       icon: MoneyIcon,
-      value: 2,
-      suffix: "M+",
-      label: "Revenue Generated",
+      value: 4,
+      suffix: "+",
+      label: "Years Experience",
       color: "from-indigo-500 to-purple-500",
-      description: "Total earnings"
+      description: "Since 2022"
     },
     {
       icon: GlobeIcon,
-      value: 12,
+      value: 5,
       suffix: "+",
       label: "Countries Served",
       color: "from-red-500 to-pink-500",

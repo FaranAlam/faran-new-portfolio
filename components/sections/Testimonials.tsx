@@ -14,7 +14,7 @@ export default function Testimonials() {
       role: "Graphic Designer",
       initials: "TA",
       rating: 5,
-      text: "Faran Alam is a highly skilled and creative web developeDr. He designed my portfolio with great professionalism and attention to detail. Truly impressive work.",
+      text: "Faran Alam is a highly skilled and creative web developer. He designed my portfolio with great professionalism and attention to detail. Truly impressive work.",
       gradient: "from-purple-400 to-purple-700"
     },
     {

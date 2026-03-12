@@ -131,7 +131,7 @@ export default function BlogPreview() {
           {/* View All Button */}
           <div className="text-center mt-12">
             <a
-              href="/blog"
+              href="#blog"
               className="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
             >
               View All Posts

@@ -93,12 +93,12 @@ export default function Newsletter() {
         setTimeout(() => setStatus("idle"), 5000);
       } else {
         setStatus("error");
-        console.error("Subscription failed:", result.error);
+        // Subscription failed
         // Reset status after 5 seconds
         setTimeout(() => setStatus("idle"), 5000);
       }
     } catch (error) {
-      console.error("Network error:", error);
+      // Network error
       setStatus("error");
       setTimeout(() => setStatus("idle"), 5000);
     }

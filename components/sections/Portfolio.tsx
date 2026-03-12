@@ -185,7 +185,7 @@ export default function Portfolio() {
           <FadeIn delay={0.3}>
             <div className="text-center mt-12">
               <a
-                href="/portfolio"
+                href="#portfolio"
                 className="inline-block px-8 py-3 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 border-2 border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition-all duration-300 font-medium hover:scale-105 hover:shadow-lg"
               >
                 View All Projects
