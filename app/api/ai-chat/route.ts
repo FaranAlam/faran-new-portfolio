@@ -5,7 +5,12 @@ interface ChatMessage {
   content: string;
 }
 
-const FALLBACK_MODEL = 'meta-llama/llama-3.1-8b-instruct:free';
+const FALLBACK_MODEL = 'google/gemma-3-4b-it:free';
+const EXTRA_FALLBACK_MODELS = [
+  'google/gemma-3-12b-it:free',
+  'liquid/lfm-2.5-1.2b-instruct:free',
+  'stepfun/step-3.5-flash:free',
+];
 const REQUEST_TIMEOUT_MS = 25000;
 
 const SYSTEM_PROMPT = `You are Faran's AI assistant on his portfolio website.
@@ -64,10 +69,8 @@ function getValidApiKey(): string | null {
 
 function getModelOrder(): string[] {
   const preferredModel = process.env.AI_MODEL?.trim() || FALLBACK_MODEL;
-  if (preferredModel === FALLBACK_MODEL) {
-    return [FALLBACK_MODEL];
-  }
-  return [preferredModel, FALLBACK_MODEL];
+  const models = [preferredModel, FALLBACK_MODEL, ...EXTRA_FALLBACK_MODELS];
+  return Array.from(new Set(models.filter(Boolean)));
 }
 
 export async function GET() {
