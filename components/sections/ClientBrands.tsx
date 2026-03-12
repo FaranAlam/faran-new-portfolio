@@ -132,7 +132,7 @@ export default function ClientBrands() {
     },
     {
       name: "NHA",
-      category: "Public Sector",
+      category: "Government Sector",
       logo: "/images/clients/NHA-internship-logo.jpg",
       isImage: true,
       icon: BoltIcon,
