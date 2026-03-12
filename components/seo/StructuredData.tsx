@@ -9,7 +9,7 @@ export default function StructuredData() {
         url: "https://faran-new-portfolio.vercel.app",
         image: {
           "@type": "ImageObject",
-          url: "https://faran-new-portfolio.vercel.app/images/hero/story2.jpg",
+          url: "https://faran-new-portfolio.vercel.app/images/hero/story.jpg",
           width: 800,
           height: 600
         },
