@@ -75,7 +75,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased transition-colors duration-300 bg-white dark:bg-slate-950 text-gray-900 dark:text-white`} suppressHydrationWarning>
+      <body className={`${inter.variable} divider-soft-line font-sans antialiased transition-colors duration-300 bg-white dark:bg-slate-950 text-gray-900 dark:text-white`} suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <SessionProviderWrapper>
             <ConditionalLayout>{children}</ConditionalLayout>

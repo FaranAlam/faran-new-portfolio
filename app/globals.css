@@ -86,7 +86,7 @@ html {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -100,7 +100,7 @@ section[id] + section[id] {
   margin-top: -1px;
 }
 
-section[id] + section[id]::before {
+body.divider-soft-line section[id] + section[id]::before {
   content: "";
   position: absolute;
   top: 0;
@@ -112,9 +112,53 @@ section[id] + section[id]::before {
   pointer-events: none;
 }
 
-.dark section[id] + section[id]::before {
+.dark body.divider-soft-line section[id] + section[id]::before {
   background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.4), transparent);
   box-shadow: 0 0 16px rgba(59, 130, 246, 0.18);
+}
+
+body.divider-wave section[id] + section[id]::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 22px;
+  background:
+    radial-gradient(22px 10px at 16px 10px, rgba(37, 99, 235, 0.22), transparent 72%) repeat-x,
+    linear-gradient(180deg, rgba(59, 130, 246, 0.16), transparent);
+  background-size: 44px 20px, 100% 22px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.dark body.divider-wave section[id] + section[id]::before {
+  background:
+    radial-gradient(22px 10px at 16px 10px, rgba(125, 211, 252, 0.3), transparent 72%) repeat-x,
+    linear-gradient(180deg, rgba(56, 189, 248, 0.18), transparent);
+  background-size: 44px 20px, 100% 22px;
+}
+
+body.divider-glow section[id] + section[id]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 90%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.75), transparent);
+  box-shadow:
+    0 0 12px rgba(59, 130, 246, 0.35),
+    0 0 26px rgba(59, 130, 246, 0.18);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.dark body.divider-glow section[id] + section[id]::before {
+  background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.85), transparent);
+  box-shadow:
+    0 0 16px rgba(56, 189, 248, 0.48),
+    0 0 30px rgba(56, 189, 248, 0.26);
 }
 
 .dark body {
