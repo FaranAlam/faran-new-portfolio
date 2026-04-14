@@ -137,9 +137,11 @@ export function useScrollReveal(threshold = 0.1) {
       observer.observe(ref.current);
     }
 
+    const observedElement = ref.current;
+
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (observedElement) {
+        observer.unobserve(observedElement);
       }
     };
   }, [threshold]);

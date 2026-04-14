@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { 
@@ -323,12 +324,15 @@ export default function SettingsPage() {
               {/* Profile Picture Section */}
               <div className="flex items-center gap-6 pb-6 border-b border-gray-200">
                 <div className="relative group">
-                  <div className="w-32 h-32 rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center shadow-lg">
+                  <div className="relative w-32 h-32 rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center shadow-lg">
                     {profilePicture ? (
-                      <img 
-                        src={profilePicture} 
-                        alt="Profile" 
-                        className="w-full h-full object-cover"
+                      <Image
+                        src={profilePicture}
+                        alt="Profile"
+                        fill
+                        sizes="128px"
+                        className="object-cover"
+                        unoptimized
                       />
                     ) : (
                       <MdPerson className="text-6xl text-white" />
