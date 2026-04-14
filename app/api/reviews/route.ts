@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const rating = Number(body.rating);
     const name = sanitizeText(body.name || '') || 'Website Visitor';
-    const email = body.email ? sanitizeEmail(body.email) : undefined;
+    const email = body.email ? sanitizeEmail(body.email) ?? undefined : undefined;
     const comment = sanitizeText(body.comment || '');
 
     if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
