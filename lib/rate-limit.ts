@@ -101,6 +101,7 @@ export const RateLimits = {
   // Form submissions
   CONTACT: { limit: 3, window: 60 * 60 * 1000 }, // 3 requests per hour
   NEWSLETTER: { limit: 2, window: 60 * 60 * 1000 }, // 2 requests per hour
+  REVIEWS: { limit: 5, window: 60 * 60 * 1000 }, // 5 review submissions per hour
 
   // API endpoints
   API_STRICT: { limit: 10, window: 60 * 1000 }, // 10 requests per minute

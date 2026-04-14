@@ -3,12 +3,18 @@ import nodemailer from "nodemailer";
 import crypto from "crypto";
 import { getDatabase } from "@/lib/mongodb";
 
+function normalizeEmail(value: string | undefined | null) {
+  return (value || "").trim().toLowerCase();
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { email } = await req.json();
+    const requestedEmail = normalizeEmail(email);
+    const adminEmail = normalizeEmail(process.env.ADMIN_EMAIL);
 
     // Validate email
-    if (!email || typeof email !== "string") {
+    if (!requestedEmail) {
       return NextResponse.json(
         { message: "Invalid email address" },
         { status: 400 }
@@ -16,8 +22,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if email is admin email
-    const adminEmail = process.env.ADMIN_EMAIL;
-    if (email !== adminEmail) {
+    if (requestedEmail !== adminEmail) {
       // Don't reveal if email exists for security
       return NextResponse.json(
         { message: "If email exists, a reset link has been sent" },
@@ -39,88 +44,82 @@ export async function POST(req: NextRequest) {
     await resetTokensCollection.createIndex({ tokenHash: 1 }, { unique: true });
     await resetTokensCollection.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
-    await resetTokensCollection.deleteMany({ email });
+    await resetTokensCollection.deleteMany({ email: requestedEmail });
     await resetTokensCollection.insertOne({
       tokenHash,
-      email,
+      email: requestedEmail,
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
       createdAt: new Date(),
     });
 
-    // Send email
-    console.log("[FORGOT-PASSWORD] Creating email transporter...");
-    console.log("[FORGOT-PASSWORD] EMAIL_USER:", process.env.EMAIL_USER);
-    console.log("[FORGOT-PASSWORD] EMAIL_PASSWORD present:", !!process.env.EMAIL_PASSWORD);
-    console.log("[FORGOT-PASSWORD] NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
-
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-
-    // Verify connection
-    console.log("[FORGOT-PASSWORD] Verifying transporter connection...");
-    try {
-      await transporter.verify();
-      console.log("[FORGOT-PASSWORD] Transporter verified successfully");
-    } catch (verifyError) {
-      console.error("[FORGOT-PASSWORD] Transporter verification failed:", verifyError);
-      throw verifyError;
-    }
+    const smtpUser = normalizeEmail(process.env.EMAIL_USER);
+    const smtpPassword = (process.env.EMAIL_PASSWORD || "").replace(/\s+/g, "").trim();
+    const canSendEmail = Boolean(smtpUser && smtpPassword);
+    let emailDelivered = false;
 
     const resetUrl = `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/admin/reset-password/${resetToken}`;
 
-    console.log("[FORGOT-PASSWORD] Sending email to:", email);
-    console.log("[FORGOT-PASSWORD] Reset URL:", resetUrl);
+    if (canSendEmail) {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: smtpUser,
+            pass: smtpPassword,
+          },
+        });
 
-    const mailResult = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: "Password Reset - Faran Alam Admin Panel",
-      html: `
-        <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
-          <h1 style="color: #2563eb; margin-bottom: 20px;">Password Reset Request</h1>
-          
-          <p style="color: #374151; margin-bottom: 20px;">
-            You requested to reset your password. Click the link below to create a new password:
-          </p>
-          
-          <a href="${resetUrl}" style="display: inline-block; background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin-bottom: 20px;">
-            Reset Password
-          </a>
-          
-          <p style="color: #6b7280; font-size: 14px; margin-bottom: 20px;">
-            Or copy and paste this link in your browser:
-          </p>
-          
-          <p style="color: #2563eb; word-break: break-all; background-color: #f3f4f6; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
-            ${resetUrl}
-          </p>
-          
-          <p style="color: #6b7280; font-size: 14px; margin-bottom: 20px;">
-            This link will expire in 24 hours.
-          </p>
-          
-          <p style="color: #6b7280; font-size: 14px;">
-            If you didn't request this, you can safely ignore this email.
-          </p>
-          
-          <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
-          
-          <p style="color: #9ca3af; font-size: 12px;">
-            © 2024 Faran Alam - Admin Panel
-          </p>
-        </div>
-      `,
-    });
+        await transporter.verify();
 
-    console.log("[FORGOT-PASSWORD] Email sent successfully:", mailResult.messageId);
+        const mailResult = await transporter.sendMail({
+          from: smtpUser,
+          to: requestedEmail,
+          subject: "Password Reset - Faran Alam Admin Panel",
+          html: `
+            <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
+              <h1 style="color: #2563eb; margin-bottom: 20px;">Password Reset Request</h1>
+              <p style="color: #374151; margin-bottom: 20px;">
+                You requested to reset your password. Click the link below to create a new password:
+              </p>
+              <a href="${resetUrl}" style="display: inline-block; background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin-bottom: 20px;">
+                Reset Password
+              </a>
+              <p style="color: #6b7280; font-size: 14px; margin-bottom: 20px;">
+                Or copy and paste this link in your browser:
+              </p>
+              <p style="color: #2563eb; word-break: break-all; background-color: #f3f4f6; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
+                ${resetUrl}
+              </p>
+              <p style="color: #6b7280; font-size: 14px; margin-bottom: 20px;">
+                This link will expire in 24 hours.
+              </p>
+              <p style="color: #6b7280; font-size: 14px;">
+                If you didn't request this, you can safely ignore this email.
+              </p>
+              <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+              <p style="color: #9ca3af; font-size: 12px;">
+                © 2024 Faran Alam - Admin Panel
+              </p>
+            </div>
+          `,
+        });
+
+        emailDelivered = Boolean(mailResult.messageId);
+      } catch (mailError) {
+        console.error("[FORGOT-PASSWORD] Email delivery failed:", mailError);
+      }
+    } else {
+      console.warn("[FORGOT-PASSWORD] EMAIL_USER or EMAIL_PASSWORD not configured. Using fallback response.");
+    }
 
     return NextResponse.json(
-      { message: "Reset link has been sent to your email" },
+      {
+        message: emailDelivered
+          ? "Reset link has been sent to your email"
+          : "Reset link generated successfully. Email delivery is not configured, so use the link below.",
+        resetUrl: !emailDelivered ? resetUrl : undefined,
+        emailDelivered,
+      },
       { status: 200 }
     );
   } catch (error) {

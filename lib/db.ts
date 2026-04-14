@@ -51,6 +51,14 @@ export async function createIndexes() {
     await downloadRequests.createIndex({ status: 1 });
     await downloadRequests.createIndex({ createdAt: 1 });
     await downloadRequests.createIndex({ email: 1, resourceId: 1, courseSlug: 1, fileName: 1 }, { unique: false });
+
+    // Reviews indexes
+    const reviews = db.collection('website_reviews');
+    await reviews.createIndex({ approved: 1 });
+    await reviews.createIndex({ createdAt: -1 });
+    await reviews.createIndex({ rating: 1 });
+    await reviews.createIndex({ email: 1 });
+    await reviews.createIndex({ ipHash: 1 });
     
     console.log('✅ Database indexes created');
   } catch (error) {

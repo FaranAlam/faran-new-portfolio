@@ -25,9 +25,9 @@ import Academy from "@/components/sections/Academy";
 import FreeResources from "@/components/sections/FreeResources";
 import Pricing from "@/components/sections/Pricing";
 import BookConsultation from "@/components/sections/BookConsultation";
-import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
 import BlogPreview from "@/components/sections/BlogPreview";
+import Reviews from "@/components/sections/Reviews";
 import Newsletter from "@/components/sections/Newsletter";
 import CTA from "@/components/sections/CTA";
 import Contact from "@/components/sections/Contact";
@@ -64,9 +64,9 @@ export default function Home() {
       <FreeResources />
       <Pricing />
       <BookConsultation />
-      <Testimonials />
       <FAQ />
       <BlogPreview />
+      <Reviews />
       <Newsletter />
       <CTA />
       <Contact />

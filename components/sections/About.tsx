@@ -21,9 +21,9 @@ export default function About() {
             {/* Image */}
             <FadeIn direction="left">
               <div className="relative">
-                <div className="aspect-square bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-2xl flex items-center justify-center overflow-hidden">
+                <div className="relative aspect-square overflow-hidden rounded-full border-8 border-white/70 bg-gradient-to-br from-blue-100 to-indigo-200 shadow-2xl dark:border-gray-800/80 dark:from-blue-900/30 dark:to-indigo-900/30">
                   <Image
-                    src="/images/hero/story.jpg"
+                    src="/images/hero/story (11).png"
                     alt="Faran Alam"
                     width={520}
                     height={520}
@@ -31,7 +31,7 @@ export default function About() {
                     priority
                   />
                 </div>
-                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-blue-600 dark:bg-blue-500 rounded-2xl -z-10"></div>
+                <div className="absolute -bottom-6 -right-6 h-28 w-28 rounded-full bg-blue-600/20 blur-2xl dark:bg-blue-400/20 -z-10"></div>
               </div>
             </FadeIn>
 

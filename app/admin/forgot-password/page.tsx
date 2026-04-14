@@ -10,6 +10,7 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("faran.bsce40@iiu.edu.pk");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [resetUrl, setResetUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -17,6 +18,7 @@ export default function ForgotPasswordPage() {
     setLoading(true);
     setError("");
     setSuccess("");
+    setResetUrl("");
 
     try {
       const response = await fetch("/api/auth/forgot-password", {
@@ -30,7 +32,10 @@ export default function ForgotPasswordPage() {
       if (!response.ok) {
         setError(data.message || "Failed to send reset email");
       } else {
-        setSuccess("Check your email for password reset instructions");
+        setSuccess(data.message || "Check your email for password reset instructions");
+        if (data.resetUrl) {
+          setResetUrl(data.resetUrl);
+        }
         setEmail("");
       }
     } catch (err) {
@@ -108,6 +113,19 @@ export default function ForgotPasswordPage() {
                   </svg>
                   {success}
                 </p>
+                {resetUrl ? (
+                  <div className="mt-4 p-3 bg-slate-900/60 border border-slate-700 rounded-lg text-left">
+                    <p className="text-xs text-gray-400 mb-2">Open this link to reset the password:</p>
+                    <a
+                      href={resetUrl}
+                      className="text-xs text-blue-400 break-all underline"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {resetUrl}
+                    </a>
+                  </div>
+                ) : null}
               </motion.div>
             )}
 

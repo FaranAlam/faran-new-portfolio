@@ -7,7 +7,7 @@ import {
   MdDashboard, MdMessage, MdNewspaper, MdDownload, 
   MdArticle, MdWork, MdEmail, MdAnalytics, 
   MdHistory, MdSettings, MdBackup, MdLogout,
-  MdExpandMore, MdChevronRight, MdClose
+  MdExpandMore, MdChevronRight, MdClose, MdRateReview
 } from "react-icons/md";
 import { IconType } from "react-icons";
 
@@ -87,6 +87,13 @@ const menuCategories: MenuCategory[] = [
         iconColor: "text-cyan-400",
         path: "/admin/dashboard/newsletter",
         description: "Subscribers"
+      },
+      {
+        label: "Reviews",
+        icon: MdRateReview,
+        iconColor: "text-amber-400",
+        path: "/admin/dashboard/reviews",
+        description: "Ratings & feedback"
       },
       {
         label: "Downloads",

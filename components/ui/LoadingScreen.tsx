@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function LoadingScreen() {
@@ -77,22 +78,27 @@ export default function LoadingScreen() {
               transition={{ duration: 0.5 }}
               className="mb-8"
             >
-              <div className="text-8xl font-bold text-white mb-4">
-                <motion.span
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="inline-block"
-                >
-                  F
-                </motion.span>
-                <span>A</span>
-              </div>
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                className="relative mx-auto mb-5 flex h-40 w-40 items-center justify-center rounded-full border border-white/30 bg-white/10 p-5 shadow-2xl backdrop-blur-md"
+              >
+                <motion.div
+                  animate={{ scale: [1, 1.06, 1] }}
+                  transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute inset-0 rounded-full bg-white/10 blur-xl"
+                />
+                <div className="relative h-full w-full overflow-hidden rounded-full border border-white/25 bg-white/90 shadow-lg">
+                  <Image
+                    src="/images/logos/logo1.jpg"
+                    alt="Faran Alam website logo"
+                    fill
+                    priority
+                    sizes="160px"
+                    className="object-cover"
+                  />
+                </div>
+              </motion.div>
               <motion.h1
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}

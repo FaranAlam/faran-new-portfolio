@@ -109,7 +109,14 @@ export default function Achievements() {
       description: "Successfully delivered 13+ projects with 100% client satisfaction. Serving 8+ happy clients globally.",
       icon: SparklesIcon,
       color: "from-pink-500 to-pink-600"
-    }
+    },
+    {
+      year: "2026",
+      title: "Job at xSEL Sarwar English Lab",
+      description: "Currently building an 'Advanced Full-Stack E-Learning Ecosystem' for Sarwar English Lab. This comprehensive platform features a high-conversion admissions website and powerful LMS dashboards. Developed using Next.js, MongoDB Atlas, and NextAuth for optimal performance, security, and scalability.",
+      icon: BriefcaseWorkIcon,
+      color: "from-orange-500 to-orange-600"
+    },
   ];
 
   const achievements: Achievement[] = [

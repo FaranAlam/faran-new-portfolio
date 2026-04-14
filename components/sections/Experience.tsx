@@ -47,6 +47,15 @@ interface Experience {
 
 export default function Experience() {
   const experiences: Experience[] = [
+        {
+      title: "Full Stack Developer",
+      company: "xSEL Sarwar English Lab",
+      period: "25 March, 2025 - Prsent",
+      location: "Islamadab Pakistan",
+      description: "Architecting and developing an 'Advanced Full-Stack E-Learning Ecosystem' for Sarwar English Lab. The project features a high-performance public website focused on admissions growth and advanced LMS dashboards for streamlined operational efficiency. The complete architecture is powered by Next.js, MongoDB Atlas, and NextAuth to deliver maximum security and scalability.",
+      type: "Job",
+      icon: BriefcaseIcon
+    },
     {
       title: "Freelance Web Developer",
       company: "Self-Employed",
@@ -63,7 +72,7 @@ export default function Experience() {
       location: "Pakistan",
       description: "Worked on responsive web applications, focusing on front-end development, clean coding, and enhancing user experience during my internship at NHA.",
       type: "Internship",
-      icon: RocketIcon
+      icon: BookOpenIcon
     },
     {
       title: "Full Stack Developer Intern",

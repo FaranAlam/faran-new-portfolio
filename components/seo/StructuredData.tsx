@@ -1,4 +1,46 @@
-export default function StructuredData() {
+import { getDatabase } from '@/lib/db';
+
+export default async function StructuredData() {
+  let aggregateRating = null;
+  let reviewItems: Array<{
+    name: string;
+    rating: number;
+    comment?: string;
+    createdAt?: Date;
+  }> = [];
+
+  try {
+    const db = await getDatabase();
+    const reviews = await db
+      .collection('website_reviews')
+      .find({ approved: true })
+      .sort({ createdAt: -1 })
+      .limit(3)
+      .toArray();
+
+    const count = reviews.length;
+    if (count > 0) {
+      const ratingValue = reviews.reduce((sum, review) => sum + (review.rating || 0), 0) / count;
+      aggregateRating = {
+        "@type": "AggregateRating",
+        ratingValue: Number(ratingValue.toFixed(1)),
+        reviewCount: count,
+        bestRating: 5,
+        worstRating: 1,
+      };
+
+      reviewItems = reviews.map((review) => ({
+        name: review.name || 'Website Visitor',
+        rating: review.rating || 5,
+        comment: review.comment || '',
+        createdAt: review.createdAt,
+      }));
+    }
+  } catch {
+    aggregateRating = null;
+    reviewItems = [];
+  }
+
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -69,6 +111,25 @@ export default function StructuredData() {
           "@id": "https://faran-new-portfolio.vercel.app/#person"
         },
         areaServed: "Worldwide",
+        ...(aggregateRating ? { aggregateRating } : {}),
+        ...(reviewItems.length
+          ? {
+              review: reviewItems.map((review) => ({
+                "@type": "Review",
+                author: {
+                  "@type": "Person",
+                  name: review.name,
+                },
+                reviewRating: {
+                  "@type": "Rating",
+                  ratingValue: review.rating,
+                  bestRating: 5,
+                  worstRating: 1,
+                },
+                reviewBody: review.comment || 'Website review',
+              })),
+            }
+          : {}),
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "Web Development Services",
