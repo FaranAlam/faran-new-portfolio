@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { getDatabase } from '@/lib/db';
+import { sendReviewNotification } from '@/lib/email';
 import { getClientIp, rateLimit, RateLimits } from '@/lib/rate-limit';
 import { sanitizeEmail, sanitizeText } from '@/lib/sanitization';
 import { ObjectId } from 'mongodb';
@@ -166,6 +167,16 @@ export async function POST(request: NextRequest) {
     };
 
     const result = await collection.insertOne(review);
+
+    // Notify admin asynchronously; review submission should not fail if email fails.
+    void sendReviewNotification({
+      name,
+      rating,
+      comment: comment || undefined,
+      reviewerEmail: email,
+      reviewId: result.insertedId.toString(),
+      submittedAt: review.createdAt.toISOString(),
+    });
 
     return NextResponse.json({
       success: true,

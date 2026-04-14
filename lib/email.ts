@@ -138,6 +138,94 @@ export async function sendNewsletterNotification(data: {
 }
 
 /**
+ * Send email notification to admin when a new review is submitted
+ */
+export async function sendReviewNotification(data: {
+  name: string;
+  rating: number;
+  comment?: string;
+  reviewerEmail?: string;
+  reviewId: string;
+  submittedAt: string;
+}) {
+  const transporter = createTransporter();
+
+  if (!transporter) {
+    console.log('Review notification not sent - email configuration missing');
+    return { success: false, error: 'Email configuration missing' };
+  }
+
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
+  if (!adminEmail) {
+    console.log('Review notification not sent - admin email missing');
+    return { success: false, error: 'Admin email missing' };
+  }
+
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const stars = '★'.repeat(Math.max(1, Math.min(5, data.rating)));
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: adminEmail,
+      subject: `⭐ New Website Review (${data.rating}/5) - ${data.name}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto;">
+          <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 24px; border-radius: 10px 10px 0 0;">
+            <h2 style="margin: 0;">New Review Received</h2>
+            <p style="margin: 8px 0 0; opacity: 0.95;">A visitor submitted a review on your website.</p>
+          </div>
+
+          <div style="background: #f9fafb; padding: 24px; border-radius: 0 0 10px 10px;">
+            <div style="background: white; padding: 18px; border-radius: 8px; border-left: 4px solid #2563eb;">
+              <p style="margin: 0 0 8px;"><strong>Name:</strong> ${data.name}</p>
+              <p style="margin: 0 0 8px;"><strong>Rating:</strong> ${data.rating}/5 (${stars})</p>
+              <p style="margin: 0 0 8px;"><strong>Reviewer Email:</strong> ${data.reviewerEmail || 'Not provided'}</p>
+              <p style="margin: 0 0 8px;"><strong>Submitted At:</strong> ${new Date(data.submittedAt).toLocaleString('en-US')}</p>
+              <p style="margin: 0;"><strong>Review ID:</strong> <span style="font-family: monospace; font-size: 12px;">${data.reviewId}</span></p>
+            </div>
+
+            <div style="margin-top: 16px; background: white; padding: 18px; border: 1px solid #e5e7eb; border-radius: 8px;">
+              <p style="margin-top: 0;"><strong>Comment:</strong></p>
+              <p style="white-space: pre-wrap; color: #374151; margin-bottom: 0;">${data.comment || 'No comment provided.'}</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 24px;">
+              <a href="${baseUrl}/admin/dashboard/reviews"
+                 style="display: inline-block; background: #2563eb; color: white; padding: 12px 26px; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                Review in Admin Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      `,
+      text: `
+NEW REVIEW RECEIVED
+
+Name: ${data.name}
+Rating: ${data.rating}/5
+Reviewer Email: ${data.reviewerEmail || 'Not provided'}
+Submitted At: ${new Date(data.submittedAt).toLocaleString()}
+Review ID: ${data.reviewId}
+
+Comment:
+${data.comment || 'No comment provided.'}
+
+Moderate now:
+${baseUrl}/admin/dashboard/reviews
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Review notification sent:', info.messageId);
+    return { success: true, messageId: info.messageId };
+  } catch (error) {
+    console.error('❌ Failed to send review notification:', error);
+    return { success: false, error };
+  }
+}
+
+/**
  * Send welcome email to new newsletter subscriber
  */
 export async function sendWelcomeEmail(subscriberEmail: string) {
