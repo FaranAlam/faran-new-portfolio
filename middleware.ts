@@ -10,9 +10,10 @@ const PUBLIC_ADMIN_PATHS = [
 
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const authSecret = process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET;
   const token = await getToken({
     req: request,
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: authSecret,
   });
 
   const isAdminRoute = pathname.startsWith("/admin");
