@@ -20,18 +20,15 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Image */}
             <FadeIn direction="left">
-              <div className="relative">
-                <div className="relative aspect-square overflow-hidden rounded-full border-8 border-white/70 bg-gradient-to-br from-blue-100 to-indigo-200 shadow-2xl dark:border-gray-800/80 dark:from-blue-900/30 dark:to-indigo-900/30">
-                  <Image
-                    src="/images/hero/story (11).png"
-                    alt="Faran Alam"
-                    width={520}
-                    height={520}
-                    className="h-full w-full object-cover"
-                    priority
-                  />
-                </div>
-                <div className="absolute -bottom-6 -right-6 h-28 w-28 rounded-full bg-blue-600/20 blur-2xl dark:bg-blue-400/20 -z-10"></div>
+              <div className="flex justify-center md:justify-start">
+                <Image
+                  src="/images/hero/story (44).png"
+                  alt="Faran Alam"
+                  width={680}
+                  height={680}
+                  className="w-[22rem] h-[22rem] md:w-[36rem] md:h-[36rem] object-contain"
+                  priority
+                />
               </div>
             </FadeIn>
 

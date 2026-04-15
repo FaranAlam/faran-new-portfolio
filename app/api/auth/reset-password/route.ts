@@ -1,12 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import { ObjectId } from "mongodb";
 import { hashPassword } from "@/lib/password";
 import { getDatabase } from "@/lib/mongodb";
-import { readFile, writeFile } from "fs/promises";
-import path from "path";
+import { getAdminAuthCollection } from "@/lib/admin-auth";
+import { getClientIp, rateLimit, RateLimits } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIp(req);
+    const limitResult = rateLimit(`reset-password:${ip}`, RateLimits.AUTH);
+
+    if (!limitResult.success) {
+      return NextResponse.json(
+        { message: "Too many requests. Please try again later." },
+        {
+          status: 429,
+          headers: {
+            "X-RateLimit-Limit": limitResult.limit.toString(),
+            "X-RateLimit-Remaining": limitResult.remaining.toString(),
+            "X-RateLimit-Reset": limitResult.reset.toString(),
+          },
+        }
+      );
+    }
+
     const { token, password } = await req.json();
 
     // Validate inputs
@@ -82,19 +100,33 @@ export async function POST(req: NextRequest) {
     // Hash the new password
     const hashedPassword = await hashPassword(password);
 
-    // Update runtime environment variable
-    process.env.ADMIN_PASSWORD_HASH = hashedPassword;
+    const adminCollection = await getAdminAuthCollection();
 
-    // Persist for next server restart (.env.local)
-    const envPath = path.join(process.cwd(), ".env.local");
-    const envContent = await readFile(envPath, "utf-8");
-    const escapedHash = hashedPassword.replace(/\$/g, "\\$");
+    if (tokenData.adminId) {
+      const adminFilter = ObjectId.isValid(tokenData.adminId)
+        ? { _id: new ObjectId(tokenData.adminId) }
+        : { email: tokenData.email, role: "admin" as const };
 
-    const updatedEnv = /^ADMIN_PASSWORD_HASH=.*/m.test(envContent)
-      ? envContent.replace(/^ADMIN_PASSWORD_HASH=.*/m, `ADMIN_PASSWORD_HASH=${escapedHash}`)
-      : `${envContent.trim()}\nADMIN_PASSWORD_HASH=${escapedHash}\n`;
-
-    await writeFile(envPath, updatedEnv, "utf-8");
+      await adminCollection.updateOne(
+        adminFilter,
+        {
+          $set: {
+            passwordHash: hashedPassword,
+            updatedAt: new Date(),
+          },
+        }
+      );
+    } else {
+      await adminCollection.updateOne(
+        { email: tokenData.email, role: "admin" },
+        {
+          $set: {
+            passwordHash: hashedPassword,
+            updatedAt: new Date(),
+          },
+        }
+      );
+    }
 
     // Delete the used token
     await resetTokensCollection.deleteOne({ tokenHash });

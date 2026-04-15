@@ -64,7 +64,7 @@ export default function DashboardHomePage() {
       const subscribers = newsletterData.subscribers || [];
 
       // Fetch download requests
-      const requestsRes = await fetch("/api/approve-download?adminEmail=faran.bsce40@iiu.edu.pk");
+      const requestsRes = await fetch("/api/approve-download");
       const requestsData = await requestsRes.json();
       const requests = requestsData.requests || [];
 

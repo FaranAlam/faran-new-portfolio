@@ -88,16 +88,15 @@ export default function Hero() {
 
           {/* Image/Illustration */}
           <FadeIn direction="right" delay={0.3} duration={0.8} className="flex-1 flex justify-center mb-8 md:mb-0">
-            <div className="animate-hero-float">
-              <div className="relative w-64 h-64 md:w-96 md:h-96 rounded-2xl overflow-hidden shadow-xl dark:shadow-gray-900/50 transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl dark:hover:shadow-gray-900 transform-gpu">
-                <Image
-                  src="/images/hero/story (2).png"
-                  alt="Faran Alam - Full Stack Developer"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
+            <div className="animate-hero-float transition-transform duration-300 ease-in-out hover:scale-[1.02]">
+              <Image
+                src="/images/hero/story (666).png"
+                alt="Faran Alam - Full Stack Developer"
+                width={680}
+                height={680}
+                className="w-[22rem] h-[22rem] md:w-[36rem] md:h-[36rem] object-contain"
+                priority
+              />
             </div>
           </FadeIn>
         </div>

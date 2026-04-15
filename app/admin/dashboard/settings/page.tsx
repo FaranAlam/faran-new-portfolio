@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { 
   MdPerson, 
   MdLock, 
@@ -115,6 +115,8 @@ export default function SettingsPage() {
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const oldEmail = (session?.user?.email || "").toLowerCase();
+    const newEmail = (profileData.email || "").toLowerCase();
     
     try {
       const response = await fetch('/api/admin/profile', {
@@ -131,7 +133,14 @@ export default function SettingsPage() {
       const data = await response.json();
 
       if (data.success) {
-        showMessage("Profile updated successfully!");
+        if (newEmail && oldEmail && newEmail !== oldEmail) {
+          showMessage("Email updated. Please login again with the new email.");
+          setTimeout(async () => {
+            await signOut({ callbackUrl: "/admin/login" });
+          }, 1000);
+        } else {
+          showMessage("Profile updated successfully!");
+        }
       } else {
         showMessage(data.error || "Failed to update profile", true);
       }
@@ -159,7 +168,7 @@ export default function SettingsPage() {
     setLoading(true);
     
     try {
-      const response = await fetch("/api/auth/reset-password", {
+      const response = await fetch("/api/admin/change-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -1,0 +1,136 @@
+﻿
+--- slide1.xml ---
+International Islamic University H-10, Islamabad, Pakistan Mobile Applications Development  Week 03 Advanced UI Components   Engr. Rashid Farid Chishti https://chishti.web.app http://youtube.com/rfchishti
+
+--- slide10.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  android :id ="@+id/main"  tools :context =".MainActivity" >   < TextView  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Choose Your Pizza Crust"  android :textStyle ="bold"  android :layout_marginTop ="20dp"  android :layout_marginLeft ="20dp" /> 2.  RadioButton                          (activity_main.xml) (1/4) 10
+
+--- slide11.xml ---
+    < RadioGroup  android :id ="@+id/ rg_pizza "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :orientation ="vertical"  android :layout_marginLeft ="20dp" >       < RadioButton  android :id ="@+id/ rb_deep_dish "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Deep Dish"  />        < RadioButton  android :id ="@+id/ rb_thin "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Thin"  /> 2.  RadioButton                          (activity_main.xml) (2/4) 11
+
+--- slide12.xml ---
+      < RadioButton  android :id ="@+id/ rb_gluten_free "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Gluten Free"  />        < RadioButton  android :id ="@+id/ rb_cauliflower "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Cauliflower"  />     </ RadioGroup >      < LinearLayout  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :padding ="20dp" > 2.  RadioButton                          (activity_main.xml) (3/4) 12
+
+--- slide13.xml ---
+      < TextView  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Option Selected: "  android :textStyle ="bold" />        < TextView  android :id ="@+id/ tv_selected "  android :layout_width ="0dp"  android :layout_height =" wrap_content "  android :layout_weight ="1"  android :text ="No Selection"  />     </ LinearLayout > </ LinearLayout > 2.  RadioButton                          (activity_main.xml) (4/4) 13
+
+--- slide14.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.RadioGroup import  android.widget.RadioButton import  android.widget.TextView import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ()  setContentView ( R.layout. activity_main ) 2.  RadioButton                               ( MainActivity.kt ) (1/2) 14
+
+--- slide15.xml ---
+ ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )         insets  }   val  rg_pizza  =  findViewById < RadioGroup >( R.id. rg_pizza )  val  tv_selected  =  findViewById < TextView >( R.id. tv_selected )  rg_pizza.setOnCheckedChangeListener  {  group,  checkedId  ->  val  selectedRadioButton  =  findViewById < RadioButton >( checkedId )  val  choice =  selectedRadioButton. text .toString ()  tv_selected. text  = choice  println ( "Option Selected:  ${ choice } " )     }   } } 2.  RadioButton                               ( MainActivity.kt ) (2/2) 15
+
+--- slide16.xml ---
+In  Android development , a  Toast message  is a small popup notification that briefly shows some information to the user. Key Points about Toast: Itâ€™s  non-intrusive  â†’ does not block user interaction. Itâ€™s  temporary  â†’ automatically disappears after a short time. Used to give  simple feedback  like  "Message sent" ,  "Saved successfully" , etc. Appears at the  bottom of the screen . Best for Quick info, system messages 3. Toast Messages 16
+
+--- slide17.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  android :id ="@+id/main"  tools :context =".MainActivity" > </ LinearLayout > 3. Toast                                              (activity_main.xml) 17
+
+--- slide18.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.Toast import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ()  setContentView ( R.layout. activity_main ) 3. Toast                                          ( MainActivity.kt ) (1/2) 18
+
+--- slide19.xml ---
+ ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )         insets  }     // this â†’ context (Activity)     // "Hello! This is a Toast message." â†’ message text     //  Toast.LENGTH_SHORT  â†’ duration (short = 2 sec, long = 3.5 sec)     // .show() â†’ displays the Toast  Toast.makeText (  this @MainActivity ,  "Hello! This is a Toast message." ,  Toast. LENGTH_SHORT )       .show()   } } 3. Toast                                          ( MainActivity.kt ) (2/2) 19
+
+--- slide2.xml ---
+CheckBox RadioButton  &  RadioGroup Toast, Custom Toast Snackbar AlertDialog , Choice List Dialog,  Custom Dialogs for User Interaction Spinner Best Practices Agenda 2
+
+--- slide20.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  xmlns: app ="http://schemas.android.com/ apk /res-auto"  android :orientation ="horizontal"  android :gravity ="center"  android :padding ="10dp"            android :background ="#FF8000" >   < ImageView  android :src ="@drawable/ ic_launcher_foreground "  android :layout_width ="48dp"      android :layout_height ="48dp"  android :scaleType ="center"       app :tint ="@ android:color /white"  />   < TextView  android :id ="@+id/ toast_text "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :textStyle ="bold"         android :textSize ="20sp"  android :text ="Success!"          android :textColor ="@ android:color /white"  android :paddingStart ="8dp" /> </ LinearLayout > 4. Custom Toast               (res/layout/toast_layout.xml) 20
+
+--- slide21.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.TextView import  android.widget.Toast import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ()  setContentView ( R.layout. activity_main ) 4. Custom Toast                           ( MainActivity.kt ) (1/2) 21
+
+--- slide22.xml ---
+ ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )         insets  }   val  layout =  layoutInflater .inflate ( R.layout. toast_layout ,  null )  val  text:  TextView  =  layout.findViewById ( R.id. toast_text )  text. text  =  "Hello from Custom Toast!"  val  toast = Toast( applicationContext )  toast. duration  =  Toast. LENGTH_LONG  toast. view  = layout  toast.show ()    } } 4. Custom Toast                           ( MainActivity.kt ) (2/2) 22
+
+--- slide23.xml ---
+A  Snackbar  is a UI component in Android (part of  Material Design ) used to show brief messages at the  bottom of the screen , usually with an optional  action button  (like â€œUNDOâ€ or â€œRETRYâ€). Itâ€™s considered a  modern alternative to Toasts . Key Features of  Snackbar Shows a  short message  to the user. Appears at the  bottom  of the screen (can be swiped away). Can have  an action button  (e.g.,  Undo ,  Retry ). Automatically disappears after a few seconds. Follows  Material Design guidelines  (preferred over custom Toasts). Best for User feedback with possible action 5.  SnackBar 23
+
+--- slide24.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  android :id ="@+id/main"  tools :context =".MainActivity" > </ LinearLayout > 5.  SnackBar                                        (activity_main.xml) 24
+
+--- slide25.xml ---
+5.  SnackBar  (Screenshots) 25
+
+--- slide26.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.Toast import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat import  com.google.android.material.snackbar.Snackbar class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ();  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets  } 5.  SnackBar                                    ( MainActivity.kt ) (1/2) 26
+
+--- slide27.xml ---
+ Snackbar.make ( findViewById ( android.R.id. content ),  "Message deleted" ,  Snackbar. LENGTH_SHORT ).show()  Snackbar.make ( findViewById ( android.R.id. content ),  "Item deleted" ,  Snackbar. LENGTH_LONG )       . setAction ( "Undo" )  {  Toast.makeText ( this ,  "Undo clicked" ,  Toast. LENGTH_SHORT ).show()     } .show()  Snackbar.make (  findViewById ( android.R.id. content ),  "No internet connection" ,  Snackbar. LENGTH_INDEFINITE )       . setAction ( "Retry" )  {  Toast.makeText ( this ,  "Retry clicked" ,  Toast. LENGTH_SHORT ).show()       }  .show()   } } 5.  SnackBar                                    ( MainActivity.kt ) (2/2) 27
+
+--- slide28.xml ---
+In  Android development , a  Dialog  is a small  popup window  that appears in front of the current Activity to grab the userâ€™s attention or to get input. It is  modal , meaning the user must interact with it (dismiss it or act on it) before returning to the Activity. Types of Dialogs in Android AlertDialog Most common type. Used to show messages, warnings, or get confirmation. Supports title, message, buttons (OK/Cancel/Yes/No), and custom views. DatePickerDialog  &  TimePickerDialog Pre-built dialogs for picking date or time. Custom Dialog You can design your own layout and use it inside a dialog. 6. Dialog 28
+
+--- slide29.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AlertDialog import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ();  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets  } 6. Simple  AlertDialog                    ( MainActivity.kt ) (1/2) 29
+
+--- slide3.xml ---
+A  CheckBox  in Android is a UI component that lets the user  select or unselect an option  by ticking a small square box âœ… Unlike a  RadioButton  (where only one option can be selected in a group), a  CheckBox  allows the user to  select multiple options  at the same time. Useful for settings/preferences CheckBox 3
+
+--- slide30.xml ---
+ AlertDialog.Builder ( this )       . setTitle ( "Exit App" )       . setMessage ( "Are you sure you want to exit?" )       . setPositiveButton ( "Yes" )  {  dialog, _  ->  finishAndRemoveTask ()       }  . setNegativeButton ( "No" )  {  dialog, _  ->  dialog.dismiss ()       }  .show()   } } 6. Simple  AlertDialog                    ( MainActivity.kt ) (2/2) 30
+
+--- slide31.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.Toast import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AlertDialog import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ();  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets  } 7. Single-Choice List Dialog        ( MainActivity.kt ) (1/2) 31
+
+--- slide32.xml ---
+ val  items =  arrayOf ( "Red" ,  "Green" ,  "Blue" )  AlertDialog.Builder ( this )       . setTitle ( "Choose Color" )       . setSingleChoiceItems (items, - 1 )  {  dialog, which  ->  Toast.makeText (  this ,  "Selected:  ${ items[which] } " ,  Toast. LENGTH_SHORT ).show()  dialog.dismiss ()       }  .show()  } } 7. Single-Choice List Dialog        ( MainActivity.kt ) (2/2) 32
+
+--- slide33.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  android :orientation ="vertical"  android :padding ="20dp"  android :layout_width =" wrap_content "  android :layout_height =" wrap_content " >   < EditText  android :id ="@+id/ inputName "  android :hint ="Enter your name"  android :layout_width =" match_parent "  android :layout_height =" wrap_content " /> </ LinearLayout > 8. Custom Dialog         (res/layout/dialog_custom.xml) 33
+
+--- slide34.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.Toast import  android.widget.EditText import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AlertDialog import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ();  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets  } 8. Custom Dialog                          ( MainActivity.kt ) (1/2) 34
+
+--- slide35.xml ---
+ val  dialogView  =  layoutInflater .inflate ( R.layout. dialog_custom ,  null )  val  et_name  =  dialogView.findViewById < EditText >( R.id. inputName )  AlertDialog.Builder ( this )       . setTitle ( "Enter your name" )       . setView ( dialogView )       . setPositiveButton ( "OK" )  {  dialog, _  ->  val  input =  et_name. text .toString ()  Toast.makeText ( this ,  "Hello,  $ input " ,   Toast. LENGTH_SHORT ).show()       }  . setNegativeButton ( "Cancel" )  {  dialog, _  ->   dialog.dismiss ()  }  .show()   } } 8. Custom Dialog                          ( MainActivity.kt ) (2/2) 35
+
+--- slide36.xml ---
+A Spinner in Android is a UI element that lets the user select an item from a drop-down list. It works like a combo box in desktop applications. By default, it shows the currently selected item, and when tapped, it displays a list of available options. Allows user to select from a list of options Common for settings or categories ðŸ‘‰ Most of the time in real apps, developers create their own custom XML layout (e.g., with text + image) and use it with the adapter. 9. Spinner (Drop-down Menu) 36
+
+--- slide37.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  android :id ="@+id/main"  tools :context =".MainActivity" >  <!-- Spinner Widget -->  < Spinner  android :id ="@+id/spinner"  android :layout_width =" match_parent "  android :layout_height ="50dp"   android :layout_margin ="30dp" /> 9. Spinner                                 (activity_main.xml) (1/2) 37
+
+--- slide38.xml ---
+  <!--  TextView  to show selected item -->  < TextView  android :id ="@+id/ tvSelected "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :gravity =" center_horizontal "  android :text ="Selected Item Will Appear Here"  android :textSize ="20sp"  android :layout_margin ="30dp"  android :background ="#FFC0FF" /> </ LinearLayout > 9. Spinner                                 (activity_main.xml) (2/2) 38
+
+--- slide39.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.AdapterView import  android.widget.ArrayAdapter import  android.widget.Spinner import  android.widget.TextView import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ()  setContentView ( R.layout. activity_main ) 9. Spinner                                      ( MainActivity.kt ) (1/3) 39
+
+--- slide4.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  android :padding ="20dp"  android :id ="@+id/main"  tools :context =".MainActivity" >   < CheckBox  android :id ="@+id/ checkbox_android "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Android"  /> 1.  CheckBox                              (activity_main.xml) (1/2) 4
+
+--- slide40.xml ---
+ ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )       insets     }  val  sp_cities : Spinner =  findViewById ( R.id. spinner )  val  tv_selected :  TextView  =  findViewById ( R.id. tvSelected )   // Data for Spinner  val  cities =  arrayOf ( "Karachi" ,  "Lahore" ,  "Islamabad" ,  "Quetta" ,  "Peshawar" )  // Adapter  val  adapter_cities  =  ArrayAdapter ( this ,   android.R.layout. simple_spinner_dropdown_item , cities)   adapter_cities.setDropDownViewResource (  android.R.layout. simple_spinner_dropdown_item )  sp_cities. adapter  =  adapter_cities  //  sp_cities.setSelection (3)  // Select Quetta at index 3 9. Spinner                                      ( MainActivity.kt ) (2/3) 40
+
+--- slide41.xml ---
+    // Spinner item selection  sp_cities. onItemSelectedListener  =  object :  AdapterView.OnItemSelectedListener  {   override fun  onItemSelected ( parent:  AdapterView <*>,                                 view:  android.view.View ?, position: Int, id: Long) {  tv_selected. text  =  "Selected City:  ${ cities[position] } "  }  override fun  onNothingSelected (parent:  AdapterView <*>) {  tv_selected. text  =  "No city selected"  }     }   } } 9. Spinner                                      ( MainActivity.kt ) (3/3) 41
+
+--- slide42.xml ---
+CheckBox Use when:  You want the user to select multiple options independently. Example:  "Select your hobbies" â†’ ðŸŽµ Music, ðŸŽ¨ Painting, âš½ Sports (user can pick many). âœ”ï¸ Good for multi-select. RadioButton  &  RadioGroup Use when:  The user must select only one option from a set. Example:  "Select gender" â†’ Male / Female / Other (only one allowed). âœ”ï¸ Good for single-choice options. 10. Best Practices                                                     (1/4) 42
+
+--- slide43.xml ---
+Toast Use for simple, short, non-blocking messages. Example:  "Message sent", "File saved". Custom Toast (not recommended in new APIs, but still possible): Use if you want a more styled toast (with image, color). Example:  A green tick âœ”ï¸ with "Success!" âš ï¸ Note: Since Android 11, custom toasts are discouraged â†’ Prefer  Snackbar  instead. Snackbar Use when:  You want to give feedback + possible user action. Example:          "Item deleted. [UNDO]"                            "No internet. [RETRY]â€œ âœ”ï¸  Snackbar  is interactive and Material Design compliant (preferred over custom Toasts). 10. Best Practices                                                     (2/4) 43
+
+--- slide44.xml ---
+AlertDialog Use when: You need to ask for a confirmation or decision. Example: "Are you sure you want to exit?" â†’ [Yes] [No] âœ”ï¸ Good for yes/no/ok/cancel situations. Single-choice dialog: Use when the user must pick one option from a list, shown in a popup. Example: Select ringtone â†’ (Classic, Beep, Tone). Multi-choice dialog: Use when the user can select multiple items in a dialog. Example: "Select subjects to subscribe to" â†’ (Math, Science, English). âœ”ï¸ Good when options donâ€™t need to stay visible on screen permanently. 10. Best Practices                                                     (3/4) 44
+
+--- slide45.xml ---
+Custom Dialogs Use when: You need a popup form or custom input UI inside a dialog. Example: A login dialog with username + password fields. A feedback form popup. âœ”ï¸ Great for input collection inside a popup. Spinner (Drop-down) Use when: You want the user to choose one option from a list, but space is limited. Example:"Select  country" â†’ Dropdown with 100 countries. âœ”ï¸ Preferred when choices are many (instead of  RadioButtons ). 10. Best Practices                                                     (4/4) 45
+
+--- slide5.xml ---
+  < CheckBox  android :id ="@+id/ checkbox_kotlin "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Kotlin"  />   < TextView  android :id ="@+id/ tv_result "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Selected options will appear here"  android :layout_marginTop ="20dp"  android :padding ="10dp" /> </ LinearLayout > 1.  CheckBox                              (activity_main.xml) (2/2) 5
+
+--- slide6.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.CheckBox import  android.widget.TextView import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  lateinit  var  cbAndroid :  CheckBox  lateinit  var  cbKotlin :  CheckBox  lateinit  var  tvResult :  TextView  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ();  setContentView ( R.layout. activity_main ) 1.  CheckBox                                   ( MainActivity.kt ) (1/3) 6
+
+--- slide7.xml ---
+ ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets  }  cbAndroid  =  findViewById ( R.id. checkbox_android )  cbKotlin  =  findViewById ( R.id. checkbox_kotlin )  tvResult  =  findViewById ( R.id. tv_result )   cbAndroid .setOnCheckedChangeListener  {  _,  isChecked  ->  updateResult ()  }  cbKotlin .setOnCheckedChangeListener  {  _,  isChecked  ->  updateResult ()  }  } 1.  CheckBox                                   ( MainActivity.kt ) (2/3) 7
+
+--- slide8.xml ---
+  private fun  updateResult () {  var  str_message  =  "Selected:"      if  ( cbAndroid . isChecked )  str_message  +=  "  ${ cbAndroid . text } "      if  ( cbKotlin . isChecked )  str_message  +=  "  ${ cbKotlin . text } "  tvResult . text  =  str_message   } } 1.  CheckBox                                   ( MainActivity.kt ) (3/3) Explanation  CheckBox  is a toggle control (checked âœ… / unchecked â¬œ).  You can select multiple checkboxes at once.  setOnCheckedChangeListener  is used to detect when the user checks/unchecks it.  isChecked  tells whether itâ€™s ticked or not. 8
+
+--- slide9.xml ---
+RadioButton A  RadioButton  is a UI element that allows the user to  select only one option from a set of mutually exclusive  choices. Itâ€™s similar to the small round buttons you see in forms where only one choice can be selected at a time. Example: Choosing a  Blood Group  in a form. RadioGroup A  RadioGroup  is a container (a special type of  ViewGroup ) that  holds                        multiple  RadioButtons . It ensures that  only one  RadioButton  in the group can be selected at a time . If the user selects a new option, the previously selected one automatically becomes unselected. RadioButton  &  RadioGroup 9
+

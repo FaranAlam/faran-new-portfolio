@@ -7,7 +7,7 @@ import FadeIn from "@/components/animations/FadeIn";
 import { motion } from "framer-motion";
 
 export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState("faran.bsce40@iiu.edu.pk");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [resetUrl, setResetUrl] = useState("");

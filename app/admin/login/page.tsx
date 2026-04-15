@@ -3,23 +3,49 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import FadeIn from "@/components/animations/FadeIn";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("faran.bsce40@iiu.edu.pk");
+  const searchParams = useSearchParams();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [hasAdmin, setHasAdmin] = useState(false);
+
+  useEffect(() => {
+    const created = searchParams.get("created");
+    if (created === "1") {
+      setSuccess("Admin account created successfully. Please login.");
+    }
+
+    const loadAdminStatus = async () => {
+      try {
+        const response = await fetch("/api/auth/admin-status");
+        const data = await response.json();
+        setHasAdmin(response.ok ? Boolean(data.hasAdmin) : false);
+      } catch (statusError) {
+        console.error("Failed to load admin status:", statusError);
+        setHasAdmin(false);
+      }
+    };
+
+    loadAdminStatus();
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
 
     try {
       const result = await signIn("credentials", {
@@ -106,6 +132,21 @@ export default function AdminLoginPage() {
               </motion.div>
             )}
 
+            {success && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg"
+              >
+                <p className="text-green-400 text-sm flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                  </svg>
+                  {success}
+                </p>
+              </motion.div>
+            )}
+
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Email Input */}
@@ -117,7 +158,7 @@ export default function AdminLoginPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="faran.bsce40@iiu.edu.pk"
+                  placeholder="admin@example.com"
                   required
                   className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
                 />
@@ -183,6 +224,15 @@ export default function AdminLoginPage() {
                   <>Login to Dashboard</>
                 )}
               </button>
+
+              {!hasAdmin && (
+                <Link
+                  href="/admin/signup"
+                  className="block text-center mt-3 px-6 py-3 border border-green-500/40 text-green-300 rounded-lg hover:bg-green-500/10 transition"
+                >
+                  First Time? Create Admin Account
+                </Link>
+              )}
             </form>
           </motion.div>
 

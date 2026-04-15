@@ -1,0 +1,64 @@
+﻿
+--- slide1.xml ---
+International Islamic University H-10, Islamabad, Pakistan Mobile Applications Development  Week 07 Using Implicit Intents in Android   Engr. Rashid Farid Chishti https://chishti.web.app http://youtube.com/rfchishti
+
+--- slide10.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < manifest  xmlns: android ="http://schemas.android.com/ apk /res/android" >   < uses-permission  android :name =" com.android.alarm.permission.SET_ALARM "  />   < application  android :allowBackup ="true"  android :dataExtractionRules ="@xml/ data_extraction_rules "  android :fullBackupContent ="@xml/ backup_rules "  android :icon ="@mipmap/ ic_launcher "  android :label ="@string/ app_name "  android :roundIcon ="@mipmap/ ic_launcher_round "  android :supportsRtl ="true"  android :theme ="@style/ Theme.MyFirstApp " >     < activity  android :name =".MainActivity"     android :exported ="true" >       < intent-filter >         < action    android :name =" android.intent.action.MAIN "  />         < category  android :name =" android.intent.category.LAUNCHER "  />       </ intent-filter >     </ activity > </ application > </ manifest > 2. Implicit Intent                          (AndroidManifest.xml) 10
+
+--- slide11.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :id ="@+id/main"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  tools :context =".MainActivity" >   < Button  android :id ="@+id/ btn_make_call "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :layout_margin ="10dp"  android :text ="Make Phone Call"  /> 2. Implicit Intent                       (activity_main.xml) (1/2) 11
+
+--- slide12.xml ---
+    < Button  android :id ="@+id/ btn_send_sms "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :layout_margin ="10dp"  android :text ="Send an SMS"  />  < Button  android :id ="@+id/ btn_set_alarm "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :layout_margin ="10dp"  android :text ="Set an Alarm"  /> </ LinearLayout > 2. Implicit Intent                       (activity_main.xml) (2/2) 12
+
+--- slide13.xml ---
+package  com.example.myfirstapp import  android.content.Intent import  android.net.Uri import  android.os.Bundle import  android.provider.AlarmClock import  android.widget.Button import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge () ;  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom ) 2. Implicit Intent                            ( MainActivity.kt ) (1/3) 13
+
+--- slide14.xml ---
+      insets  }  val  btn_make_call  =  findViewById <Button>( R.id. btn_make_call )  val  btn_send_sms  =  findViewById <Button>( R.id. btn_send_sms )  val  btn_set_alarm  =  findViewById <Button>( R.id. btn_set_alarm )   btn_make_call.setOnClickListener  {  val  intent = Intent( Intent. ACTION_DIAL )  intent. data  =  Uri.parse ( "tel:03340644440" )  startActivity (intent)     }  btn_send_sms.setOnClickListener  {  val  intent = Intent( Intent. ACTION_SENDTO ,  Uri.parse ( "smsto:03340644440" ))  intent.putExtra ( " sms_body " ,  "Hi!" )  startActivity (intent)     } 2. Implicit Intent                            ( MainActivity.kt ) (2/3) 14
+
+--- slide15.xml ---
+ btn_set_alarm.setOnClickListener  {  val  intent = Intent( AlarmClock. ACTION_SET_ALARM ). apply  {  putExtra ( AlarmClock. EXTRA_HOUR ,     7 )  putExtra (AlarmClock. EXTRA_MINUTES , 30 )       }  startActivity (intent)     }  } } 2. Implicit Intent                            ( MainActivity.kt ) (3/3) 15
+
+--- slide16.xml ---
+An implicit intent doesnâ€™t name a specific component (like an activity) to handle the request. Instead, it declares a general action to perform (like  ACTION_VIEW ,  ACTION_SEND , etc.), and the Android system finds which apps can handle it. Click  File  >  New  >  Project Select  Empty Views Activity  and Press  Next  Button Write Name:  Surf First of all, declare an Intent Filter in  AndroidManifest.xml If you want your app to handle incoming implicit intents, you must declare intent filters in your activityâ€™s manifest entry. Handling Incoming Implicit Intents with Intent Filters 16
+
+--- slide17.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < manifest  xmlns: android ="http://schemas.android.com/ apk /res/android" >   < application  android :allowBackup ="true"  android :dataExtractionRules ="@xml/ data_extraction_rules "  android :fullBackupContent ="@xml/ backup_rules "  android :icon ="@mipmap/ ic_launcher "  android :label ="@string/ app_name "  android :roundIcon ="@mipmap/ ic_launcher_round "  android :supportsRtl ="true"         android :theme ="@style/ Theme.Surf " >     < activity  android :name =".MainActivity"  android :exported ="true" >       < intent-filter >         < action  android :name =" android.intent.action.SEND "  />         < category  android :name =" android.intent.category.DEFAULT "  />         < data  android :mimeType ="text/plain"  />  </ intent-filter >       < intent-filter >         < action  android :name =" android.intent.action.MAIN "  />         < category  android :name =" android.intent.category.LAUNCHER " />  </ intent-filter >  </ activity >   </ application >  </ manifest > 3. Handling Implicit Intent          (AndroidManifest.xml) 17
+
+--- slide18.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < androidx.constraintlayout.widget.ConstraintLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: app ="http://schemas.android.com/ apk /res-auto"  xmlns: tools ="http://schemas.android.com/tools"  android :id ="@+id/main"  android :layout_width =" match_parent "   android :layout_height =" match_parent "  tools :context =".MainActivity" >   < TextView  android :id ="@+id/ tv_text "  android :layout_width =" match_parent "   android :layout_height =" wrap_content "  app :layout_constraintTop_toTopOf ="parent"  android :padding ="10dp"  android :text ="Text to receive"  android :textSize ="24dp" /> </ androidx.constraintlayout.widget.ConstraintLayout > 3. Handling Implicit Intent                 activity_main.xml 18
+
+--- slide19.xml ---
+package  com.example.surf import  android.content.Intent import  android.os.Bundle import  android.widget.TextView import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge () ;  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets  } 3. Handling Implicit Intent            ( MainActivity.kt ) (1/2) 19
+
+--- slide2.xml ---
+An  Implicit Intent  in Android is used when you want the system (or another app) to handle an action,  without specifying which exact app or component should do it . Instead of saying  â€œOpen  SecondActivity  in my appâ€  (explicit intent), you say  â€œI want to share this textâ€  or  â€œI want to open this webpageâ€ , and Android finds the best app available to handle it. Example: Open a webpage in browser Share data (text/document/image/video etc.) Send an email Make a phone call Pick an image from gallery What are Implicit Intents? 2
+
+--- slide20.xml ---
+ val  tv_text  =  findViewById < TextView >( R.id. tv_text )  when  ( intent ?. action ) {  Intent. ACTION_SEND  -> {  when  ( intent . type ) {  "text/plain"  -> {  val  sharedText  =  intent .getStringExtra ( Intent. EXTRA_TEXT )  sharedText ?. let  {  tv_text. text  =  "Got Text:  $ it "  }  }         }       }     }   } } 3. Handling Implicit Intent            ( MainActivity.kt ) (2/2) 20
+
+--- slide21.xml ---
+3. Handling Incoming Implicit Intents 21
+
+--- slide3.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :id ="@+id/main"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  tools :context =".MainActivity" >   < Button  android :id ="@+id/ btn_share_text "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :layout_margin ="10dp"  android :text ="Share a Text"  /> 1. Implicit Intent                       (activity_main.xml) (1/2) 3
+
+--- slide4.xml ---
+  < Button  android :id ="@+id/ btn_open_web "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :layout_margin ="10dp"  android :text ="Open a Webpage"  />  < Button  android :id ="@+id/ btn_send_email "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :layout_margin ="10dp"  android :text ="Send an Email"  /> </ LinearLayout > 1. Implicit Intent                       (activity_main.xml) (2/2) 4
+
+--- slide5.xml ---
+package  com.example.myfirstapp import  android.content.Intent import  android.net.Uri import  android.os.Bundle import  android.widget.Button import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ();  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  -> 1. Implicit Intent                            ( MainActivity.kt ) (1/4) 5
+
+--- slide6.xml ---
+ val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )       insets     }  val  btn_share_text  =  findViewById <Button>( R.id. btn_share_text )  val  btn_open_web    =  findViewById <Button>( R.id. btn_open_web )  val  btn_send_email  =  findViewById <Button>( R.id. btn_send_email )  btn_open_web.setOnClickListener  {  val  intent = Intent( Intent. ACTION_VIEW )  intent. data  =  Uri.parse ( "https://chishti.web.app" )  startActivity (intent)     } 1. Implicit Intent                            ( MainActivity.kt ) (2/4) 6
+
+--- slide7.xml ---
+ btn_share_text.setOnClickListener  {  val  intent = Intent( Intent. ACTION_SEND ). apply  {  type  =  "text/plain"  putExtra ( Intent. EXTRA_TEXT ,  "Hello from My App" )       }       // ðŸ‘‰ Opens share sheet for apps like WhatsApp, Messages, etc.  startActivity ( Intent.createChooser (intent,  "Share via" ))     }  1. Implicit Intent                            ( MainActivity.kt ) (3/4) 7
+
+--- slide8.xml ---
+ btn_send_email.setOnClickListener  {  val  intent = Intent( Intent. ACTION_SENDTO ). apply  {   // Create intent  data  =  Uri.parse ( "mailto:" )  // only email apps should handle this  putExtra ( Intent. EXTRA_EMAIL ,  arrayOf ( "chishti@iiu.edu.pk" ))  putExtra ( Intent. EXTRA_SUBJECT ,  "Subject here" )  putExtra ( Intent. EXTRA_TEXT ,  "Hello, this is the email body." )       }  startActivity (intent)  }  } } 1. Implicit Intent                            ( MainActivity.kt ) (4/4) 8
+
+--- slide9.xml ---
+You  donâ€™t specify the exact activity/component  â†’ Android decides which app can handle it. Use standard Intent actions (e.g.,  ACTION_VIEW, ACTION_SEND, ACTION_DIAL ). Always use  Intent.createChooser ()  for better UX. Always check with  resolveActivity ()  to prevent crashes if no app is available. Good for inter-app communication (e.g., send an email, share an image, open a map). In Short: Explicit Intent  â†’ â€œGo to this activity in my app.â€ Implicit Intent  â†’ â€œI want to do this action, any app that can help?â€ Key Points About Implicit Intents 9
+

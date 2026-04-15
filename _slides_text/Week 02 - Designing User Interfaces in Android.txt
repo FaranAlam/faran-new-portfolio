@@ -1,0 +1,157 @@
+﻿
+--- slide1.xml ---
+International Islamic University H-10, Islamabad, Pakistan Mobile Applications Development  Week 02 Designing User Interfaces in Android  Engr. Rashid  Farid  Chishti http://youtube.com/rfchishti http://sites.google.com/site/chishti
+
+--- slide10.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.Button import  android.widget.TextView import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {   var  count  =  0   lateinit  var  tv_message :  TextView  lateinit  var  btn_click_me : Button  LinearLayout                                  ( MainActivity.kt ) (1/2)
+
+--- slide11.xml ---
+override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ()  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main )) { v, insets ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets  }   tv_message  =  findViewById ( R.id. tv_message )  btn_click_me  =  findViewById ( R.id. btn_click_me )   btn_click_me .setOnClickListener  {  ++ count ;  tv_message . text  =  "You clicked me  ${ count }  times"  }  } } LinearLayout                                  ( MainActivity.kt ) (2/2)
+
+--- slide12.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :orientation ="horizontal"  android :id ="@+id/main"  tools :context =".MainActivity"  android :layout_margin ="10dp"  android :padding ="10dp"  android :background ="#FFFF00" >   < Button  android :id ="@+id/ btn_cancel "  android :layout_width ="0dp"  android :layout_height =" wrap_content "  android :layout_weight ="1"  android :text ="Cancel" LinearLayout                             (activity_main.xml) (1/2)
+
+--- slide13.xml ---
+ android :layout_marginLeft ="10dp"  android :layout_marginRight ="5dp" />   < Button  android :id ="@+id/ btn_submit "  android :layout_width ="0dp"  android :layout_height =" wrap_content "  android :layout_weight ="1"  android :text ="Submit"  android :layout_marginLeft ="5dp"  android :layout_marginRight ="10dp" /> </ LinearLayout > LinearLayout                             (activity_main.xml) (2/2)
+
+--- slide14.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.Button import  android.widget.TextView import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {   lateinit  var  btn_cancel : Button  lateinit  var  btn_submit : Button  LinearLayout                                  ( MainActivity.kt ) (1/2)
+
+--- slide15.xml ---
+ override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ()  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )             insets  }  btn_cancel  =  findViewById ( R.id. btn_cancel )  btn_submit  =  findViewById ( R.id. btn_submit )  btn_cancel .setOnClickListener  {  Toast.makeText ( this , "You   pressed cancel" ,  Toast. LENGTH_LONG ).show()  }  btn_submit .setOnClickListener  {  Toast.makeText ( this , "You   pressed submit" ,  Toast. LENGTH_SHORT ).show()  }  } } LinearLayout                                  ( MainActivity.kt ) (2/2)
+
+--- slide16.xml ---
+RelativeLayout  is a type of  ViewGroup  in Android that arranges its child views  relative to each other  or  relative to the parent container . This makes positioning flexible as we can position views to the left, right, top, or bottom of other views. However, after  ConstraintLayout  was introduced, the use of Relative Layout has ceased since Constraint Layout is much better as handling large UIs. RelativeLayout
+
+--- slide17.xml ---
+android:alignParentTop ="true":  Aligns the view to the top edge of the parent. android:alignParentBottom ="true":  Aligns the view to the bottom edge of the parent. android:alignParentLeft ="true":  Aligns the view to the left edge of the parent. android:alignParentRight ="true":  Aligns the view to the right edge of the parent. android:centerHorizontal ="true":  Centers the view horizontally in the parent. android:centerVertical ="true":  Centers the view vertically in the parent. android:above ="@id/ viewId ":  Places the view above another. android:below ="@id/ viewId ":  Places the view below another. android:toLeftOf ="@id/ viewId ":  Places the view to the left of another. RelativeLayout : Some Important Attributes
+
+--- slide18.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < RelativeLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :id ="@+id/main"  tools :context =".MainActivity"  android :padding ="10dp" >  <!-- Title at the top center -->  < TextView  android :id ="@+id/ titleText "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text =" RelativeLayout  Example"  android :textSize ="20sp"  android :textStyle ="bold" RelativeLayout                          (activity_main.xml) (1/3)
+
+--- slide19.xml ---
+ android :layout_centerHorizontal ="true"  android :layout_alignParentTop ="true"  android :layout_marginTop ="24dp"  />  <!-- Button below  TextView  -->  < Button  android :id ="@+id/ btnClick "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Click Me"  android :layout_below ="@id/ titleText "  android :layout_centerHorizontal ="true"  android :layout_marginTop ="20dp"  />  RelativeLayout                          (activity_main.xml) (2/3)
+
+--- slide2.xml ---
+Android apps use XML layouts + Kotlin/Java logic UI = defined in res/layout/*.xml Event Handling = written in Kotlin Introduction to Android UI
+
+--- slide20.xml ---
+  <!--  ImageView  to the right of the Button -->  < ImageView  android :id ="@+id/ iconImage "  android :layout_width ="80dp"  android :layout_height ="80dp"  android :src ="@ android:drawable / ic_menu_camera "  android :layout_toRightOf ="@id/ btnClick "  android :layout_alignTop ="@id/ btnClick "  android :layout_marginStart ="20dp"  /> </ RelativeLayout > RelativeLayout                          (activity_main.xml) (3/3)
+
+--- slide21.xml ---
+Constraint Layout is a flexible layout that allows views to be positioned using constraints instead of nesting layouts. It helps in reducing the view hierarchy and improves performance by a lot. It is the most popular and recommended layout for designing complex interfaces in modern Android applications. Flexible & modern layout, recommended by Google Every view must have at least  one horizontal  and  one vertical  constraint. You can set aspect ratios like 1:1 (square), 16:9 (video). Example: An  ImageView  that always stays square regardless of screen size. ConstraintLayout
+
+--- slide22.xml ---
+app:layout_constraintLeft_toLeftOf ="@id/parent" app:layout_constraintLeft_toRightOf app:layout_constraintRight_toLeftOf  /  app:layout_constraintRight_toRightOf app:layout_constraintTop_toTopOf  /  app:layout_constraintTop_toBottomOf app:layout_constraintBottom_toTopOf  /  app:layout_constraintBottom_toBottomOf app:layout_constraintStart_toStartOf  ="@id/ anotherView " /  app:layout_constraintStart_toEndOf app:layout_constraintEnd_toStartOf  /  app:layout_constraintEnd_toEndOf ConstraintLayout : Some Important Attributes
+
+--- slide23.xml ---
+< androidx.constraintlayout.widget.ConstraintLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: app ="http://schemas.android.com/ apk /res-auto"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :id ="@+id/main"  tools :context =".MainActivity" >   < TextView  android :id ="@+id/ tvConstraint "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Constraint Example"  app :layout_constraintTop_toTopOf ="parent"  app :layout_constraintStart_toStartOf ="parent"  app :layout_constraintEnd_toEndOf ="parent"  /> ConstraintLayout                      (activity_main.xml) (1/2)
+
+--- slide24.xml ---
+  < Button  android :id ="@+id/ btnConstraint "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Click Me"  android :layout_marginTop ="50dp"  app :layout_constraintTop_toBottomOf ="@id/ tvConstraint "  app :layout_constraintLeft_toLeftOf ="parent"  app :layout_constraintRight_toRightOf ="parent"  /> </ androidx.constraintlayout.widget.ConstraintLayout > ConstraintLayout                      (activity_main.xml) (2/2)
+
+--- slide25.xml ---
+< androidx.constraintlayout.widget.ConstraintLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: app ="http://schemas.android.com/ apk /res-auto"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :id ="@+id/main"  tools :context =".MainActivity"  android :padding ="10dp" >   <!-- Title  TextView  -->  < TextView  android :id ="@+id/ titleText "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="This is  ConstraintLayout "  android :textSize ="20sp"  android :textStyle ="bold" ConstraintLayout                      (activity_main.xml) (1/3)
+
+--- slide26.xml ---
+ app :layout_constraintTop_toTopOf ="parent"  app :layout_constraintStart_toStartOf ="parent"  app :layout_constraintEnd_toEndOf ="parent"  android :layout_marginTop ="24dp"  />  <!-- Center  ImageView  -->  < ImageView  android :id ="@+id/ centerImage "  android :layout_width ="150dp"  android :layout_height ="150dp"  android :src ="@ android:drawable / ic_menu_camera "  android :contentDescription ="Camera Icon"  app :layout_constraintTop_toBottomOf ="@id/ titleText "  app :layout_constraintStart_toStartOf ="parent"  app :layout_constraintEnd_toEndOf ="parent"  android :layout_marginTop ="40dp"  /> ConstraintLayout                      (activity_main.xml) (2/3)
+
+--- slide27.xml ---
+ <!-- Button Below Image -->  < Button  android :id ="@+id/ btnClick "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Click Me"  app :layout_constraintTop_toBottomOf ="@id/ centerImage "  app :layout_constraintStart_toStartOf ="parent"  app :layout_constraintEnd_toEndOf ="parent"  android :layout_marginTop ="20dp"  /> </ androidx.constraintlayout.widget.ConstraintLayout > ConstraintLayout                      (activity_main.xml) (3/3)
+
+--- slide28.xml ---
+TableLayout  arranges views in a grid-like format using  rows  and  columns , like an HTML table. It is useful for displaying structured data, such as forms or spreadsheets. Each row consists of multiple  TableRow  elements, and  views  within rows can be assigned specific column spans. TableLayout
+
+--- slide29.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < TableLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :id ="@+id/main"  tools :context =".MainActivity"  android :padding ="10dp"  android :background ="#FFFFC0"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :stretchColumns ="1" >  <!-- Row 1 -->  < TableRow >     < TextView  android :text ="Name:"  android :padding ="8dp"  android :textStyle ="bold" />     < EditText  android :hint ="Enter your name"   android :padding ="8dp"  android :layout_width =" match_parent " />   </ TableRow > TableLayout                               (activity_main.xml) (1/4)
+
+--- slide3.xml ---
+Layout Managers (or simply layouts) are said to be extensions of the  ViewGroup  class. They are used to set the position of child Views within the UI we are building.  We can nest the layouts, and therefore we can create arbitrarily complex UIs using a combination of layouts. There is several layout classes in the Android SDK. They can be used, modified or can create your own to make the UI for your  Views ,  Fragments  and  Activities . You can display your contents effectively by using the right combination of layouts. Layouts in Android UI Design
+
+--- slide30.xml ---
+ <!-- Row 2 -->  < TableRow >     < TextView  android :text ="Email:"  android :padding ="8dp"   android :textStyle ="bold" />     < EditText  android :hint ="Enter your email"  android :padding ="8dp"  android :layout_width =" match_parent " />   </ TableRow >   <!-- Row 3 -->  < TableRow >     < TextView  android :text ="Phone:"  android :padding ="8dp"   android :textStyle ="bold" />     < EditText  android :hint ="Enter your phone"  android :padding ="8dp"  android :layout_width =" match_parent " />   </ TableRow > TableLayout                               (activity_main.xml) (1/4)
+
+--- slide31.xml ---
+  <!-- Row 4 (Buttons) -->  < TableRow >     < Button  android :text ="Submit"  android :padding ="8dp"  android :layout_gravity ="center"  android :layout_span ="2" />   </ TableRow > </ TableLayout > TableLayout                               (activity_main.xml) (1/4)
+
+--- slide32.xml ---
+A  BMI Calculator  is an application or tool that calculates a personâ€™s  Body Mass Index (BMI)  based on their weight and height. Formula for BMI: BMI Categories (According to WHO): Underweight:  BMI < 18.5 Normal weight:  18.5 â‰¤ BMI < 24.9 Overweight:  25 â‰¤ BMI < 29.9 Obese:  BMI â‰¥ 30 Example: BMI Calculator
+
+--- slide33.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  android :padding ="10dp"  android :id ="@+id/main"  tools :context =".MainActivity" >    < EditText  android :id ="@+id/ etWeight "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :hint ="Enter Weight (kg)"  android :inputType =" numberDecimal "  /> BMI Calculator                          (activity_main.xml) (1/3)
+
+--- slide34.xml ---
+  < EditText  android :id ="@+id/ etHeight "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :hint ="Enter Height (m)"  android :inputType =" numberDecimal "  />   < Button  android :id ="@+id/ btnCalculate "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Calculate BMI"  android :layout_gravity ="center"  android :layout_marginTop ="16dp" /> BMI Calculator                          (activity_main.xml) (2/3)
+
+--- slide35.xml ---
+ < TextView  android :id ="@+id/ tvResult "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :text ="Your BMI will appear here"  android :textSize ="18sp"  android :paddingTop ="20dp"  android :gravity ="center" /> </ LinearLayout > BMI Calculator                          (activity_main.xml) (3/3)
+
+--- slide36.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.Button import  android.widget.EditText import  android.widget.TextView import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  lateinit  var  etWeight :EditText  lateinit  var  etHeight :  EditText  lateinit  var  btnCalculate :Button  lateinit  var  tvResult :  TextView BMI Calculator                              ( MainActivity.kt ) (1/3)
+
+--- slide37.xml ---
+ override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ()  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main )) { v, insets ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )       insets  }  etWeight  =  findViewById ( R.id. etWeight )  etHeight  =  findViewById ( R.id. etHeight )  btnCalculate  =  findViewById ( R.id. btnCalculate )  tvResult  =  findViewById ( R.id. tvResult ) BMI Calculator                              ( MainActivity.kt ) (2/3)
+
+--- slide38.xml ---
+ btnCalculate .setOnClickListener  {  val  weightStr  =  etWeight . text .toString ();  val  heightStr  =  etHeight . text .toString ()  if  ( weightStr. isNotEmpty () &&  heightStr. isNotEmpty ()) {  val  weight =  weightStr. toDouble ();  val  height =  heightStr. toDouble ()  val  bmi  = weight / (height * height)  val  category =  when  {  bmi  <  18.5  ->  "Underweight"  bmi  in  18.5 .. 24.9  ->  "Normal weight"  bmi  in  25.0 .. 29.9  ->  "Overweight"           else  ->  "Obese"         }  tvResult . text  =  "Your BMI is %.2f \ n You  are % s" . format ( bmi , category)       }  else  {  tvResult . text  =  "Please enter valid weight and height"       } } } } BMI Calculator                              ( MainActivity.kt ) (3/3)
+
+--- slide39.xml ---
+Take Length in feet and inches and then Calculate BMI Take temperature in Fahrenheit and Convert it to Celsius Tasks
+
+--- slide4.xml ---
+LinearLayout : Arranges views in a single row or column (horizontal or vertical). RelativeLayout : Places views relative to parent or other views. ConstraintLayout :  Let's you position and size views using constraints (relative rules). FrameLayout : Designed to hold a single child (but can have multiple, stacked). TableLayout : Arranges views in  rows  and  columns  like a spreadsheet. GridLayout : Flexible layout to arrange items in rows and columns. More modern than  TableLayout . Types of Layouts
+
+--- slide40.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < resources >   < style  name =" btnStyle " >     < item  name =" android:layout_width " >0dp</ item >     < item  name =" android:layout_height " >80dp</ item >     < item  name =" android:layout_columnWeight " >1</ item >     < item  name =" android:layout_rowWeight " >1</ item >     < item  name =" android:textSize " >24sp</ item >     < item  name =" android:layout_margin " >2dp</ item >   </ style > </ resources > Simple Calculator                             (values/styles.xml)
+
+--- slide41.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  android :padding ="10dp"  android :id ="@+id/main"  tools :context =".MainActivity" >  <!-- Display Screen -->  < TextView  android :id ="@+id/ tvInput "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :textSize ="32sp"  android :gravity ="end"  android :background ="#E0E0E0" Simple  Caclulator                     (activity_main.xml) (1/4)
+
+--- slide42.xml ---
+ android :padding ="10dp"  android :layout_margin ="10dp"  android :textColor ="@ android:color /black"  />  <!-- Buttons -->  < GridLayout  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :columnCount ="4"  android :rowCount ="6"  android :layout_margin ="10dp" >  <!-- Row 1 -->  < Button  android :id ="@+id/ btnPercent "  android :text  = "%"   style ="@style/ btnStyle " />     < Button  android :id ="@+id/ btnAC "  android :text  = "AC"    style ="@style/ btnStyle " />     < Button  android :id ="@+id/ btnLeft "  android :text  = " &#x2B05; "                                                           style ="@style/ btnStyle " />     < Button  android :id ="@+id/ btnDivide "  android :text ="Ã·"   style ="@style/ btnStyle " /> Simple  Caclulator                     (activity_main.xml) (2/4)
+
+--- slide43.xml ---
+    <!-- Row 2 -->  < Button  android :id ="@+id/btn7"  android :text ="7"        style ="@style/ btnStyle " />     < Button  android :id ="@+id/btn8"  android :text ="8"        style ="@style/ btnStyle " />     < Button  android :id ="@+id/btn9"  android :text ="9"        style ="@style/ btnStyle " />     < Button  android :id ="@+id/ btnMultiply "  android :text ="Ã—"   style ="@style/ btnStyle " />  <!-- Row 3 -->  < Button  android :id ="@+id/btn4"  android :text ="4"        style ="@style/ btnStyle " />     < Button  android :id ="@+id/btn5"  android :text ="5"        style ="@style/ btnStyle " />     < Button  android :id ="@+id/btn6"  android :text ="6"        style ="@style/ btnStyle " />     < Button  android :id ="@+id/ btnMinus "  android :text ="âˆ’"    style ="@style/ btnStyle " />  <!-- Row 4 -->  < Button  android :id ="@+id/btn1"  android :text ="1"        style ="@style/ btnStyle " />     < Button  android :id ="@+id/btn2"  android :text ="2"        style ="@style/ btnStyle " />     < Button  android :id ="@+id/btn3"  android :text ="3"        style ="@style/ btnStyle " />     < Button  android :id ="@+id/ btnPlus "  android :text ="+"     style ="@style/ btnStyle " /> Simple  Caclulator                     (activity_main.xml) (3/4)
+
+--- slide44.xml ---
+    <!-- Row 5 -->  < Button  android :id ="@+id/ btnPlusMinus "  android :text =" &#x00B1; "   style ="@style/ btnStyle " />     < Button  android :id ="@+id/btn0"  android :text ="0"        style ="@style/ btnStyle " />     < Button  android :id ="@+id/ btnDot "  android :text ="."      style ="@style/ btnStyle " />     < Button  android :id ="@+id/ btnEqual "  android :text ="="   style ="@style/ btnStyle " />   </ GridLayout > </ LinearLayout > Simple  Caclulator                     (activity_main.xml) (4/4)
+
+--- slide45.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  android.widget.Button import  android.widget.TextView import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  private  lateinit  var  tvInput :  TextView  private  lateinit  var  btn_dot : Button  private  lateinit  var  btn_0 : Button  private  lateinit  var  btn_1 : Button  private  lateinit  var  btn_2 : Button  private  lateinit  var  btn_3 : Button  private  lateinit  var  btn_4 : Button Simple Calculator                         ( MainActivity.kt ) (1/7)
+
+--- slide46.xml ---
+  private  lateinit  var  btn_5 : Button  private  lateinit  var  btn_6 : Button  private  lateinit  var  btn_7 : Button  private  lateinit  var  btn_8 : Button  private  lateinit  var  btn_9 : Button  private  lateinit  var  btn_percent : Button  private  lateinit  var  btn_ac : Button  private  lateinit  var  btn_left : Button  private  lateinit  var  btn_devide : Button  private  lateinit  var  btn_multiply : Button  private  lateinit  var  btn_minus : Button  private  lateinit  var  btn_plus : Button  private  lateinit  var  btn_equal : Button  private  lateinit  var  btn_plus_minus : Button Simple Calculator                         ( MainActivity.kt ) (2/7)
+
+--- slide47.xml ---
+  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState )  enableEdgeToEdge ()  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main )) { v, insets ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )        insets  }  tvInput  =  findViewById ( R.id. tvInput )  btn_dot  =  findViewById ( R.id. btnDot )  btn_0  =  findViewById (R.id. btn0 );   btn_1  =  findViewById (R.id. btn1 )  btn_2  =  findViewById (R.id. btn2 );   btn_3  =  findViewById (R.id. btn3 )  btn_4  =  findViewById (R.id. btn4 );   btn_5  =  findViewById (R.id. btn5 )  btn_6  =  findViewById (R.id. btn6 );   btn_7  =  findViewById (R.id. btn7 )  btn_8  =  findViewById (R.id. btn8 );   btn_9  =  findViewById (R.id. btn9 ) Simple Calculator                         ( MainActivity.kt ) (3/7)
+
+--- slide48.xml ---
+ btn_percent  =   findViewById ( R.id. btnPercent )  btn_ac  =   findViewById ( R.id. btnAC )  btn_left  =  findViewById ( R.id. btnLeft )  btn_plus_minus  =  findViewById ( R.id. btnPlusMinus )   btn_minus  =  findViewById ( R.id. btnMinus )  btn_plus  =  findViewById ( R.id. btnPlus )  btn_multiply  =  findViewById ( R.id. btnMultiply )  btn_devide  =  findViewById ( R.id. btnDivide )  btn_equal  =  findViewById ( R.id. btnEqual )  btn_dot .setOnClickListener  {  tvInput .append ( "." )  }  btn_0 .setOnClickListener  {  tvInput .append ( "0" )  }  btn_1 .setOnClickListener  {  tvInput .append ( "1" )  }  btn_2 .setOnClickListener  {  tvInput .append ( "2" )  }  btn_3 .setOnClickListener  {  tvInput .append ( "3" )  }  btn_4 .setOnClickListener  {  tvInput .append ( "4" )  }  btn_5 .setOnClickListener  {  tvInput .append ( "5" )  } Simple Calculator                         ( MainActivity.kt ) (4/7)
+
+--- slide49.xml ---
+ btn_6 .setOnClickListener  {  tvInput .append ( "6" )  }  btn_7 .setOnClickListener  {  tvInput .append ( "7" )  }  btn_8 .setOnClickListener  {  tvInput .append ( "8" )  }  btn_9 .setOnClickListener  {  tvInput .append ( "9" )  }  btn_plus .setOnClickListener  {  tvInput .append ( " + " )  }  btn_minus .setOnClickListener  {  tvInput .append ( " âˆ’ " )  }  btn_multiply .setOnClickListener  {  tvInput .append ( " Ã— " ) }  btn_devide .setOnClickListener  {  tvInput .append ( " Ã· " )  }  btn_percent .setOnClickListener  {  tvInput .append ( " % " ) }  btn_ac .setOnClickListener  {  tvInput .setText ( "" )  }  btn_left .setOnClickListener  {  val  text =  tvInput . text .toString ()  if  ( text. isNotEmpty ()) {  // removes last (rightmost) character  tvInput . text  =  text. dropLast ( 1 )        }     } Simple Calculator                         ( MainActivity.kt ) (5/7)
+
+--- slide5.xml ---
+AbsoluteLayout : Places views at exact (x, y) coordinates. (âš  Deprecated) CoordinatorLayout : Advanced layout for implementing Material Design behaviors. Works with components like  AppBarLayout ,  CollapsingToolbarLayout . Constraint-based Containers (special cases) AppBarLayout :  For Material Design app bars. CollapsingToolbarLayout : Expand/collapse toolbar with scrolling. DrawerLayout :  For navigation drawers. NavigationView :  For menus in side drawers. Types of Layouts
+
+--- slide50.xml ---
+ btn_plus_minus .setOnClickListener  {  val  numberText  =  tvInput . text .toString ()  // Convert safely to Int (default to 0 if invalid)  val  number =  numberText. toIntOrNull () ?:  0  val  newNumber  = -number  // Change sign   // Set updated text  tvInput . text  =  newNumber.toString ()      }  btn_equal .setOnClickListener  {  val  parts =  tvInput . text .toString (). split ( " " )  if  ( parts. size  ==  3 ) {  try  {  val  num1 = parts[ 0 ]. toDouble ()  val  op = parts[ 1 ]  val  num2 = parts[ 2 ]. toDouble () Simple Calculator                         ( MainActivity.kt ) (6/7)
+
+--- slide51.xml ---
+ val  result =  when  (op) {  "%"  -> num1 / num2 *  100  "+"  -> num1 + num2  "âˆ’"  -> num1 - num2  "Ã—"  -> num1 * num2  "Ã·"  -> num1 / num2  else  ->  null  }  tvInput . text  = result?. toString () ?:  "Error 1"  }   catch  (e: Exception) {  tvInput . text  =  "Error 2"  }       }     }  } } Simple Calculator                         ( MainActivity.kt ) (7/7)
+
+--- slide52.xml ---
+Use  ConstraintLayout  for responsiveness Use  dp  for dimensions &  sp  for text Support dark mode & multiple screen sizes Keep UI simple & intuitive Separate UI (XML) and logic (Kotlin) Best Practices for UI Design
+
+--- slide6.xml ---
+A  LinearLayout  aligns each of the view in a single direction either a  vertical  or a  horizontal  manner.  A layout in vertical manner has a single column of views, whereas in a layout in horizontal manner, has a single row of views. It supports a  weight attribute  for each view that can control the relative size of each view within the available space. However, excessive nesting of Linear     Layouts can lead to performance issues,     so itâ€™s best for straightforward layouts     with a few elements. LinearLayout
+
+--- slide7.xml ---
+android:orientation :  Sets direction of children (horizontal or vertical). android:layout_weight  (child attribute): Distributes extra space proportionally between children android:gravity :  Controls alignment of all children inside the  LinearLayout  (e.g.,  center ,  left ,  right ,  bottom ). android:layout_gravity  (child attribute) â†’ Aligns a specific child within its parent. android:padding :  Space inside the layout edges. android:layout_margin  (child attribute): Space outside a child view. android:background :  Sets a background color/drawable for the layout. LinearLayout : Some Important Attributes
+
+--- slide8.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  android :id ="@+id/main"  tools :context =".MainActivity" >   < TextView  android :id ="@+id/ tv_message "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="This is  LinearLayout "  android :textSize ="18sp"  android :layout_gravity =" center_horizontal "  android :padding ="10dp"  android :layout_marginTop ="50dp" LinearLayout                             (activity_main.xml) (1/2)
+
+--- slide9.xml ---
+ android :layout_marginBottom ="10dp"  />   < Button  android :id ="@+id/ btn_click_me "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Click Me"  android :layout_gravity =" center_horizontal "  /> </ LinearLayout > LinearLayout                             (activity_main.xml) (2/2)
+

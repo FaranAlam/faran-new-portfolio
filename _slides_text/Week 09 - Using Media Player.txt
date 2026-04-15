@@ -1,0 +1,52 @@
+﻿
+--- slide1.xml ---
+International Islamic University H-10, Islamabad, Pakistan Mobile Applications Development  Week 09 Using MediaPlayer in Android   Engr. Rashid Farid Chishti https://chishti.web.app http://youtube.com/rfchishti
+
+--- slide10.xml ---
+onStop () Called when the activity is  no longer visible  to the user.  onRestart () Called  before  onStart ()  when the activity is being restarted after being stopped onDestroy () Called  before the activity is destroyed  (when the app is closed or system kills it). The lifecycle makes sure your app behaves properly when users switch between apps, rotate the screen, or lock/unlock the phone. 2. Key Lifecycle Methods 10
+
+--- slide11.xml ---
+MediaPlayer holds system resources (audio, video decoders). Not releasing it can cause your app (or others) to fail to play audio. Call   mediaPlayer ?.release()  when the Activity/Fragment is destroyed. Reuse a single  MediaPlayer  object instead of creating new ones unnecessarily.  If you need to play a new file, call:  mediaPlayer ?.reset();  mediaPlayer ?. setDataSource (" new_file_path ");  mediaPlayer ?.prepare() Handle  Activity Lifecycle onPause ()  â†’ pause playback if user leaves screen. onResume ()  â†’ resume if appropriate. onStop ()  â†’ release heavy resources if app is not visible For streaming, playlists, buffering, or advanced controls, use  ExoPlayer Best Practices 11
+
+--- slide12.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :id ="@+id/main"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  android :gravity ="center"  tools :context =".MainActivity" >   < SeekBar  android :id ="@+id/ seek_bar "  android :layout_width =" match_parent "  android :layout_height ="50dp"  android :background ="#FF00FF" /> 3. Adding  SeekBar                    (activity_main.xml) (1/2) 12
+
+--- slide13.xml ---
+  < LinearLayout  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :gravity ="center" >     < Button  android :id ="@+id/ playButton "  android :text ="â–¶ Play"  android :layout_width =" wrap_content "  android :layout_height =" wrap_content " />     < Button  android :id ="@+id/ pauseButton "  android :text =" â¸  Pause"  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :layout_marginStart ="16dp" />   </ LinearLayout > </ LinearLayout > 3. Adding  SeekBar                    (activity_main.xml) (2/2) 13
+
+--- slide14.xml ---
+package  com.example.myfirstapp import  android.widget.Button import  android.media.MediaPlayer import  android.os.Bundle import  android.widget.SeekBar import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat import  kotlinx.coroutines.CoroutineScope import  kotlinx.coroutines.Dispatchers import  kotlinx.coroutines.cancel import  kotlinx.coroutines.cancelChildren import  kotlinx.coroutines.delay import  kotlinx.coroutines.launch class  MainActivity :  AppCompatActivity () {  var  currentDuration :Int  =  0 3. Adding  SeekBar                         ( MainActivity.kt ) (1/4) 14
+
+--- slide15.xml ---
+  private var  mediaPlayer : MediaPlayer? =  null  lateinit  var  seek_bar :  SeekBar  // This tells coroutines in this scope to run on the Main (UI) thread by default.   // In Android, you must update UI elements (like  SeekBar ,  TextView , Button, etc.)   // only from the main thread  var  myCoroutineScope  =  CoroutineScope ( Dispatchers. Main )  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState );  enableEdgeToEdge ()  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets     }  seek_bar  =  findViewById ( R.id. seek_bar )  val  playButton : Button =  findViewById ( R.id. playButton )  val  pauseButton : Button =  findViewById ( R.id. pauseButton )  mediaPlayer  =  MediaPlayer.create ( this , R.raw. s_112 ) 3. Adding  SeekBar                         ( MainActivity.kt ) (2/4) 15
+
+--- slide16.xml ---
+ seek_bar . max  =  mediaPlayer !!. duration   playButton.setOnClickListener  {  mediaPlayer ?.start()  myCoroutineScope . coroutineContext . cancelChildren ()  // old jobs stopped, but you can still do:  myCoroutineScope . launch ( Dispatchers. Main )  {  while  ( true ) {  if  ( mediaPlayer  !=  null ) {  currentDuration  =  mediaPlayer !!. currentPosition  seek_bar .setProgress ( currentDuration )             delay( 1000 )           }         }       }     } 3. Adding  SeekBar                         ( MainActivity.kt ) (3/4) 16
+
+--- slide17.xml ---
+ pauseButton.setOnClickListener  {  if  ( mediaPlayer ?. isPlaying  ==  true ) {  mediaPlayer ?.pause()       }     }  }  override fun  onDestroy () {  super .onDestroy ();  // Cancels the entire scope, including all child coroutines.  myCoroutineScope . cancel ()  // Releases the MediaPlayer resources.  mediaPlayer ?.release();  mediaPlayer  =  null  }  override fun  onPause () {  super .onPause ()  if  ( mediaPlayer ?. isPlaying  ==  true ) {   mediaPlayer ?.pause()     } }  } 3. Adding  SeekBar                         ( MainActivity.kt ) (4/4) 17
+
+--- slide2.xml ---
+A class in Android used to play audio and video files. Supports multiple formats (MP3, AAC, OGG, WAV, etc.). Use cases: Playing background music. Playing sound effects in apps/games. Streaming audio from the internet. Basic MediaPlayer Workflow Create MediaPlayer instance Set data source (local file or URL) Prepare MediaPlayer Start playback Control playback (pause, stop, reset, release) What is MediaPlayer ? 2
+
+--- slide3.xml ---
+1. Adding mp3 File 3
+
+--- slide4.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :id ="@+id/main"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="horizontal"  android :gravity ="center"  tools :context =".MainActivity" >   < Button  android :id ="@+id/ playButton "  android :text ="â–¶ Play"  android :layout_width =" wrap_content "  android :layout_height =" wrap_content " /> 1. Playing mp3 File from raw  (activity_main.xml) (1/2) 4
+
+--- slide5.xml ---
+  < Button  android :id ="@+id/ pauseButton "  android :text =" â¸  Pause"  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :layout_marginStart ="16dp" /> </ LinearLayout > 1. Playing mp3 File from raw  (activity_main.xml) (2/2) 5
+
+--- slide6.xml ---
+package  com.example.myfirstapp import  android.widget.Button import  android.media.MediaPlayer import  android.os.Bundle import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  private var  mediaPlayer : MediaPlayer? =  null   override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState );  enableEdgeToEdge ()  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets  } 1. Playing mp3 File from raw       ( MainActivity.kt ) (1/2) 6
+
+--- slide7.xml ---
+ val  playButton : Button =  findViewById ( R.id. playButton )  val  pauseButton : Button =  findViewById ( R.id. pauseButton )  mediaPlayer  =  MediaPlayer.create ( this , R.raw. s_112 )   playButton.setOnClickListener  {  mediaPlayer ?.start()  }   pauseButton.setOnClickListener  {  if  ( mediaPlayer ?. isPlaying  ==  true ) {  mediaPlayer ?.pause() }     }  }  override fun  onDestroy (){  super .onDestroy ();  mediaPlayer ?.release();  mediaPlayer  =  null  }  override  fun  onPause ()  {  super .onPause ();  mediaPlayer ?.pause() }   override  fun  onResume () {  super .onResume ();      if ( mediaPlayer ?. isPlaying  ==  false ) {  mediaPlayer ?.start() }   } } 1. Playing mp3 File from raw       ( MainActivity.kt ) (2/2) 7
+
+--- slide8.xml ---
+An  Activity  in Android is basically a single screen of your app (like MainActivity). The  Activity Lifecycle  is the set of  states  an Activity goes through from when itâ€™s first created until itâ€™s destroyed. Android provides  lifecycle callback methods  so you can run code when these state changes happen. 2. Activity Life Cycle 8
+
+--- slide9.xml ---
+onCreate () Called  once  when the activity is created. Used for initialization (UI setup, listeners, variables). onStart () Called when the activity becomes  visible  to the user but not yet interactive. onResume () Called when the activity is  visible and interactive  (user can see and interact). onPause () Called when the activity is  partially hidden  (e.g., another activity appears on top). Activity is still alive but not in the foreground. 2. Key Lifecycles Methods 9
+

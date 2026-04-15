@@ -24,15 +24,14 @@ export default function AdminRequestsPage() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [processingId, setProcessingId] = useState<string | null>(null);
-  const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "faran.bsce40@iiu.edu.pk"; // Your admin email
 
   // Fetch download requests
   const fetchRequests = useCallback(async () => {
     setLoading(true);
     try {
       const url = statusFilter === 'all' 
-        ? `/api/approve-download?adminEmail=${adminEmail}`
-        : `/api/approve-download?adminEmail=${adminEmail}&status=${statusFilter}`;
+        ? `/api/approve-download`
+        : `/api/approve-download?status=${statusFilter}`;
       
       const response = await fetch(url);
       const data = await response.json();
@@ -45,7 +44,7 @@ export default function AdminRequestsPage() {
     } finally {
       setLoading(false);
     }
-  }, [statusFilter, adminEmail]);
+  }, [statusFilter]);
 
   useEffect(() => {
     fetchRequests();
@@ -61,8 +60,7 @@ export default function AdminRequestsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           requestId,
-          action: 'approve',
-          adminEmail
+          action: 'approve'
         })
       });
 
@@ -92,8 +90,7 @@ export default function AdminRequestsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           requestId,
-          action: 'reject',
-          adminEmail
+          action: 'reject'
         })
       });
 

@@ -1,0 +1,88 @@
+﻿
+--- slide1.xml ---
+International Islamic University H-10, Islamabad, Pakistan Mobile Applications Development  Week 01 Introduction to Android Studio  Engr. Rashid  Farid  Chishti http://youtube.com/rfchishti http://sites.google.com/site/chishti
+
+--- slide10.xml ---
+Phone and Tablets Empty Views Activity Press Next Button Creating a New Android Project
+
+--- slide11.xml ---
+Name My First App Package Name com.example.myfirstapp Press Next Button Creating a New Android Project
+
+--- slide12.xml ---
+Run App Build Sync
+
+--- slide13.xml ---
+
+
+--- slide14.xml ---
+
+
+--- slide15.xml ---
+
+
+--- slide16.xml ---
+
+
+--- slide17.xml ---
+
+
+--- slide18.xml ---
+
+
+--- slide19.xml ---
+
+
+--- slide2.xml ---
+Android OS is based on Linux kernel and provides a framework for building mobile applications. Key Components: Linux Kernel:  Handles hardware interactions, memory, power, and security. Libraries & Android Runtime (ART):  Provide core functionalities such as graphics, SQLite, and runtime for apps. Application Framework:  Contains APIs like Activity Manager, Notification Manager, and Content Providers. Applications:  The top layer where user-installed and system apps run. Overview of Android OS and Its Architecture
+
+--- slide20.xml ---
+Open  Settings  on your phone. Scroll down and tap  "About phone"  (sometimes under System on some devices). Find  "Build number". Tap  "Build number"  7 times quickly. A message will appear:  "You are now a developer!â€œ Go back to  Settings > System  (or  Settings  >  Additional settings  depending on your device). Youâ€™ll now see a new menu called  Developer options. From there, you can enable options like  USB debugging, Wireless Debugging, Stay Awake,  Enable Developer Options on an Android phone
+
+--- slide21.xml ---
+cd C:\Users\Chishti\AppData\Local\Android\Sdk\platform-tools adb  pair        192.168.100.37:40695 adb  connect 192.168.100.37:39625 adb  devices Enable Wireless Debugging
+
+--- slide22.xml ---
+manifests/: AndroidManifest.xml  â†’ Defines permissions, activities. java/ or  kotlin /: App source code, activities, services. res/ (resources): layout/ : XML UI designs. drawable/ : Images and icons.  values/ : Strings, colors, styles. Gradle Scripts: build.gradle  (Project):  Dependencies, repositories. build.gradle  (App):  SDK versions, libraries. settings.gradle :  Includes project modules. Android Project Structure
+
+--- slide23.xml ---
+Gradle is Androidâ€™s build automation tool. Project-level  build.gradle : Defines global configurations, repositories. App-level  build.gradle : SDK versions ( minSdkVersion ,  targetSdkVersion ). Dependencies: libraries like  androidx , material. Build types: debug, release. settings.gradle : Declares included modules. Understanding Gradle Scripts
+
+--- slide24.xml ---
+Default activity layout ( activity_main.xml ): Contains  TextView  with 'Hello World!'. MainActivity.kt  or  MainActivity.java : Kotlin/Java code to handle activity lifecycle. Build and Run: Use emulator (AVD) or connect physical device. App Launch: Displays 'Hello World!' on screen. Creating and Running 'Hello World' App
+
+--- slide25.xml ---
+ MainActivity.kt
+
+--- slide26.xml ---
+activity_main.xml (UI Layout)
+
+--- slide27.xml ---
+plugins  {  alias( libs . plugins . android . application )     alias( libs . plugins . kotlin . android ) } android  {  namespace  =  " com.example.myfirstapp "  compileSdk  =  36  defaultConfig  {  applicationId  =  " com.example.myfirstapp "  minSdk  =  24  targetSdk  =  36  versionCode  =  1  versionName  =  "1.0"  testInstrumentationRunner  =  " androidx.test.runner.AndroidJUnitRunner "  } Gradle Script                                 build.gradle.kts (:app)
+
+--- slide28.xml ---
+ buildTypes  {  release  {  isMinifyEnabled  =  false  proguardFiles (  getDefaultProguardFile ( "proguard-android-optimize.txt" ),  "proguard-rules.pro"  )  }     }  compileOptions  {  sourceCompatibility  = JavaVersion. VERSION_11  targetCompatibility  = JavaVersion. VERSION_11  }  kotlinOptions  {  jvmTarget  =  "11"  } } Gradle Script                                 build.gradle.kts (:app)
+
+--- slide29.xml ---
+dependencies  {  implementation ( libs . androidx . core . ktx )  implementation ( libs . androidx . appcompat )  implementation ( libs . material )  implementation ( libs . androidx . activity )  implementation ( libs . androidx . constraintlayout )  testImplementation ( libs . junit )  androidTestImplementation ( libs . androidx . junit )  androidTestImplementation ( libs . androidx . espresso . core ) } Gradle Script                                 build.gradle.kts (:app)
+
+--- slide3.xml ---
+Linux Kernel: Hardware drivers, power management, process and memory management. Hardware Abstraction Layer (HAL): Standard interfaces for hardware (camera, GPS, sensors). Android Runtime (ART): Executes apps, replaces Dalvik VM, uses ahead-of-time compilation. Native C/C++ Libraries: SQLite (database), OpenGL ES (graphics), WebKit (browser engine). Application Framework: Activity Manager, Content Providers, Resource Manager. Applications: Pre-installed apps + User apps. Android OS Architecture (Layered Model)
+
+--- slide4.xml ---
+Android:  Open-source mobile operating system by Google. Based on Linux kernel for process, memory, and security management. Powers smartphones, tablets, TVs, and wearables. Main languages: Java, Kotlin (official), and C++. IDE: Android Studio (official development environment). Offers SDK tools, emulator, debugging, and profiling. Introduction to Android Development
+
+--- slide5.xml ---
+Largest mobile OS market share worldwide. Vast ecosystem of devices and manufacturers. Google Play Store with millions of apps. Active developer community and open-source contributions. Job opportunities in app development, IoT, and embedded systems. Why Android Development ?
+
+--- slide6.xml ---
+Download installer from:  https://developer.android.com/studio The size of installation file is around  1.4 GB Run the installer â†’ Choose standard setup. Install required components: Android SDK, Emulator, AVD. First run will set up SDK path and updates. Installing Android Studio (Step by Step)
+
+--- slide7.xml ---
+The following are the system requirements for Android Studio on Windows. 64-bit MicrosoftÂ® WindowsÂ® 8/10/11 x86_64 CPU architecture; 2nd generation Intel Core or newer, or AMD CPU with support for a Windows Hypervisor 8 GB RAM or more 8 GB of available disk space minimum (IDE + Android SDK + Android Emulator) 1280 x 800 minimum screen resolution Android Studio system requirements
+
+--- slide8.xml ---
+SDK Manager: Install API levels, build tools, system images. AVD Manager: Create and configure virtual devices (Pixel, Nexus, etc.). Select Android version and hardware profile. Plugins and Extensions: Enable Kotlin support, Jetpack libraries. Add third-party libraries if needed. Setting up SDK Tools and AVD
+
+--- slide9.xml ---
+Open Android Studio â†’ Click 'New Project'. Creating a New Android Project
+

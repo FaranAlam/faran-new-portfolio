@@ -1,0 +1,64 @@
+﻿
+--- slide1.xml ---
+International Islamic University H-10, Islamabad, Pakistan Mobile Applications Development  Week 08 Using Notifications in Android   Engr. Rashid Farid Chishti https://chishti.web.app http://youtube.com/rfchishti
+
+--- slide10.xml ---
+  private fun  createNotificationChannel () {  // From Android 8.0 (API 26), notifications must belong to a channel.  if  ( Build.VERSION. SDK_INT  >=  Build.VERSION_CODES. O ) {  val  name =  " MyChannel "  val  descriptionText  =  "Channel for app notifications"  val  importance =  NotificationManager. IMPORTANCE_HIGH  val  channel =  NotificationChannel ( CHANNEL_ID , name, importance). apply  {  description  =  descriptionText       }  // Register channel with the systemâ€™s  NotificationManager  val  notificationManager  =  getSystemService ( Context. NOTIFICATION_SERVICE )  as  NotificationManager  notificationManager.createNotificationChannel (channel)     }   } 1. Notification                                ( MainActivity.kt ) (3/5) 10
+
+--- slide11.xml ---
+  private fun  showNotification () {  val  builder =  NotificationCompat.Builder ( this ,  CHANNEL_ID )       . setSmallIcon ( R.drawable. ic_alert )       . setContentTitle ( "Hello Android" )       . setContentText ( "This is your first notification  ðŸš€ " )       . setPriority ( NotificationCompat. PRIORITY_HIGH )  // Check notification permission (Android 13+)  if  ( Build.VERSION. SDK_INT  >=  Build.VERSION_CODES. TIRAMISU ) {  if  ( checkSelfPermission ( android.Manifest.permission. POST_NOTIFICATIONS )                                            !=  PackageManager. PERMISSION_GRANTED  ) {  // Ask for permission  requestPermissions ( arrayOf ( android.Manifest.permission. POST_NOTIFICATIONS ) ,  100 )  return  }     } 1. Notification                                ( MainActivity.kt ) (4/5) 11
+
+--- slide12.xml ---
+ //  NotificationManagerCompat  is a helper class to send notifications.  with ( NotificationManagerCompat.from ( this ))  {   // notify(id, notification) actually displays it.  notify( NOTIFICATION_ID ++,  builder.build ())     }  } } // CHANNEL_ID: Unique ID for the notification channel // (required on Android 8+). // NOTIFICATION_ID: Integer counter to distinguish multiple // notifications. Each time you call notify(), it increments // so new notifications donâ€™t overwrite the old ones. 1. Notification                                ( MainActivity.kt ) (5/5) 12
+
+--- slide13.xml ---
+Letâ€™s extend the example so that when the user taps the notification, it will open your app (or a different activity inside your app). 2. Adding Actions to Notifications 13
+
+--- slide14.xml ---
+Select  App Click  File   >  New  >  Activity  >  Empty Views Activity 2. Adding Actions 14
+
+--- slide15.xml ---
+Activity Name Activity_Second Layout Name activity_second Press Finish Botton 2. Adding Actions 15
+
+--- slide16.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < manifest  xmlns: android ="http://schemas.android.com/ apk /res/android" >   < uses-permission  android :name =" android.permission.POST_NOTIFICATIONS " />   < application  android :allowBackup ="true"  android :dataExtractionRules ="@xml/ data_extraction_rules "  android :fullBackupContent ="@xml/ backup_rules "  android :icon ="@mipmap/ ic_launcher "             android :label ="@string/ app_name "  android :roundIcon ="@mipmap/ ic_launcher_round "  android :supportsRtl ="true"  android :theme ="@style/ Theme.MyFirstApp " >     < activity  android :name =". Activity_Second "      android :exported ="true" />     < activity  android :name =".MainActivity"         android :exported ="true" >       < intent-filter >         < action    android :name =" android.intent.action.MAIN "  />         < category  android :name =" android.intent.category.LAUNCHER "  />       </ intent-filter >     </ activity >   </ application > </ manifest > 2. Adding Actions                       (AndroidManifest.xml) 16
+
+--- slide17.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :id ="@+id/main"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  tools :context =". Activity_Second " >   < TextView  android :id ="@+id/ tv_message "  android :layout_width =" wrap_content "  android :layout_height =" wrap_content "  android :text ="Opened from Notification!"  android :layout_margin ="20dp"  /> </ LinearLayout > 2. Adding Actions                         (activity_second.xml) 17
+
+--- slide18.xml ---
+package  com.example.myfirstapp import  android.os.Bundle import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  Activity_Second  :  AppCompatActivity () {  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState );  enableEdgeToEdge ()  setContentView ( R.layout. activity_second )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets  }   } } 2. Adding Actions                           ( Activity_Second.kt ) 18
+
+--- slide19.xml ---
+  private fun  showNotification () {  // replace  showNotification () function with this  // Intent to open  SecondActivity  val  intent = Intent( this ,  Activity_Second :: class . java ). apply  {  // Clear the current taskâ€™s back stack.     // Start  Activity_Second  as the root activity.     // If the user presses Back, the app will exit instead of going back to the     // previous Main Activity.  flags  =  Intent. FLAG_ACTIVITY_NEW_TASK  or  Intent. FLAG_ACTIVITY_CLEAR_TASK  }  val  pendingIntent :  PendingIntent  =  PendingIntent.getActivity (  this ,  0 , intent,  PendingIntent. FLAG_IMMUTABLE  )  val  builder =  NotificationCompat.Builder ( this ,  " my_channel_id " )       . setSmallIcon ( android.R.drawable. ic_dialog_info )       . setContentTitle ( "Hello from  MyApp " )       . setContentText ( "Tap to open  SecondActivity " )       . setPriority ( NotificationCompat. PRIORITY_DEFAULT )       . setContentIntent ( pendingIntent )  // Attach  PendingIntent  . setAutoCancel ( true )  // Dismiss notification when tapped 2. Adding Actions                         ( MainActivity.kt ) (1/2) 19
+
+--- slide2.xml ---
+In Android,  Notifications  are messages that your app shows  outside its UI , usually in the deviceâ€™s  status bar and notification drawer , to inform the user about something important. A Notification is a way for an app to alert the user about events, updates, or actions that need attention, even when the app is not running in the foreground. Examples of Notifications A new WhatsApp message A missed call alert A calendar reminder A download completed message What are Notifications? 2
+
+--- slide20.xml ---
+    // Check notification permission (Android 13+)  if  ( Build.VERSION. SDK_INT  >=  Build.VERSION_CODES. TIRAMISU ) {  if  ( checkSelfPermission ( android.Manifest.permission. POST_NOTIFICATIONS )                                             !=  PackageManager. PERMISSION_GRANTED ) {  // Ask for permission  requestPermissions ( arrayOf ( android.Manifest.permission. POST_NOTIFICATIONS ) ,  100 )  return  }     }     with ( NotificationManagerCompat.from ( this ))  {  notify( NOTIFICATION_ID ,  builder.build ())     } } 2. Adding Actions                         ( MainActivity.kt ) (2/2) 20
+
+--- slide21.xml ---
+Always create channels for better user control. Use priority levels appropriately. Avoid spamming users. Use expandable notifications for more details. Support notification actions for quick tasks. Best Practices 21
+
+--- slide3.xml ---
+Key Features Appears as an  icon  in the status bar. Can expand in the  notification drawer  with more details. Can have  actions  (e.g., Reply, Mark as Read, Snooze). Can make  sounds ,  vibrations , or  lights  depending on importance. Basic Steps to Create a Notification Create a  Notification Channel  (Android 8.0+). Use  NotificationCompat.Builder  to define content. Use  NotificationManager  to issue the notification. What are Notifications? 3
+
+--- slide4.xml ---
+Components: NotificationManager  â†’ Manages notifications. NotificationChannel  (Android 8.0+) â†’ Categorizes notifications. NotificationCompat.Builder  â†’ Builds notification content. Types of Notifications: Simple Text Notification â†’ Title + Text Notifications with Actions â†’ Reply, Dismiss, Open App Expandable Notification â†’ With big text or Big Picture Foreground Service Notification â†’ For ongoing tasks like music players or downloads Overview of Android Notification System 4
+
+--- slide5.xml ---
+1. Notification: Add an Icon 5
+
+--- slide6.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < manifest  xmlns: android ="http://schemas.android.com/ apk /res/android" >   < uses-permission  android :name =" android.permission.POST_NOTIFICATIONS " />  < application  android :allowBackup ="true"  android :dataExtractionRules ="@xml/ data_extraction_rules "  android :fullBackupContent ="@xml/ backup_rules "  android :icon ="@mipmap/ ic_launcher "             android :label ="@string/ app_name "  android :roundIcon ="@mipmap/ ic_launcher_round "  android :supportsRtl ="true"  android :theme ="@style/ Theme.MyFirstApp " >     < activity  android :name =".MainActivity"         android :exported ="true" >       < intent-filter >         < action    android :name =" android.intent.action.MAIN "  />         < category  android :name =" android.intent.category.LAUNCHER "  />       </ intent-filter >     </ activity >   </ application > </ manifest > 1. Notification: Add Permission          (AndroidManifest.xml) 6
+
+--- slide7.xml ---
+<? xml version ="1.0"  encoding ="utf-8" ?> < LinearLayout  xmlns: android ="http://schemas.android.com/ apk /res/android"  xmlns: tools ="http://schemas.android.com/tools"  android :id ="@+id/main"  android :layout_width =" match_parent "  android :layout_height =" match_parent "  android :orientation ="vertical"  android :gravity ="bottom"  tools :context =".MainActivity" >   < Button  android :id ="@+id/ btn_show_notification "  android :layout_width =" match_parent "  android :layout_height =" wrap_content "  android :textSize ="32dp"  android :layout_margin ="20dp"  android :text ="Show Notification"  /> </ LinearLayout > 1. Notification                                   (activity_main.xml) 7
+
+--- slide8.xml ---
+package  com.example.myfirstapp import  android.app.NotificationChannel import  android.app.NotificationManager import  android.widget.Button import  android.content.Context import  android.content.pm.PackageManager import  android.os.Build import  android.os.Bundle import  androidx.activity.enableEdgeToEdge import  androidx.appcompat.app.AppCompatActivity import  androidx.core.app.NotificationCompat import  androidx.core.app.NotificationManagerCompat import  androidx.core.view.ViewCompat import  androidx.core.view.WindowInsetsCompat class  MainActivity :  AppCompatActivity () {  val  CHANNEL_ID  =  " my_channel_id "   var  NOTIFICATION_ID  =  1 1. Notification                                ( MainActivity.kt ) (1/5) 8
+
+--- slide9.xml ---
+  override fun  onCreate ( savedInstanceState : Bundle?) {  super .onCreate ( savedInstanceState );  enableEdgeToEdge ()  setContentView ( R.layout. activity_main )  ViewCompat.setOnApplyWindowInsetsListener ( findViewById ( R.id. main ))  {  v, insets  ->  val  systemBars  =  insets.getInsets ( WindowInsetsCompat.Type.systemBars ())  v.setPadding ( systemBars. left ,  systemBars. top ,  systemBars. right ,  systemBars. bottom )  insets     }  // Calls a helper function to create a notification channel (for Android 8+).  createNotificationChannel ()   // Step 1: Create channel once   // Step 2: Find button and set listener  val  button =  findViewById <Button>( R.id. btn_show_notification )  button.setOnClickListener  {  showNotification ()     }  } 1. Notification                                ( MainActivity.kt ) (2/5) 9
+

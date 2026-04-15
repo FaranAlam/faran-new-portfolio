@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { sendApprovalEmail, sendRejectionEmail } from '@/lib/email';
+import { auth } from '@/auth';
 import { 
   getRequest,
   getRequests,
@@ -10,16 +11,16 @@ import {
 
 export async function POST(request: NextRequest) {
   try {
-    const { requestId, action, adminEmail } = await request.json();
+    const session = await auth();
 
-    // Validate admin
-    const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'faran.bsce40@iiu.edu.pk';
-    if (adminEmail !== ADMIN_EMAIL) {
+    if (!session?.user || session.user.role !== 'admin') {
       return NextResponse.json(
         { success: false, message: 'Unauthorized' },
-        { status: 403 }
+        { status: 401 }
       );
     }
+
+    const { requestId, action } = await request.json();
 
     if (!requestId || !action) {
       return NextResponse.json(
@@ -120,17 +121,16 @@ export async function POST(request: NextRequest) {
 // GET endpoint to view all pending requests (admin only)
 export async function GET(request: NextRequest) {
   try {
-    const adminEmail = request.nextUrl.searchParams.get('adminEmail');
-    const status = request.nextUrl.searchParams.get('status');
+    const session = await auth();
 
-    // Validate admin
-    const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'faran.bsce40@iiu.edu.pk';
-    if (adminEmail !== ADMIN_EMAIL) {
+    if (!session?.user || session.user.role !== 'admin') {
       return NextResponse.json(
         { success: false, message: 'Unauthorized' },
-        { status: 403 }
+        { status: 401 }
       );
     }
+
+    const status = request.nextUrl.searchParams.get('status');
 
     let requests = await getRequests(status ?? undefined);
 

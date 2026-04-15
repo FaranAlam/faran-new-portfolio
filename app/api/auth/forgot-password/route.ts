@@ -2,16 +2,30 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
 import { getDatabase } from "@/lib/mongodb";
-
-function normalizeEmail(value: string | undefined | null) {
-  return (value || "").trim().toLowerCase();
-}
+import { getAdminByEmail, normalizeEmail } from "@/lib/admin-auth";
+import { getClientIp, rateLimit, RateLimits } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIp(req);
+    const limitResult = rateLimit(`forgot-password:${ip}`, RateLimits.AUTH);
+
+    if (!limitResult.success) {
+      return NextResponse.json(
+        { message: "Too many requests. Please try again later." },
+        {
+          status: 429,
+          headers: {
+            "X-RateLimit-Limit": limitResult.limit.toString(),
+            "X-RateLimit-Remaining": limitResult.remaining.toString(),
+            "X-RateLimit-Reset": limitResult.reset.toString(),
+          },
+        }
+      );
+    }
+
     const { email } = await req.json();
     const requestedEmail = normalizeEmail(email);
-    const adminEmail = normalizeEmail(process.env.ADMIN_EMAIL);
 
     // Validate email
     if (!requestedEmail) {
@@ -21,8 +35,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check if email is admin email
-    if (requestedEmail !== adminEmail) {
+    const admin = await getAdminByEmail(requestedEmail);
+
+    // Do not reveal whether the account exists.
+    if (!admin) {
       // Don't reveal if email exists for security
       return NextResponse.json(
         { message: "If email exists, a reset link has been sent" },
@@ -44,9 +60,11 @@ export async function POST(req: NextRequest) {
     await resetTokensCollection.createIndex({ tokenHash: 1 }, { unique: true });
     await resetTokensCollection.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
+    await resetTokensCollection.deleteMany({ adminId: admin._id.toString() });
     await resetTokensCollection.deleteMany({ email: requestedEmail });
     await resetTokensCollection.insertOne({
       tokenHash,
+      adminId: admin._id.toString(),
       email: requestedEmail,
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
       createdAt: new Date(),
@@ -116,8 +134,8 @@ export async function POST(req: NextRequest) {
       {
         message: emailDelivered
           ? "Reset link has been sent to your email"
-          : "Reset link generated successfully. Email delivery is not configured, so use the link below.",
-        resetUrl: !emailDelivered ? resetUrl : undefined,
+          : "Reset token generated. Configure SMTP to deliver reset email.",
+        resetUrl: !emailDelivered && process.env.NODE_ENV !== "production" ? resetUrl : undefined,
         emailDelivered,
       },
       { status: 200 }
