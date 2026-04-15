@@ -9,7 +9,9 @@ import { motion } from "framer-motion";
 export default function ResetPasswordPage() {
   const params = useParams();
   const router = useRouter();
-  const token = params.token as string;
+  const token = Array.isArray(params?.token)
+    ? params.token[0]
+    : params?.token ?? "";
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

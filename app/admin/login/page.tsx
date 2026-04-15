@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import FadeIn from "@/components/animations/FadeIn";
@@ -12,7 +11,6 @@ import { useEffect } from "react";
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -22,7 +20,7 @@ export default function AdminLoginPage() {
   const [hasAdmin, setHasAdmin] = useState(false);
 
   useEffect(() => {
-    const created = searchParams.get("created");
+    const created = new URLSearchParams(window.location.search).get("created");
     if (created === "1") {
       setSuccess("Admin account created successfully. Please login.");
     }
@@ -39,7 +37,7 @@ export default function AdminLoginPage() {
     };
 
     loadAdminStatus();
-  }, [searchParams]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
