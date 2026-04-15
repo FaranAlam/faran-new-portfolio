@@ -24,6 +24,7 @@ export async function GET(request: NextRequest) {
         profile: {
           name: session.user.name || 'Admin',
           email: session.user.email || '',
+          reviewNotificationEmail: session.user.email || '',
           title: 'Full Stack Developer',
           bio: 'Passionate developer specialized in React, Next.js, and Node.js',
           profilePicture: '',
@@ -49,6 +50,7 @@ export async function GET(request: NextRequest) {
       profile: {
         name: profile.name,
         email: profile.email,
+        reviewNotificationEmail: profile.reviewNotificationEmail || profile.email || '',
         title: profile.title,
         bio: profile.bio,
         profilePicture: profile.profilePicture || '',
@@ -74,11 +76,16 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, email, title, bio, profilePicture, socialLinks, contactInfo } = body;
+    const { name, email, reviewNotificationEmail, title, bio, profilePicture, socialLinks, contactInfo } = body;
     const normalizedEmail = normalizeEmail(email || session.user.email || '');
+    const normalizedReviewEmail = normalizeEmail(reviewNotificationEmail || email || session.user.email || '');
 
     if (!normalizedEmail) {
       return NextResponse.json({ error: 'Valid email is required' }, { status: 400 });
+    }
+
+    if (!normalizedReviewEmail) {
+      return NextResponse.json({ error: 'Valid review notification email is required' }, { status: 400 });
     }
 
     const db = await getDatabase();
@@ -118,6 +125,7 @@ export async function POST(request: NextRequest) {
           adminId: existingAdmin._id.toString(),
           name,
           email: normalizedEmail,
+          reviewNotificationEmail: normalizedReviewEmail,
           title,
           bio,
           profilePicture: profilePicture || '',

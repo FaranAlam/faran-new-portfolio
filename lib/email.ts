@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { getDatabase } from './db';
 
 /**
  * Email Utility for sending notifications
@@ -155,7 +156,22 @@ export async function sendReviewNotification(data: {
     return { success: false, error: 'Email configuration missing' };
   }
 
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
+  let adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
+
+  try {
+    const db = await getDatabase();
+    const profile = await db.collection('admin_profile').findOne(
+      { reviewNotificationEmail: { $exists: true, $ne: '' } },
+      { sort: { updatedAt: -1 } }
+    );
+
+    if (profile?.reviewNotificationEmail) {
+      adminEmail = profile.reviewNotificationEmail;
+    }
+  } catch (error) {
+    console.warn('Review notification email lookup failed, using environment fallback:', error);
+  }
+
   if (!adminEmail) {
     console.log('Review notification not sent - admin email missing');
     return { success: false, error: 'Admin email missing' };

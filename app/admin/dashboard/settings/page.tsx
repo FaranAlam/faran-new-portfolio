@@ -28,6 +28,7 @@ export default function SettingsPage() {
   const [profileData, setProfileData] = useState({
     name: "Faran Alam",
     email: "faran.bsce40@iiu.edu.pk",
+    reviewNotificationEmail: "faran.bsce40@iiu.edu.pk",
     title: "Full Stack Developer",
     bio: "Passionate developer specialized in React, Next.js, and Node.js",
   });
@@ -75,6 +76,7 @@ export default function SettingsPage() {
         setProfileData({
           name: data.profile.name || '',
           email: data.profile.email || '',
+          reviewNotificationEmail: data.profile.reviewNotificationEmail || data.profile.email || '',
           title: data.profile.title || '',
           bio: data.profile.bio || '',
         });
@@ -466,6 +468,18 @@ export default function SettingsPage() {
                   onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Review Notification Email</label>
+                <input
+                  type="email"
+                  value={profileData.reviewNotificationEmail}
+                  onChange={(e) => setProfileData({ ...profileData, reviewNotificationEmail: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Where review approval emails should be sent"
+                />
+                <p className="text-xs text-gray-500 mt-1">New rating submissions will notify this email address.</p>
               </div>
 
               <div>
