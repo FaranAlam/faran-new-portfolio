@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
 
 const PUBLIC_ADMIN_PATHS = [
   "/admin/login",
@@ -10,11 +9,17 @@ const PUBLIC_ADMIN_PATHS = [
 
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const authSecret = process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET;
-  const token = await getToken({
-    req: request,
-    secret: authSecret,
-  });
+  const sessionCookieNames = [
+    "authjs.session-token",
+    "__Secure-authjs.session-token",
+    "__Host-authjs.session-token",
+    "next-auth.session-token",
+    "__Secure-next-auth.session-token",
+    "__Host-next-auth.session-token",
+  ];
+  const hasSessionCookie = sessionCookieNames.some((name) =>
+    Boolean(request.cookies.get(name)?.value)
+  );
 
   const isAdminRoute = pathname.startsWith("/admin");
   const isPublicAdminPath = PUBLIC_ADMIN_PATHS.some((path) =>
@@ -33,7 +38,7 @@ export default async function middleware(request: NextRequest) {
 
   // Require authentication for all private admin routes.
   if (!isPublicAdminPath) {
-    if (!token || token.role !== "admin") {
+    if (!hasSessionCookie) {
       const loginUrl = new URL("/admin/login", request.url);
       loginUrl.searchParams.set("from", pathname);
       return NextResponse.redirect(loginUrl);
