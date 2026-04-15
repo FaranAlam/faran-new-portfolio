@@ -102,7 +102,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         token.id = user.id;
-        token.role = user.role || "user";
+        // Credentials auth in this app is admin-only. In some environments
+        // custom fields can be dropped before jwt callback, so default to admin.
+        token.role = user.role || "admin";
         token.email = user.email ?? undefined;
       }
       return token;
@@ -111,7 +113,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }: { session: Session; token: JWT }) {
       if (session.user) {
         session.user.id = token.id as string;
-        session.user.role = token.role as string;
+        session.user.role = (token.role as string) || "admin";
         session.user.email = token.email as string;
       }
       return session;
